@@ -19,11 +19,21 @@
     "ci": "npm run lint && npm run cov && npm run tsc",
     "autod": "autod",
     "lint": "eslint . --ext .ts",
-    "clean": "ets clean"
+    "clean": "ets clean",
+    "build": "npm run tsc"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "bull": "^3.18.0",
     "egg": "^2.6.1",
-    "egg-scripts": "^2.6.0"
+    "egg-scripts": "^2.6.0",
+    "ioredis": "^4.17.3",
+    "moment": "^2.27.0",
+    "mysql2": "^2.1.0",
+    "nanoid": "^3.1.12",
+    "svg-captcha": "^1.4.0",
+    "typeorm": "^0.2.25",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.40",
