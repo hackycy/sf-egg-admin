@@ -26,14 +26,14 @@
     "axios": "^0.19.2",
     "bull": "^3.18.0",
     "egg": "^2.6.1",
+    "egg-redis": "^2.4.0",
     "egg-scripts": "^2.6.0",
-    "ioredis": "^4.17.3",
+    "egg-ts-typeorm": "^1.1.12",
     "js-yaml": "^3.14.0",
     "moment": "^2.27.0",
     "mysql2": "^2.1.0",
     "nanoid": "^3.1.12",
     "svg-captcha": "^1.4.0",
-    "typeorm": "^0.2.25",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
