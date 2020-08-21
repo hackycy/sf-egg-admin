@@ -6,7 +6,7 @@ export interface ResOp {
   message?: string;
 }
 
-export default class BaseController extends Controller {
+export default abstract class BaseController extends Controller {
 
   /**
    * 获取Query
@@ -33,6 +33,5 @@ export default class BaseController extends Controller {
       message: op?.message ?? 'success',
     };
   }
-
 
 }
