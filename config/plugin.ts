@@ -6,6 +6,10 @@ const plugin: EggPlugin = {
   //   enable: true,
   //   package: 'egg-view-nunjucks',
   // },
+  typeorm: {
+    enable: true,
+    package: 'egg-ts-typeorm',
+  },
 };
 
 export default plugin;
