@@ -1,6 +1,6 @@
 import { Column } from 'typeorm';
 
-export default abstract class BaseEntity {
+export abstract class BaseEntity {
   @Column({ type: 'datetime', nullable: true })
   createTime: Date;
 
