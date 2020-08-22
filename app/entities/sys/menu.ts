@@ -18,7 +18,7 @@ export default class SysMenu extends BaseEntity {
   @Column({ nullable: true })
   perms: string;
 
-  @Column({ type: 'tinyint', length: 4, default: 0 })
+  @Column({ type: 'tinyint', default: 0 })
   type: number;
 
   @Column({ nullable: true })

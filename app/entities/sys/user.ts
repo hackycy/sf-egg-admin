@@ -33,7 +33,7 @@ export default class SysUser extends BaseEntity {
   @Column({ nullable: true })
   remark: string;
 
-  @Column({ type: 'tinyint', length: 4, nullable: true, default: 1 })
+  @Column({ type: 'tinyint', nullable: true, default: 1 })
   status: number;
 
 }
