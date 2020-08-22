@@ -1,0 +1,39 @@
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import BaseEntity from '../base';
+
+@Entity({ name: 'sys_menu' })
+export default class SysMenu extends BaseEntity {
+  @PrimaryGeneratedColumn({ type: 'bigint' })
+  id: number;
+
+  @Column({ name: 'parent_id', type: 'bigint', nullable: true })
+  parentId: number;
+
+  @Column()
+  name: string;
+
+  @Column({ nullable: true })
+  router: string;
+
+  @Column({ nullable: true })
+  perms: string;
+
+  @Column({ type: 'tinyint', length: 4, default: 0 })
+  type: number;
+
+  @Column({ nullable: true })
+  icon: string;
+
+  @Column({ name: 'order_num', type: 'int', default: 0, nullable: true })
+  orderNum: number;
+
+  @Column({ name: 'view_path' })
+  viewPath: string;
+
+  @Column({ type: 'boolean', nullable: true, default: true })
+  keepalive: boolean;
+
+  @Column({ type: 'boolean', nullable: true, default: true })
+  isShow: boolean;
+
+}

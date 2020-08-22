@@ -1,5 +1,9 @@
+import { Column } from 'typeorm';
+
 export default abstract class BaseEntity {
-  id: number;
+  @Column({ type: 'datetime', nullable: true })
   createTime: Date;
+
+  @Column({ type: 'datetime', nullable: true })
   updateTime: Date;
 }
