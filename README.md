@@ -1,4 +1,4 @@
-# hackernews-async-ts
+# siyee-api-server
 
 [Hacker News](https://news.ycombinator.com/) showcase using typescript && egg
 
