@@ -7,7 +7,7 @@ const plugin: EggPlugin = {
   //   package: 'egg-view-nunjucks',
   // },
   typeorm: {
-    enable: true,
+    enable: false,
     package: 'egg-ts-typeorm',
   },
 };
