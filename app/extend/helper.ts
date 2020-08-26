@@ -30,6 +30,13 @@ export default {
   },
 
   /**
+   * md5加密
+   */
+  md5(msg: string) {
+    return CryptoJS.MD5(msg).toString();
+  },
+
+  /**
    * 生成一个随机的值
    */
   generateRandomValue(length: number, placeholder = '1234567890qwertyuiopasdfghjklzxcvbnm') {

@@ -5,9 +5,15 @@ export default class WelcomeController extends BaseController {
 
   @Route('/', 'all')
   async index() {
-    console.log(this.app);
     this.res({
       message: '/',
+    });
+  }
+
+  @Route('/test', 'all')
+  async test() {
+    this.res({
+      data: this.getHelper().md5('Message'),
     });
   }
 
