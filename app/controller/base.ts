@@ -1,4 +1,4 @@
-import { Controller, PlainObject } from 'egg';
+import { Controller } from 'egg';
 
 export interface ResOp {
   data?: any;
@@ -11,7 +11,7 @@ export default abstract class BaseController extends Controller {
   /**
    * 获取Query
    */
-  protected getQuery(): PlainObject<string> {
+  protected getQuery(): any {
     return this.ctx.request.query;
   }
 
@@ -23,17 +23,17 @@ export default abstract class BaseController extends Controller {
   }
 
   /**
-   * 获取Helper
+   * 获取Router上的参数
    */
-  getHelper() {
-    return this.ctx.helper;
+  protected getParams(): any {
+    return this.ctx.params;
   }
 
   /**
-   * 获取Service
+   * 获取Helper
    */
-  getService() {
-    return this.service;
+  protected getHelper() {
+    return this.ctx.helper;
   }
 
   /**
@@ -45,7 +45,7 @@ export default abstract class BaseController extends Controller {
     this.ctx.body = {
       data: op?.data ?? null,
       code: op?.code ?? 200,
-      message: op?.message ?? 'success',
+      message: op?.code ? this.ctx.helper.getErrorMessageByCode(`${op!.code}`) : op?.message || 'success',
     };
   }
 

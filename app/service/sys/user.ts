@@ -17,7 +17,6 @@ export default class SysUserService extends BaseService {
     }
     const pwd = this.getHelper().generateRandomValue(8);
     param.password = this.getHelper().aesEncrypt(pwd);
-    console.log(param.password);
     await this.getRepo().sys.User.save(param);
     return true;
   }

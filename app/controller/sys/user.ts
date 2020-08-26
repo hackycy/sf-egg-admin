@@ -5,20 +5,39 @@ export default class SysUserController extends BaseController {
 
   @AdminRoute('/sys/user/add', 'post')
   async add() {
-    const success = await this.getService().sys.user.add(this.getBody());
+    const errors = this.app.validator.validate({
+      departmentId: 'int',
+      name: 'string',
+      username: 'string',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const success = await this.service.sys.user.add(this.getBody());
     if (success) {
       this.res();
     } else {
       this.res({
         code: 10001,
-        message: this.ctx.helper.getErrorMessageByCode('10001'),
       });
     }
   }
 
-  @AdminRoute('/sys/user/info', 'get')
+  @AdminRoute('/sys/user/info', 'post')
   async info() {
-    const user = await this.getService().sys.user.info(this.ctx.query.id);
+    const errors = this.app.validator.validate({
+      id: 'int',
+    }, this.ctx.query);
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const user = await this.service.sys.user.info(this.ctx.query.id);
     this.res({
       data: user,
     });
