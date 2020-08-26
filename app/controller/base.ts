@@ -27,6 +27,7 @@ export default abstract class BaseController extends Controller {
    * @param op 返回配置，返回失败需要单独配置
   */
   protected res(op?: ResOp): void {
+    this.ctx.set('Content-Type', 'application/json');
     this.ctx.body = {
       data: op?.data ?? null,
       code: op?.code ?? 200,
