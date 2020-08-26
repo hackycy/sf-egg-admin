@@ -14,6 +14,10 @@ const plugin: EggPlugin = {
     enable: true,
     package: 'egg-redis',
   },
+  globalHeader: {
+    enable: true,
+    package: 'egg-global-header',
+  },
 };
 
 export default plugin;

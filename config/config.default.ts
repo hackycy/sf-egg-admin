@@ -33,6 +33,14 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
+  /**
+   * egg-global-header
+   * https://github.com/eggjs/egg-global-header
+   */
+  config.globalHeader = {
+    'Powered-by': 'siyee',
+  };
+
   // static config
   config.static = {
     prefix: '/',
