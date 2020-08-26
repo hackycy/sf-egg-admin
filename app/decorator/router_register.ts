@@ -62,8 +62,7 @@ export function initRouter(app: Application) {
  */
 export function Route(url: string, method: HttpMethod, ...beforeMiddlewares: Middleware[]) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  return function(target: any, funcName: string, descriptor: PropertyDescriptor) {
-    console.log(descriptor);
+  return function(target: any, funcName: string, _descriptor: PropertyDescriptor) {
     const option = {
       httpMethod: method,
       beforeMiddlewares,
