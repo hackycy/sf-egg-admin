@@ -7,6 +7,11 @@ import { Application, Context } from 'egg';
 const __router__: any = {};
 
 /**
+ * prefix
+ */
+const PREFIX_ADMIN = '/admin';
+
+/**
  * egg suport http method
  */
 export type HttpMethod = 'get' | 'post' | 'patch' | 'delete' | 'options' | 'put' | 'all';
@@ -70,6 +75,25 @@ export function Route(url: string, method: HttpMethod, ...beforeMiddlewares: Mid
       constructorFn: target.constructor,
       className: target.constructor.name,
       url,
+    };
+    _setRouter(url, option);
+  };
+}
+
+/**
+ * 自动添加/admin前缀的Url路由装饰器
+ * 例如 url 为 /sys/user/add, 使用该装饰器可直接变为/admin/sys/user/add
+ */
+export function AdminRoute(url: string, method: HttpMethod, ...beforeMiddlewares: Middleware[]) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return function(target: any, funcName: string, _descriptor: PropertyDescriptor) {
+    const option = {
+      httpMethod: method,
+      beforeMiddlewares,
+      handleName: funcName,
+      constructorFn: target.constructor,
+      className: target.constructor.name,
+      url: `${PREFIX_ADMIN}${url}`,
     };
     _setRouter(url, option);
   };

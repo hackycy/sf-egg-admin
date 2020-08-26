@@ -13,8 +13,6 @@ logs/
 !.autod.conf.js
 package-lock.json
 
-typings/
-
 app/**/*.js
 test/**/*.js
 config/**/*.js

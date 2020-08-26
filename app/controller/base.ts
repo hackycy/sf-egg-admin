@@ -23,6 +23,20 @@ export default abstract class BaseController extends Controller {
   }
 
   /**
+   * 获取Helper
+   */
+  getHelper() {
+    return this.ctx.helper;
+  }
+
+  /**
+   * 获取Service
+   */
+  getService() {
+    return this.service;
+  }
+
+  /**
    * 返回数据
    * @param op 返回配置，返回失败需要单独配置
   */

@@ -1,75 +1,66 @@
--- phpMyAdmin SQL Dump
--- version 4.8.5
--- https://www.phpmyadmin.net/
---
--- 主机： localhost
--- 生成日期： 2020-08-24 22:57:23
--- 服务器版本： 5.7.26
--- PHP 版本： 7.3.4
+/*
+ Navicat Premium Data Transfer
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+ Source Server         : Mac
+ Source Server Type    : MySQL
+ Source Server Version : 50728
+ Source Host           : localhost:3306
+ Source Schema         : siyee-api
 
+ Target Server Type    : MySQL
+ Target Server Version : 50728
+ File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+ Date: 26/08/2020 14:36:33
+*/
 
---
--- 数据库： `siyee-api`
---
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
--- --------------------------------------------------------
-
---
--- 表的结构 `sys_department`
---
-
+-- ----------------------------
+-- Table structure for sys_department
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_department`;
 CREATE TABLE `sys_department` (
   `createTime` datetime DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `parend_id` bigint(20) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
-  `order_num` int(11) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `order_num` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `sys_department`
---
+-- ----------------------------
+-- Records of sys_department
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_department` VALUES ('2020-08-24 00:00:00', '2020-08-24 00:00:00', 1, NULL, '思忆软件', 0);
+COMMIT;
 
-INSERT INTO `sys_department` (`createTime`, `updateTime`, `id`, `parend_id`, `name`, `order_num`) VALUES
-('2020-08-24 00:00:00', '2020-08-24 00:00:00', 1, NULL, '思忆软件', 0);
-
--- --------------------------------------------------------
-
---
--- 表的结构 `sys_log`
---
-
+-- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
   `createTime` datetime DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `ip` varchar(255) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `params` varchar(255) DEFAULT NULL,
-  `action` varchar(100) DEFAULT NULL
+  `action` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- 表的结构 `sys_menu`
---
-
+-- ----------------------------
+-- Table structure for sys_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
   `createTime` datetime DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `parent_id` bigint(20) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `router` varchar(255) DEFAULT NULL,
@@ -79,70 +70,73 @@ CREATE TABLE `sys_menu` (
   `order_num` int(11) DEFAULT '0',
   `view_path` varchar(255) NOT NULL,
   `keepalive` tinyint(4) DEFAULT '1',
-  `isShow` tinyint(4) DEFAULT '1'
+  `isShow` tinyint(4) DEFAULT '1',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- 表的结构 `sys_role`
---
-
+-- ----------------------------
+-- Table structure for sys_role
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
   `createTime` datetime DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `userId` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `label` varchar(50) NOT NULL,
-  `remark` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `sys_role`
---
+-- ----------------------------
+-- Records of sys_role
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_role` VALUES ('2020-08-24 00:00:00', '2020-08-24 00:00:00', 1, '', '超级管理员', 'root', '超级管理员');
+COMMIT;
 
-INSERT INTO `sys_role` (`createTime`, `updateTime`, `id`, `userId`, `name`, `label`, `remark`) VALUES
-('2020-08-24 00:00:00', '2020-08-24 00:00:00', 1, '', '超级管理员', 'root', '超级管理员');
-
--- --------------------------------------------------------
-
---
--- 表的结构 `sys_role_department`
---
-
+-- ----------------------------
+-- Table structure for sys_role_department
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_department`;
 CREATE TABLE `sys_role_department` (
   `createTime` datetime DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `role_id` bigint(20) NOT NULL,
-  `department_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `department_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of sys_role_department
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_role_department` VALUES ('2020-08-26 14:27:35', '2020-08-26 14:27:37', 1, 1, 1);
+COMMIT;
 
---
--- 表的结构 `sys_role_menu`
---
-
+-- ----------------------------
+-- Table structure for sys_role_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
   `createTime` datetime DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `role_id` bigint(20) NOT NULL,
-  `menu_id` bigint(20) NOT NULL
+  `menu_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- 表的结构 `sys_user`
---
-
+-- ----------------------------
+-- Table structure for sys_user
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `createTime` datetime DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `department_id` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -152,129 +146,36 @@ CREATE TABLE `sys_user` (
   `email` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `status` tinyint(4) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `IDX_9e7164b2f1ea1348bc0eb0a7da` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of sys_user
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_user` VALUES ('2020-08-26 14:24:34', '2020-08-26 14:24:36', 1, 1, '杨长源', 'siyeeadmin', '', 'hackycy', NULL, 'qa894178522@qq.com', '15622472425', NULL, 1);
+COMMIT;
 
---
--- 表的结构 `sys_user_role`
---
-
+-- ----------------------------
+-- Table structure for sys_user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
   `createTime` datetime DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
-  `role_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `role_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- 转储表的索引
---
-
---
--- 表的索引 `sys_department`
---
-ALTER TABLE `sys_department`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `sys_log`
---
-ALTER TABLE `sys_log`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `sys_menu`
---
-ALTER TABLE `sys_menu`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `sys_role`
---
-ALTER TABLE `sys_role`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `sys_role_department`
---
-ALTER TABLE `sys_role_department`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `sys_role_menu`
---
-ALTER TABLE `sys_role_menu`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `sys_user`
---
-ALTER TABLE `sys_user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `IDX_9e7164b2f1ea1348bc0eb0a7da` (`username`);
-
---
--- 表的索引 `sys_user_role`
---
-ALTER TABLE `sys_user_role`
-  ADD PRIMARY KEY (`id`);
-
---
--- 在导出的表使用AUTO_INCREMENT
---
-
---
--- 使用表AUTO_INCREMENT `sys_department`
---
-ALTER TABLE `sys_department`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- 使用表AUTO_INCREMENT `sys_log`
---
-ALTER TABLE `sys_log`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `sys_menu`
---
-ALTER TABLE `sys_menu`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `sys_role`
---
-ALTER TABLE `sys_role`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- 使用表AUTO_INCREMENT `sys_role_department`
---
-ALTER TABLE `sys_role_department`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `sys_role_menu`
---
-ALTER TABLE `sys_role_menu`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `sys_user`
---
-ALTER TABLE `sys_user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `sys_user_role`
---
-ALTER TABLE `sys_user_role`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+-- ----------------------------
+-- Records of sys_user_role
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_user_role` VALUES ('2020-08-26 14:26:33', '2020-08-26 14:26:35', 1, 1, 1);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS = 1;
