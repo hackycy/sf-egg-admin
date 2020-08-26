@@ -7,8 +7,12 @@ const plugin: EggPlugin = {
   //   package: 'egg-view-nunjucks',
   // },
   typeorm: {
-    enable: false,
+    enable: true,
     package: 'egg-ts-typeorm',
+  },
+  redis: {
+    enable: true,
+    package: 'egg-redis',
   },
 };
 
