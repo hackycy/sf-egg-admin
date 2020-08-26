@@ -26,6 +26,8 @@ export default (appInfo: EggAppInfo) => {
 
   // https://eggjs.org/zh-cn/core/security.html
   config.security = {
+    // 配合egg-cors使用
+    domainWhiteList: [ 'http://localhost:7003' ],
     csrf: {
       // 默认为 false，当设置为 true 时，将会放过所有 content-type 为 `application/json` 的请求
       enable: false,
@@ -39,6 +41,15 @@ export default (appInfo: EggAppInfo) => {
    */
   config.globalHeader = {
     'Powered-by': 'siyee',
+  };
+
+  /**
+   * CORS
+   * https://github.com/eggjs/egg-cors
+   */
+  config.cors = {
+    // {string|Function} origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
 
   // static config
