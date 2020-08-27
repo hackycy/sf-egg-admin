@@ -27,15 +27,15 @@ export default {
   /**
    * AES加密
    */
-  aesEncrypt(this: IHelper, msg: string) {
-    return CryptoJS.AES.encrypt(msg, this.config.aesSecret).toString();
+  aesEncrypt(this: IHelper, msg: string, secret: string) {
+    return CryptoJS.AES.encrypt(msg, secret).toString();
   },
 
   /**
    * AES解密
    */
-  aesDecrypt(this: IHelper, encrypted: string) {
-    return CryptoJS.AES.decrypt(encrypted, this.config.aesSecret).toString(CryptoJS.enc.Utf8);
+  aesDecrypt(this: IHelper, encrypted: string, secret: string) {
+    return CryptoJS.AES.decrypt(encrypted, secret).toString(CryptoJS.enc.Utf8);
   },
 
   /**

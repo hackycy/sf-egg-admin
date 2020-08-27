@@ -3,67 +3,75 @@
 
 import 'egg';
 import { Repository, Connection, TreeRepository } from 'typeorm';
+import AppEntitiesadminSysDepartment from '../app/entities/admin/sys/department';
+import AppEntitiesadminSysLog from '../app/entities/admin/sys/log';
+import AppEntitiesadminSysMenu from '../app/entities/admin/sys/menu';
+import AppEntitiesadminSysRole_department from '../app/entities/admin/sys/role_department';
+import AppEntitiesadminSysRole_menu from '../app/entities/admin/sys/role_menu';
+import AppEntitiesadminSysRole from '../app/entities/admin/sys/role';
+import AppEntitiesadminSysUser_role from '../app/entities/admin/sys/user_role';
+import AppEntitiesadminSysUser from '../app/entities/admin/sys/user';
 import AppEntitiesBase from '../app/entities/base';
-import AppEntitiessysDepartment from '../app/entities/sys/department';
-import AppEntitiessysLog from '../app/entities/sys/log';
-import AppEntitiessysMenu from '../app/entities/sys/menu';
-import AppEntitiessysRole_department from '../app/entities/sys/role_department';
-import AppEntitiessysRole_menu from '../app/entities/sys/role_menu';
-import AppEntitiessysRole from '../app/entities/sys/role';
-import AppEntitiessysUser_role from '../app/entities/sys/user_role';
-import AppEntitiessysUser from '../app/entities/sys/user';
 declare module 'egg' {
   interface Context {
     entity: {
-      Base: typeof AppEntitiesBase
-      sys: {
-        Department: typeof AppEntitiessysDepartment
-        Log: typeof AppEntitiessysLog
-        Menu: typeof AppEntitiessysMenu
-        Role_department: typeof AppEntitiessysRole_department
-        Role_menu: typeof AppEntitiessysRole_menu
-        Role: typeof AppEntitiessysRole
-        User_role: typeof AppEntitiessysUser_role
-        User: typeof AppEntitiessysUser
-      }
-      default: {
-        Base: typeof AppEntitiesBase
+      admin: {
         sys: {
-          Department: typeof AppEntitiessysDepartment
-          Log: typeof AppEntitiessysLog
-          Menu: typeof AppEntitiessysMenu
-          Role_department: typeof AppEntitiessysRole_department
-          Role_menu: typeof AppEntitiessysRole_menu
-          Role: typeof AppEntitiessysRole
-          User_role: typeof AppEntitiessysUser_role
-          User: typeof AppEntitiessysUser
+          Department: typeof AppEntitiesadminSysDepartment
+          Log: typeof AppEntitiesadminSysLog
+          Menu: typeof AppEntitiesadminSysMenu
+          Role_department: typeof AppEntitiesadminSysRole_department
+          Role_menu: typeof AppEntitiesadminSysRole_menu
+          Role: typeof AppEntitiesadminSysRole
+          User_role: typeof AppEntitiesadminSysUser_role
+          User: typeof AppEntitiesadminSysUser
         }
+      }
+      Base: typeof AppEntitiesBase
+      default: {
+        admin: {
+          sys: {
+            Department: typeof AppEntitiesadminSysDepartment
+            Log: typeof AppEntitiesadminSysLog
+            Menu: typeof AppEntitiesadminSysMenu
+            Role_department: typeof AppEntitiesadminSysRole_department
+            Role_menu: typeof AppEntitiesadminSysRole_menu
+            Role: typeof AppEntitiesadminSysRole
+            User_role: typeof AppEntitiesadminSysUser_role
+            User: typeof AppEntitiesadminSysUser
+          }
+        }
+        Base: typeof AppEntitiesBase
       }
     }
     repo: {
-      Base: Repository<AppEntitiesBase>
-      sys: {
-        Department: Repository<AppEntitiessysDepartment>
-        Log: Repository<AppEntitiessysLog>
-        Menu: Repository<AppEntitiessysMenu>
-        Role_department: Repository<AppEntitiessysRole_department>
-        Role_menu: Repository<AppEntitiessysRole_menu>
-        Role: Repository<AppEntitiessysRole>
-        User_role: Repository<AppEntitiessysUser_role>
-        User: Repository<AppEntitiessysUser>
-      }
-      default: {
-        Base: Repository<AppEntitiesBase>
+      admin: {
         sys: {
-          Department: Repository<AppEntitiessysDepartment>
-          Log: Repository<AppEntitiessysLog>
-          Menu: Repository<AppEntitiessysMenu>
-          Role_department: Repository<AppEntitiessysRole_department>
-          Role_menu: Repository<AppEntitiessysRole_menu>
-          Role: Repository<AppEntitiessysRole>
-          User_role: Repository<AppEntitiessysUser_role>
-          User: Repository<AppEntitiessysUser>
+          Department: Repository<AppEntitiesadminSysDepartment>
+          Log: Repository<AppEntitiesadminSysLog>
+          Menu: Repository<AppEntitiesadminSysMenu>
+          Role_department: Repository<AppEntitiesadminSysRole_department>
+          Role_menu: Repository<AppEntitiesadminSysRole_menu>
+          Role: Repository<AppEntitiesadminSysRole>
+          User_role: Repository<AppEntitiesadminSysUser_role>
+          User: Repository<AppEntitiesadminSysUser>
         }
+      }
+      Base: Repository<AppEntitiesBase>
+      default: {
+        admin: {
+          sys: {
+            Department: Repository<AppEntitiesadminSysDepartment>
+            Log: Repository<AppEntitiesadminSysLog>
+            Menu: Repository<AppEntitiesadminSysMenu>
+            Role_department: Repository<AppEntitiesadminSysRole_department>
+            Role_menu: Repository<AppEntitiesadminSysRole_menu>
+            Role: Repository<AppEntitiesadminSysRole>
+            User_role: Repository<AppEntitiesadminSysUser_role>
+            User: Repository<AppEntitiesadminSysUser>
+          }
+        }
+        Base: Repository<AppEntitiesBase>
       }
     }
   }

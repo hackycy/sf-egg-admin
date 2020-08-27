@@ -16,7 +16,7 @@ export default class SysUserController extends BaseController {
       });
       return;
     }
-    const success = await this.service.sys.user.add(this.getBody());
+    const success = await this.service.admin.sys.user.add(this.getBody());
     if (success) {
       this.res();
     } else {
@@ -37,10 +37,23 @@ export default class SysUserController extends BaseController {
       });
       return;
     }
-    const user = await this.service.sys.user.info(this.getBody().id);
+    const user = await this.service.admin.sys.user.info(this.getBody().id);
     this.res({
       data: user,
     });
+  }
+
+  @AdminRoute('/sys/user/updae', 'post')
+  async update() {
+    const errors = this.app.validator.validate({
+      id: 'int',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
   }
 
 }

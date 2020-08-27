@@ -8,7 +8,10 @@ export default (appInfo: EggAppInfo) => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1597893009804_8539';
 
-  config.aesSecret = 'hXuLvp6zmhahtW1kf21DpYxm';
+  config.aesSecret = {
+    admin: 'hXuLvp6zmhahtW1kf21DpYxm',
+    front: 'eECRYHR5Er93BijVlkMz9CIn',
+  };
 
   config.jwt = {
     secret: 'INnyQ50BEE6AITQraIaDGooJ',

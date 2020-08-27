@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { BaseEntity } from '../base';
+import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_log' })
 export default class SysLog extends BaseEntity {

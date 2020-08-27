@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { BaseEntity } from '../base';
+import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_role' })
 export default class SysRole extends BaseEntity {
