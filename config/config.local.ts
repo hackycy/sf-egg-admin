@@ -17,6 +17,7 @@ export default () => {
       database: 'siyee-api',
       synchronize: true,
       logging: true,
+      timezone: '+0800',
     },
   };
 
