@@ -30,14 +30,14 @@ export default class SysUserController extends BaseController {
   async info() {
     const errors = this.app.validator.validate({
       id: 'int',
-    }, this.ctx.query);
+    }, this.getBody());
     if (errors) {
       this.res({
         code: 10000,
       });
       return;
     }
-    const user = await this.service.sys.user.info(this.ctx.query.id);
+    const user = await this.service.sys.user.info(this.getBody().id);
     this.res({
       data: user,
     });
