@@ -13,7 +13,7 @@ export default class WelcomeController extends BaseController {
   @Route('/test', 'all')
   async test() {
     this.res({
-      data: this.getHelper().md5('Message'),
+      data: this.getHelper().jwtSign({ id: 1 }),
     });
   }
 

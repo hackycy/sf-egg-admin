@@ -5,6 +5,7 @@ import * as CryptoJS from 'crypto-js';
 import { IHelper } from 'egg';
 import { customAlphabet } from 'nanoid';
 import * as moment from 'moment';
+import * as jwt from 'jsonwebtoken';
 
 /**
  * 格式化时间
@@ -52,8 +53,25 @@ export default {
     return nanoid();
   },
 
+  /**
+   * 获取当前时间
+   */
   getDate() {
     return now();
+  },
+
+  /**
+   * JsonWebToken Sign
+   */
+  jwtSign(this: IHelper, sign: any) {
+    return jwt.sign(sign, this.config.jwt.secret);
+  },
+
+  /**
+   * JsonWebToken Verify
+   */
+  jwtVerify(this: IHelper, token: string) {
+    return jwt.verify(token, this.config.jwt.secret);
   },
 
 };

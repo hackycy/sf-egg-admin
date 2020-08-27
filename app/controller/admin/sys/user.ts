@@ -1,5 +1,5 @@
-import BaseController from '../base';
-import { AdminRoute } from '../../decorator/router_register';
+import BaseController from '../../base';
+import { AdminRoute } from '../../../decorator/router_register';
 
 export default class SysUserController extends BaseController {
 

@@ -4,14 +4,16 @@
 import 'egg';
 import ExportBase from '../../../app/controller/base';
 import ExportWelcome from '../../../app/controller/welcome';
-import ExportSysUser from '../../../app/controller/sys/user';
+import ExportAdminSysUser from '../../../app/controller/admin/sys/user';
 
 declare module 'egg' {
   interface IController {
     base: ExportBase;
     welcome: ExportWelcome;
-    sys: {
-      user: ExportSysUser;
+    admin: {
+      sys: {
+        user: ExportAdminSysUser;
+      }
     }
   }
 }

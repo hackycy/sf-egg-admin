@@ -10,6 +10,10 @@ export default (appInfo: EggAppInfo) => {
 
   config.aesSecret = 'hXuLvp6zmhahtW1kf21DpYxm';
 
+  config.jwt = {
+    secret: 'INnyQ50BEE6AITQraIaDGooJ',
+  };
+
   // add your egg config in here
   config.middleware = [ 'notfoundHandler' ];
 
