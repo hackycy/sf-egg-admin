@@ -4,6 +4,14 @@ import * as path from 'path';
 import * as CryptoJS from 'crypto-js';
 import { IHelper } from 'egg';
 import { customAlphabet } from 'nanoid';
+import * as moment from 'moment';
+
+/**
+ * 格式化时间
+ */
+export const now = function() {
+  return moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+};
 
 export default {
 
@@ -44,4 +52,9 @@ export default {
     return nanoid();
   },
 
+  getDate() {
+    return now();
+  },
+
 };
+
