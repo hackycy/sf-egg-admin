@@ -25,7 +25,7 @@ export default class SysUserService extends BaseService {
    * 查找用户信息
    * @param id 用户id
    */
-  async info(id) {
+  async info(id: number) {
     const user = await this.getRepo().sys.User.findOne(id);
     if (!_.isEmpty(user)) {
       user!.password = this.getHelper().aesDecrypt(user!.password);
