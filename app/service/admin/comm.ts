@@ -18,10 +18,11 @@ export default class CommService extends BaseService {
       height: params.height ?? 50,
     });
     const result = {
-      img: svg.data,
+      img: `data:image/svg+xml;base64,${new Buffer(svg.data).toString('base64')}`,
       id: this.getHelper().generateUUID(),
     };
-    await this.app.redis.get('admin').set(`admin:captcha:img:${result.id}`, svg.text);
+    // 10分钟过期时间
+    await this.app.redis.get('admin').set(`admin:captcha:img:${result.id}`, svg.text, 'EX', 60 * 10);
     return result;
   }
 
