@@ -15,7 +15,7 @@ export default () => {
       username: 'root',
       password: '123456',
       database: 'siyee-api',
-      synchronize: false,
+      synchronize: true,
       logging: true,
     },
   };
