@@ -4,6 +4,7 @@
 import 'egg';
 import ExportBase from '../../../app/controller/base';
 import ExportWelcome from '../../../app/controller/welcome';
+import ExportAdminComm from '../../../app/controller/admin/comm';
 import ExportAdminSysUser from '../../../app/controller/admin/sys/user';
 
 declare module 'egg' {
@@ -11,6 +12,7 @@ declare module 'egg' {
     base: ExportBase;
     welcome: ExportWelcome;
     admin: {
+      comm: ExportAdminComm;
       sys: {
         user: ExportAdminSysUser;
       }

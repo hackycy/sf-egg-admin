@@ -6,6 +6,7 @@ import { IHelper } from 'egg';
 import { customAlphabet } from 'nanoid';
 import * as moment from 'moment';
 import * as jwt from 'jsonwebtoken';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * 格式化时间
@@ -51,6 +52,13 @@ export default {
   generateRandomValue(length: number, placeholder = '1234567890qwertyuiopasdfghjklzxcvbnm') {
     const nanoid = customAlphabet(placeholder, length);
     return nanoid();
+  },
+
+  /**
+   * 生成一个UUID
+   */
+  generateUUID() {
+    return uuidv4();
   },
 
   /**
