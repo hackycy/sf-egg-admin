@@ -70,16 +70,18 @@ export default {
 
   /**
    * JsonWebToken Sign
+   * https://github.com/auth0/node-jsonwebtoken
    */
-  jwtSign(this: IHelper, sign: any) {
-    return jwt.sign(sign, this.config.jwt.secret);
+  jwtSign(this: IHelper, sign: any, options?: any) {
+    return jwt.sign(sign, this.config.jwt.secret, options);
   },
 
   /**
    * JsonWebToken Verify
+   * https://github.com/auth0/node-jsonwebtoken
    */
-  jwtVerify(this: IHelper, token: string) {
-    return jwt.verify(token, this.config.jwt.secret);
+  jwtVerify(this: IHelper, token: string, options?: any) {
+    return jwt.verify(token, this.config.jwt.secret, options);
   },
 
 };

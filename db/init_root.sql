@@ -40,7 +40,7 @@ COMMIT;
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30', '2020-08-27 03:38:30', 1, 1, '杨长源', 'hackycy', 'U2FsdGVkX1/7DbIv7lVC2n+rTl2WPhcxUdFiwjRtxsk=', NULL, NULL, 'qa894178522@qq.com', '15622472425', NULL, 1);
+INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30', '2020-08-27 03:38:30', 1, 1, '杨长源', 'hackycy', 'U2FsdGVkX19Lo7YsVEfAv5GU4hnCtmYcVS+m9ZwGEzE=', NULL, NULL, 'qa894178522@qq.com', '15622472425', NULL, 1);
 COMMIT;
 
 -- ----------------------------
