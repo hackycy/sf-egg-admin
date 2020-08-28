@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 27/08/2020 11:48:07
+ Date: 28/08/2020 18:07:11
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `sys_department` (
   `name` varchar(255) NOT NULL,
   `order_num` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_log
@@ -61,7 +61,7 @@ CREATE TABLE `sys_menu` (
   `type` tinyint(4) NOT NULL DEFAULT '0',
   `icon` varchar(255) DEFAULT NULL,
   `order_num` int(11) DEFAULT '0',
-  `view_path` varchar(255) NOT NULL,
+  `view_path` varchar(255) DEFAULT NULL,
   `keepalive` tinyint(4) DEFAULT '1',
   `isShow` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
@@ -80,7 +80,7 @@ CREATE TABLE `sys_role` (
   `label` varchar(50) NOT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role_department
@@ -93,7 +93,7 @@ CREATE TABLE `sys_role_department` (
   `role_id` bigint(20) NOT NULL,
   `department_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -128,7 +128,7 @@ CREATE TABLE `sys_user` (
   `status` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_9e7164b2f1ea1348bc0eb0a7da` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -141,6 +141,6 @@ CREATE TABLE `sys_user_role` (
   `user_id` bigint(20) NOT NULL,
   `role_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 1;

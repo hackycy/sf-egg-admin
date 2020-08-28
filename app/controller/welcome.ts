@@ -13,7 +13,7 @@ export default class WelcomeController extends BaseController {
   @Route('/test', 'all')
   async test() {
     this.res({
-      data: this.getHelper().jwtSign({ id: 1 }),
+      data: await this.service.admin.sys.menu.list(),
     });
   }
 

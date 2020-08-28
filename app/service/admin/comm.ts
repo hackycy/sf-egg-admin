@@ -48,19 +48,21 @@ export default class CommService extends BaseService {
   async getLoginSign(username: string, password: string) {
     const decodeUserName = this.getHelper().aesDecrypt(username, this.config.aesSecret.front);
     const decodePassword = this.getHelper().aesDecrypt(password, this.config.aesSecret.front);
-    const result = await this.getRepo().admin.sys.User.findOne({ username: decodeUserName });
-    if (_.isEmpty(result)) {
+    const user = await this.getRepo().admin.sys.User.findOne({ username: decodeUserName });
+    if (_.isEmpty(user)) {
       return null;
     }
-    if (this.getHelper().aesDecrypt(result!.password, this.config.aesSecret.admin) !== decodePassword) {
+    if (this.getHelper().aesDecrypt(user!.password, this.config.aesSecret.admin) !== decodePassword) {
       return null;
     }
+    await this.app.redis.get('admin').set(`admin:pv:${user!.id}`, 1);
     const jwtSign = this.getHelper().jwtSign({
-      uid: result!.id,
+      uid: user!.id,
       pv: 1,
     }, {
       expiresIn: '24h',
     });
+    await this.app.redis.get('admin').set(`admin:token:${user!.id}`, jwtSign);
     return jwtSign;
   }
 

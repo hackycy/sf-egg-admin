@@ -27,7 +27,7 @@ export default class SysMenu extends BaseEntity {
   @Column({ name: 'order_num', type: 'int', default: 0, nullable: true })
   orderNum: number;
 
-  @Column({ name: 'view_path' })
+  @Column({ name: 'view_path', nullable: true })
   viewPath: string;
 
   @Column({ type: 'boolean', nullable: true, default: true })

@@ -28,16 +28,7 @@ export default class SysUserController extends BaseController {
 
   @AdminRoute('/sys/user/info', 'post')
   async info() {
-    const errors = this.app.validator.validate({
-      id: 'int',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const user = await this.service.admin.sys.user.info(this.getBody().id);
+    const user = await this.service.admin.sys.user.info(1);
     this.res({
       data: user,
     });

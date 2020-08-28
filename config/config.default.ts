@@ -18,7 +18,10 @@ export default (appInfo: EggAppInfo) => {
   };
 
   // add your egg config in here
-  config.middleware = [ 'notfoundHandler' ];
+  config.middleware = [ 'adminAuthority', 'notfoundHandler' ];
+
+  // Root角色对应ID
+  config.rootRoleId = 1;
 
   /**
    * 框架内置了国际化（I18n）支持，由 egg-i18n 插件提供。

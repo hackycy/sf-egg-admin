@@ -21,7 +21,7 @@ export default {
    * 根据code获取错误信息
    */
   getErrorMessageByCode(code: string) {
-    const errorMap = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../../config/config.error.yaml'), 'utf8'));
+    const errorMap = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../../config/error_constants.yaml'), 'utf8'));
     return errorMap[code];
   },
 
