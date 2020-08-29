@@ -3,9 +3,15 @@ import * as _ from 'lodash';
 
 // 无需token的地址
 const noTokenUrl = [
-  '/admin/comm/captcha/img',
-  '/admin/login' ];
+  '/admin/captcha/img',
+  '/admin/login',
+];
 
+
+/**
+ * Admin权限验证中间件，只检测/admin开头请求
+ * Token验证通过会把当前系统用户uid挂载到ctx上
+ */
 export default function adminAuthority(): any {
   return async (ctx: Context, next: () => Promise<any>) => {
     const { url } = ctx;
@@ -32,9 +38,21 @@ export default function adminAuthority(): any {
               errorCode = 11002;
               statusCode = 401;
             } else {
-              // 挂载当前角色权限
-              ctx.role = await ctx.service.admin.sys.role.getRoleIdByUser(ctx.user.uid);
               // 遍历权限是否包含该url，不包含则无访问权限
+              let perms = ctx.app.redis.get('admin').get(`admin:perms:${ctx.user.uid}`);
+              if (_.isEmpty(perms)) {
+                errorCode = 11001;
+                statusCode = 403;
+              } else {
+                // 将sys:admin:user等转换成sys/admin/user
+                perms = JSON.parse(perms).map(e => {
+                  return e.replace(/:/g, '/');
+                });
+                if (!perms.includes(url.split('?')[0].replace('/admin/', ''))) {
+                  errorCode = 11001;
+                  statusCode = 403;
+                }
+              }
             }
           }
         }
@@ -50,9 +68,8 @@ export default function adminAuthority(): any {
         };
         return;
       }
-    } else {
-      // 不是admin开头的放过
-      await next();
     }
+    // has perms, pass
+    await next();
   };
 }

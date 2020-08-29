@@ -9,7 +9,7 @@ export default class CommController extends BaseController {
   /**
    * 获取图形验证码
    */
-  @AdminRoute('/comm/captcha/img', 'get')
+  @AdminRoute('/captcha/img', 'get')
   async captchaByImg() {
     const result = await this.service.admin.comm.getImgCaptcha(this.getQuery());
     this.res({
