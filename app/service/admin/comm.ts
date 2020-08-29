@@ -55,14 +55,16 @@ export default class CommService extends BaseService {
     if (this.getHelper().aesDecrypt(user!.password, this.config.aesSecret.admin) !== decodePassword) {
       return null;
     }
-    await this.app.redis.get('admin').set(`admin:pv:${user!.id}`, 1);
+    const roleIds = await this.service.admin.sys.role.getRoleIdByUser(user!.id);
     const jwtSign = this.getHelper().jwtSign({
       uid: user!.id,
       pv: 1,
     }, {
       expiresIn: '24h',
     });
+    await this.app.redis.get('admin').set(`admin:pv:${user!.id}`, 1);
     await this.app.redis.get('admin').set(`admin:token:${user!.id}`, jwtSign);
+    await this.app.redis.get('admin').set(`admin:perms:${user!.id}`, JSON.stringify(roleIds));
     return jwtSign;
   }
 

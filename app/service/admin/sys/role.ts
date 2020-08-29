@@ -9,7 +9,7 @@ export default class SysRoleService extends BaseService {
   /**
    * 根据用户id查找角色信息
    */
-  async getByUser(id: number) {
+  async getRoleIdByUser(id: number) {
     const result = await this.getRepo().admin.sys.User_role.find({
       where: {
         userId: id,

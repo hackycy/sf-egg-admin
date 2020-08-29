@@ -13,7 +13,7 @@ export default class WelcomeController extends BaseController {
   @Route('/test', 'all')
   async test() {
     this.res({
-      data: await this.service.admin.sys.menu.list(),
+      data: await this.service.admin.sys.menu.perms([ 1 ]),
     });
   }
 

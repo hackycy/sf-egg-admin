@@ -34,7 +34,7 @@ export default class SysUserController extends BaseController {
     });
   }
 
-  @AdminRoute('/sys/user/updae', 'post')
+  @AdminRoute('/sys/user/update', 'post')
   async update() {
     const errors = this.app.validator.validate({
       id: 'int',
