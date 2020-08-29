@@ -1,6 +1,6 @@
 {
   "name": "siyee-api-server",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "思忆技术Api服务端",
   "private": true,
   "egg": {
