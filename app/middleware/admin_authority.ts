@@ -33,7 +33,7 @@ export default function adminAuthority(): any {
               statusCode = 401;
             } else {
               // 挂载当前角色权限
-              ctx.role = await ctx.service.admin.sys.role.getByUser(ctx.user.uid);
+              ctx.role = await ctx.service.admin.sys.role.getRoleIdByUser(ctx.user.uid);
               // 遍历权限是否包含该url，不包含则无访问权限
             }
           }
