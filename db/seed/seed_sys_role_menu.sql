@@ -1,0 +1,31 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- 主机： localhost
+-- 生成日期： 2020-08-30 17:46:46
+-- 服务器版本： 5.7.26
+-- PHP 版本： 7.3.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- 转存表中的数据 `sys_role_menu`
+--
+
+INSERT INTO `sys_role_menu` (`createTime`, `updateTime`, `id`, `role_id`, `menu_id`) VALUES
+('2020-08-08 00:00:00.000000', '2020-08-15 00:00:00.000000', 1, 2, 2),
+('2020-08-29 00:00:00.000000', '2020-08-29 00:00:00.000000', 2, 3, 1),
+('2020-08-29 00:00:00.000000', '2020-08-29 00:00:00.000000', 3, 3, 3),
+('2020-08-29 00:00:00.000000', '2020-08-29 00:00:00.000000', 4, 3, 4),
+('2020-08-29 00:00:00.000000', '2020-08-29 00:00:00.000000', 5, 3, 5),
+('2020-08-29 00:00:00.000000', '2020-08-29 00:00:00.000000', 6, 3, 6);
+
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
