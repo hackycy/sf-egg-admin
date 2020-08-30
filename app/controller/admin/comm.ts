@@ -56,4 +56,14 @@ export default class CommController extends BaseController {
     });
   }
 
+  /**
+   * 获取权限菜单
+   */
+  @AdminRoute('/permmenu', 'get')
+  async permmenu() {
+    this.res({
+      data: await this.service.admin.comm.getPermMenu(this.ctx.token.uid),
+    });
+  }
+
 }

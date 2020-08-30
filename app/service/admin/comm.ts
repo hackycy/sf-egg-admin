@@ -55,17 +55,26 @@ export default class CommService extends BaseService {
     if (this.getHelper().aesDecrypt(user!.password, this.config.aesSecret.admin) !== decodePassword) {
       return null;
     }
-    const roleIds = await this.service.admin.sys.role.getRoleIdByUser(user!.id);
+    const perms = await this.service.admin.sys.menu.getPerms(user!.id);
     const jwtSign = this.getHelper().jwtSign({
-      uid: user!.id,
+      uid: parseInt(user!.id.toString()),
       pv: 1,
     }, {
       expiresIn: '24h',
     });
     await this.app.redis.get('admin').set(`admin:pv:${user!.id}`, 1);
     await this.app.redis.get('admin').set(`admin:token:${user!.id}`, jwtSign);
-    await this.app.redis.get('admin').set(`admin:perms:${user!.id}`, JSON.stringify(roleIds));
+    await this.app.redis.get('admin').set(`admin:perms:${user!.id}`, JSON.stringify(perms));
     return jwtSign;
+  }
+
+  /**
+   * 获取权限菜单
+   */
+  async getPermMenu(uid: number) {
+    const menus = await this.service.admin.sys.menu.getMenus(uid);
+    const perms = await this.service.admin.sys.menu.getPerms(uid);
+    return { menus, perms };
   }
 
 }

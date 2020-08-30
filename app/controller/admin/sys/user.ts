@@ -28,7 +28,7 @@ export default class SysUserController extends BaseController {
 
   @AdminRoute('/sys/user/info', 'post')
   async info() {
-    const user = await this.service.admin.sys.user.info(1);
+    const user = await this.service.admin.sys.user.info(this.ctx.token.uid);
     this.res({
       data: user,
     });

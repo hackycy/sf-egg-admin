@@ -5,6 +5,7 @@ import 'egg';
 import ExportBase from '../../../app/controller/base';
 import ExportWelcome from '../../../app/controller/welcome';
 import ExportAdminComm from '../../../app/controller/admin/comm';
+import ExportAdminSysMenu from '../../../app/controller/admin/sys/menu';
 import ExportAdminSysUser from '../../../app/controller/admin/sys/user';
 
 declare module 'egg' {
@@ -14,6 +15,7 @@ declare module 'egg' {
     admin: {
       comm: ExportAdminComm;
       sys: {
+        menu: ExportAdminSysMenu;
         user: ExportAdminSysUser;
       }
     }

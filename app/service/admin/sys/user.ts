@@ -36,10 +36,10 @@ export default class SysUserService extends BaseService {
    * 更新用户信息
    */
   async update(param: any) {
-    if (param.id && param.id === 1) {
-      // root用户不支持修改
-      throw new Error('root unsupport update');
-    }
+    // if (param.id && param.id === 1) {
+    //   // root用户不支持修改
+    //   throw new Error('root unsupport update');
+    // }
     if (!_.isEmpty()) {
       param.password = this.getHelper().aesEncrypt(
         this.getHelper().aesDecrypt(param.password, this.config.aesSecret.front), this.config.aesSecret.admin);

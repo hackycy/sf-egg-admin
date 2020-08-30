@@ -16,8 +16,8 @@ export default class SysRoleService extends BaseService {
       },
     });
     if (!_.isEmpty(result)) {
-      return result.map(e => {
-        return e.roleId;
+      return _.map(result, v => {
+        return parseInt(v.roleId);
       });
     }
     return [];

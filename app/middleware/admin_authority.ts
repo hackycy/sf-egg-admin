@@ -7,10 +7,14 @@ const noTokenUrl = [
   '/admin/login',
 ];
 
+const noPermUrl = [
+  '/admin/permmenu',
+];
+
 
 /**
  * Admin权限验证中间件，只检测/admin开头请求
- * Token验证通过会把当前系统用户uid挂载到ctx上
+ * Token验证通过会把当前解析的Token解析把对象挂载到ctx.token上,token对象例如{ uid, pv }
  */
 export default function adminAuthority(): any {
   return async (ctx: Context, next: () => Promise<any>) => {
@@ -24,41 +28,46 @@ export default function adminAuthority(): any {
         return;
       }
       try {
-        ctx.user = ctx.helper.jwtVerify(token);
-        if (ctx.user) {
-          const pv = ctx.app.redis.get('admin').get(`admin:pv:${ctx.user.uid}`);
-          if (pv !== ctx.user.pv) {
-            // 判断密码版本，防止登录时更改密码还在允许使用
+        ctx.token = ctx.helper.jwtVerify(token);
+      } catch (e) {
+        statusCode = 401;
+        errorCode = 11001;
+      }
+      if (ctx.token) {
+        if (noPermUrl.includes(url.split('?')[0])) {
+          await next();
+          return;
+        }
+        const pv = await ctx.app.redis.get('admin').get(`admin:pv:${ctx.token.uid}`);
+        if (pv !== `${ctx.token.pv}`) {
+          // 判断密码版本，防止登录时更改密码还在允许使用
+          errorCode = 11002;
+          statusCode = 401;
+        } else {
+          const redisToken = await ctx.app.redis.get('admin').get(`admin:token:${ctx.token.uid}`);
+          // 查询token是否一致
+          if (token !== redisToken) {
             errorCode = 11002;
             statusCode = 401;
           } else {
-            const redisToken = ctx.app.redis.get('admin').get(`admin:token:${ctx.user.uid}`);
-            // 查询token是否一致
-            if (token !== redisToken) {
-              errorCode = 11002;
-              statusCode = 401;
+            // 遍历权限是否包含该url，不包含则无访问权限
+            let perms = await ctx.app.redis.get('admin').get(`admin:perms:${ctx.token.uid}`);
+            if (_.isEmpty(perms)) {
+              errorCode = 11001;
+              statusCode = 403;
             } else {
-              // 遍历权限是否包含该url，不包含则无访问权限
-              let perms = ctx.app.redis.get('admin').get(`admin:perms:${ctx.user.uid}`);
-              if (_.isEmpty(perms)) {
+              // 将sys:admin:user等转换成sys/admin/user
+              perms = JSON.parse(perms).map(e => {
+                return e.replace(/:/g, '/');
+              });
+              ctx.logger.info(perms);
+              if (!perms.includes(url.split('?')[0].replace('/admin/', ''))) {
                 errorCode = 11001;
                 statusCode = 403;
-              } else {
-                // 将sys:admin:user等转换成sys/admin/user
-                perms = JSON.parse(perms).map(e => {
-                  return e.replace(/:/g, '/');
-                });
-                if (!perms.includes(url.split('?')[0].replace('/admin/', ''))) {
-                  errorCode = 11001;
-                  statusCode = 403;
-                }
               }
             }
           }
         }
-      } catch (e) {
-        statusCode = 401;
-        errorCode = 11001;
       }
       if (statusCode > 200) {
         ctx.status = statusCode;
