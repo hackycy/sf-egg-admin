@@ -60,7 +60,6 @@ export default function adminAuthority(): any {
               perms = JSON.parse(perms).map(e => {
                 return e.replace(/:/g, '/');
               });
-              ctx.logger.info(perms);
               if (!perms.includes(url.split('?')[0].replace('/admin/', ''))) {
                 errorCode = 11001;
                 statusCode = 403;
