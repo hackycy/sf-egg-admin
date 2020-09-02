@@ -7,7 +7,7 @@ export default class SysMenuController extends BaseController {
   async list() {
     this.res(
       {
-        data: await this.service.admin.sys.menu.getPerms(this.ctx.token.uid),
+        data: await this.service.admin.sys.menu.list(),
       },
     );
   }

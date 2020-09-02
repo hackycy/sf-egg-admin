@@ -8,7 +8,7 @@ import { IsNull, Not } from 'typeorm';
 export default class SysMenuService extends BaseService {
 
   /**
-   * 获取所有菜单
+   * 根据角色获取所有菜单
    */
   async getMenus(uid: number) {
     const roleIds = await this.service.admin.sys.role.getRoleIdByUser(uid);
@@ -24,6 +24,13 @@ export default class SysMenuService extends BaseService {
         .getMany();
     }
     return menus;
+  }
+
+  /**
+   * 获取所有菜单
+   */
+  async list() {
+    return await this.getRepo().admin.sys.Menu.find();
   }
 
   /**
