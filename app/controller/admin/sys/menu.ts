@@ -12,4 +12,27 @@ export default class SysMenuController extends BaseController {
     );
   }
 
+  @AdminRoute('/sys/menu/update', 'post')
+  async update() {
+    this.res({});
+  }
+
+  @AdminRoute('/sys/menu/info', 'get')
+  async info() {
+    const errors = this.app.validator.validate({
+      menuId: 'int',
+    }, this.getQuery());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { menuId } = this.getQuery();
+    const data = await this.service.admin.sys.menu.getMenuItemInfo(menuId);
+    this.res({
+      data,
+    });
+  }
+
 }

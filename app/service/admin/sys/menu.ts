@@ -27,6 +27,15 @@ export default class SysMenuService extends BaseService {
   }
 
   /**
+   * 获取某个菜单的信息
+   * @param mid menu id
+   */
+  async getMenuItemInfo(mid: number) {
+    const menus = await this.getRepo().admin.sys.Menu.find({ id: mid });
+    return menus;
+  }
+
+  /**
    * 获取所有菜单
    */
   async list() {
