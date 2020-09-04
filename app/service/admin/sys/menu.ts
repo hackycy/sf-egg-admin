@@ -45,7 +45,13 @@ export default class SysMenuService extends BaseService {
    * 查找当前菜单下的子菜单，目录以及菜单
    */
   async findChildMenus(mid: number) {
-    console.log(mid);
+    const menus = await this.getRepo().admin.sys.Menu.find({ parentId: mid });
+    if (_.isEmpty(menus)) {
+      return [];
+    }
+    return menus.map(e => {
+      return e.id;
+    });
   }
 
   /**
@@ -95,7 +101,7 @@ export default class SysMenuService extends BaseService {
   /**
    * 删除一项菜单
    */
-  async deleteMenuItem(mid: number) {
+  async deleteMenuItem(mid: number[]) {
     return await this.getRepo().admin.sys.Menu.delete(mid);
   }
 
