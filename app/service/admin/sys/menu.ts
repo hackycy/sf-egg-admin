@@ -8,11 +8,26 @@ import { IsNull, Not } from 'typeorm';
 export default class SysMenuService extends BaseService {
 
   /**
+   * 获取所有菜单
+   */
+  async list() {
+    return await this.getRepo().admin.sys.Menu.find();
+  }
+
+  /**
+   * 保存或新增菜单
+   */
+  async save(menu: any) {
+    const result = await this.getRepo().admin.sys.Menu.save(menu);
+    return result;
+  }
+
+  /**
    * 根据角色获取所有菜单
    */
   async getMenus(uid: number) {
     const roleIds = await this.service.admin.sys.role.getRoleIdByUser(uid);
-    let menus: any = null;
+    let menus: any = [];
     if (_.includes(roleIds, this.config.rootRoleId)) {
       // root find all
       menus = await this.getRepo().admin.sys.Menu.find();
@@ -24,6 +39,13 @@ export default class SysMenuService extends BaseService {
         .getMany();
     }
     return menus;
+  }
+
+  /**
+   * 查找当前菜单下的子菜单，目录以及菜单
+   */
+  async findChildMenus(mid: number) {
+    console.log(mid);
   }
 
   /**
@@ -41,21 +63,6 @@ export default class SysMenuService extends BaseService {
   async findRouterExist(router: string) {
     const menus = await this.getRepo().admin.sys.Menu.findOne({ router });
     return !_.isEmpty(menus);
-  }
-
-  /**
-   * 获取所有菜单
-   */
-  async list() {
-    return await this.getRepo().admin.sys.Menu.find();
-  }
-
-  /**
-   * 保存或新增菜单
-   */
-  async save(menu: any) {
-    const result = await this.getRepo().admin.sys.Menu.save(menu);
-    return result;
   }
 
   /**
