@@ -31,8 +31,16 @@ export default class SysMenuService extends BaseService {
    * @param mid menu id
    */
   async getMenuItemInfo(mid: number) {
-    const menus = await this.getRepo().admin.sys.Menu.find({ id: mid });
+    const menus = await this.getRepo().admin.sys.Menu.findOne({ id: mid });
     return menus;
+  }
+
+  /**
+   * 查找节点路由是否存在
+   */
+  async findRouterExist(router: string) {
+    const menus = await this.getRepo().admin.sys.Menu.findOne({ router });
+    return !_.isEmpty(menus);
   }
 
   /**
@@ -43,11 +51,19 @@ export default class SysMenuService extends BaseService {
   }
 
   /**
-   * 获取所有权限
+   * 保存或新增菜单
+   */
+  async save(menu: any) {
+    const result = await this.getRepo().admin.sys.Menu.save(menu);
+    return result;
+  }
+
+  /**
+   * 获取当前用户的所有权限
    */
   async getPerms(uid: number) {
     const roleIds = await this.service.admin.sys.role.getRoleIdByUser(uid);
-    let perms: string[] = [];
+    let perms: any[] = [];
     let result: any = null;
     if (_.includes(roleIds, this.config.rootRoleId)) {
       // root find all perms
@@ -62,11 +78,26 @@ export default class SysMenuService extends BaseService {
     }
     if (!_.isEmpty(result)) {
       result.forEach(e => {
-        perms = perms.concat(e.perms.split(','));
+        perms = _.concat(perms, e.perms.split(','));
       });
       perms = _.uniq(perms);
     }
     return perms;
+  }
+
+  /**
+   * 删除一项菜单
+   */
+  async deleteMenuItem(mid: number) {
+    return await this.getRepo().admin.sys.Menu.delete(mid);
+  }
+
+  /**
+   * 刷新权限
+   */
+  async refreshPerms(uid: number) {
+    const perms = await this.getPerms(uid);
+    await this.app.redis.get('admin').set(`admin:perms:${uid}`, JSON.stringify(perms));
   }
 
 }
