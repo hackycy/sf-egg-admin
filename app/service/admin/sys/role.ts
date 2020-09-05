@@ -1,10 +1,19 @@
 import BaseService from '../../base';
 import * as _ from 'lodash';
+import { Not } from 'typeorm';
 
 /**
  * 系统-角色
  */
 export default class SysRoleService extends BaseService {
+
+  /**
+   * 列举所有权限：除去超级管理员
+   */
+  async list() {
+    const result = await this.getRepo().admin.sys.Role.find({ id: Not(this.config.rootRoleId) });
+    return result;
+  }
 
   /**
    * 根据用户id查找角色信息

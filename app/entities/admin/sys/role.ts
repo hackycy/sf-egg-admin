@@ -9,10 +9,10 @@ export default class SysRole extends BaseEntity {
   @Column()
   userId: string;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, unique: true })
   label: string;
 
   @Column({ nullable: true })
