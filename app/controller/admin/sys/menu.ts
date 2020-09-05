@@ -138,7 +138,7 @@ export default class SysMenuController extends BaseController {
       return;
     }
     const { menuId } = this.getQuery();
-    const data = await this.service.admin.sys.menu.getMenuItemInfo(parseInt(menuId));
+    const data = await this.service.admin.sys.menu.getMenuItemAndParentInfo(parseInt(menuId));
     this.res({
       data,
     });

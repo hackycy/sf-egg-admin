@@ -59,8 +59,20 @@ export default class SysMenuService extends BaseService {
    * @param mid menu id
    */
   async getMenuItemInfo(mid: number) {
-    const menus = await this.getRepo().admin.sys.Menu.findOne({ id: mid });
-    return menus;
+    const menu = await this.getRepo().admin.sys.Menu.findOne({ id: mid });
+    return menu;
+  }
+
+  /**
+   * 获取某个菜单以及关联的父菜单的信息
+   */
+  async getMenuItemAndParentInfo(mid: number) {
+    const menu = await this.getRepo().admin.sys.Menu.findOne({ id: mid });
+    let parentMenu: any = null;
+    if (menu && menu.parentId) {
+      parentMenu = await this.getRepo().admin.sys.Menu.findOne({ id: menu.parentId });
+    }
+    return { menu, parentMenu };
   }
 
   /**
