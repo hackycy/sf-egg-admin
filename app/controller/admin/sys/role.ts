@@ -27,4 +27,21 @@ export default class SysRoleController extends BaseController {
     });
   }
 
+  @AdminRoute('/sys/role/delete', 'post')
+  async delete() {
+    const errors = this.app.validator.validate({
+      roleIds: 'array',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { roleIds } = this.getBody();
+    this.res({
+      data: await this.service.admin.sys.role.delete(roleIds),
+    });
+  }
+
 }

@@ -24,6 +24,17 @@ export default class SysRoleService extends BaseService {
   }
 
   /**
+   * 根据角色Id数组删除
+   */
+  async delete(roleIds: number[]) {
+    if (_.includes(roleIds, this.config.rootRoleId)) {
+      throw new Error('Not Support Delete Root');
+    }
+    const result = await this.getRepo().admin.sys.Role.delete(roleIds);
+    return result;
+  }
+
+  /**
    * 分页加载角色信息
    */
   async page(page: number, count: number) {
