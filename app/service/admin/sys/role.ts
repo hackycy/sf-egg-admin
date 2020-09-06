@@ -8,10 +8,35 @@ import { Not } from 'typeorm';
 export default class SysRoleService extends BaseService {
 
   /**
-   * 列举所有权限：除去超级管理员
+   * 列举所有角色：除去超级管理员
    */
   async list() {
     const result = await this.getRepo().admin.sys.Role.find({ id: Not(this.config.rootRoleId) });
+    return result;
+  }
+
+  /**
+   * 列举所有角色条数
+   */
+  async count() {
+    const count = await this.getRepo().admin.sys.Role.count({ id: Not(this.config.rootRoleId) });
+    return count;
+  }
+
+  /**
+   * 分页加载角色信息
+   */
+  async page(page: number, count: number) {
+    const result = await this.getRepo().admin.sys.Role.find({
+      where: {
+        id: Not(this.config.rootRoleId),
+      },
+      order: {
+        id: 'ASC',
+      },
+      take: count,
+      skip: page * count,
+    });
     return result;
   }
 
