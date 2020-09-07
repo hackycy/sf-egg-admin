@@ -127,10 +127,10 @@ export default class SysRoleService extends BaseService {
     }
     if (deleteDeptRowIds.length > 0) {
       // 有条目需要删除
-      const realDeleteRowIds = _.filter(originMenuRows, e => {
+      const realDeleteRowIds = _.filter(originDeptRows, e => {
         return _.includes(deleteDeptRowIds, e.departmentId);
       }).map(e => { return e.id; });
-      await this.getRepo().admin.sys.Role_department.insert(realDeleteRowIds);
+      await this.getRepo().admin.sys.Role_department.delete(realDeleteRowIds);
     }
     return role;
   }
