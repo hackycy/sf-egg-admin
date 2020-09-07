@@ -8,7 +8,7 @@ export default class SysMenuController extends BaseController {
   async list() {
     this.res(
       {
-        data: await this.service.admin.sys.menu.list(),
+        data: await this.service.admin.sys.menu.getMenus(this.ctx.token.uid),
       },
     );
   }

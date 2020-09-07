@@ -39,8 +39,59 @@ export default class SysRoleController extends BaseController {
       return;
     }
     const { roleIds } = this.getBody();
+    await this.service.admin.sys.role.delete(roleIds);
+    this.res();
+  }
+
+  @AdminRoute('/sys/role/add', 'post')
+  async add() {
+    const errors = this.app.validator.validate({
+      name: 'string',
+      label: 'string',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
     this.res({
-      data: await this.service.admin.sys.role.delete(roleIds),
+      data: await this.service.admin.sys.role.add(this.getBody(), this.ctx.token.uid),
+    });
+  }
+
+  @AdminRoute('/sys/role/update', 'post')
+  async update() {
+    const errors = this.app.validator.validate({
+      roleId: 'int',
+      name: 'string',
+      label: 'string',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    this.res({
+      data: await this.service.admin.sys.role.update(this.getBody()),
+    });
+  }
+
+  @AdminRoute('/sys/role/info', 'get')
+  async info() {
+    const errors = this.app.validator.validate({
+      roleId: 'string',
+    }, this.getQuery());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { roleId } = this.getQuery();
+    this.res({
+      data: await this.service.admin.sys.role.info(parseInt(roleId)),
     });
   }
 

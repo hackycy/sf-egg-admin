@@ -1,6 +1,9 @@
 import BaseService from '../../base';
 import * as _ from 'lodash';
-import { Not } from 'typeorm';
+import { Not, getManager, In } from 'typeorm';
+import SysRole from '../../../entities/admin/sys/role';
+import SysRoleMenu from '../../../entities/admin/sys/role_menu';
+import SysRoleDepartment from '../../../entities/admin/sys/role_department';
 
 /**
  * 系统-角色
@@ -16,11 +19,21 @@ export default class SysRoleService extends BaseService {
   }
 
   /**
-   * 列举所有角色条数
+   * 列举所有角色条数：除去超级管理员
    */
   async count() {
     const count = await this.getRepo().admin.sys.Role.count({ id: Not(this.config.rootRoleId) });
     return count;
+  }
+
+  /**
+   * 根据角色获取角色信息
+   */
+  async info(rid: number) {
+    const roleInfo = await this.getRepo().admin.sys.Role.findOne({ id: rid });
+    const menus = await this.getRepo().admin.sys.Role_menu.find({ roleId: rid });
+    const depts = await this.getRepo().admin.sys.Role_department.find({ roleId: rid });
+    return { roleInfo, menus, depts };
   }
 
   /**
@@ -30,8 +43,96 @@ export default class SysRoleService extends BaseService {
     if (_.includes(roleIds, this.config.rootRoleId)) {
       throw new Error('Not Support Delete Root');
     }
-    const result = await this.getRepo().admin.sys.Role.delete(roleIds);
-    return result;
+    await getManager().transaction(async manager => {
+      await manager.delete(SysRole, roleIds);
+      await manager.delete(SysRoleMenu, { roleId: In(roleIds) });
+      await manager.delete(SysRoleDepartment, { roleId: In(roleIds) });
+    });
+  }
+
+  /**
+   * 增加角色
+   */
+  async add(param: any, uid: string) {
+    const { name, label, remark, menus, depts } = param;
+    const role = await this.getRepo().admin.sys.Role.insert({ name, label, remark, userId: uid });
+    const { identifiers } = role;
+    const roleId = parseInt(identifiers[0].id);
+    if (menus && menus.length > 0) {
+      // 关联菜单
+      const insertRows = menus.map(m => {
+        return {
+          roleId,
+          menuId: m,
+        };
+      });
+      await this.getRepo().admin.sys.Role_menu.insert(insertRows);
+    }
+    if (depts && depts.length > 0) {
+      // 关联部门
+      const insertRows = depts.map(d => {
+        return {
+          roleId,
+          departmentId: d,
+        };
+      });
+      await this.getRepo().admin.sys.Role_department.insert(insertRows);
+    }
+    return { roleId };
+  }
+
+  /**
+   * 更新角色信息
+   */
+  async update(param: any) {
+    const { roleId, name, label, remark, menus, depts } = param;
+    const role = await this.getRepo().admin.sys.Role.save({ id: roleId, name, label, remark });
+    const originDeptRows = await this.getRepo().admin.sys.Role_department.find({ roleId });
+    const originMenuRows = await this.getRepo().admin.sys.Role_menu.find({ roleId });
+    const originMenuIds = originMenuRows.map(e => { return e.menuId; });
+    const originDeptIds = originDeptRows.map(e => { return e.departmentId; });
+    // 开始对比差异
+    const insertMenusRowIds = _.difference(menus, originMenuIds);
+    const deleteMenusRowIds = _.difference(originMenuIds, menus);
+    const insertDeptRowIds = _.difference(depts, originDeptIds);
+    const deleteDeptRowIds = _.difference(originDeptIds, depts);
+    // 菜单
+    if (insertMenusRowIds.length > 0) {
+      // 有条目更新
+      const insertRows = insertMenusRowIds.map(e => {
+        return {
+          roleId,
+          menuId: e,
+        };
+      });
+      await this.getRepo().admin.sys.Role_menu.insert(insertRows);
+    }
+    if (deleteMenusRowIds.length > 0) {
+      // 有条目需要删除
+      const realDeleteRowIds = _.filter(originMenuRows, e => {
+        return _.includes(deleteMenusRowIds, e.menuId);
+      }).map(e => { return e.id; });
+      await this.getRepo().admin.sys.Role_menu.delete(realDeleteRowIds);
+    }
+    // 部门
+    if (insertDeptRowIds.length > 0) {
+      // 有条目更新
+      const insertRows = insertDeptRowIds.map(e => {
+        return {
+          roleId,
+          departmentId: e,
+        };
+      });
+      await this.getRepo().admin.sys.Role_department.insert(insertRows);
+    }
+    if (deleteDeptRowIds.length > 0) {
+      // 有条目需要删除
+      const realDeleteRowIds = _.filter(originMenuRows, e => {
+        return _.includes(deleteDeptRowIds, e.departmentId);
+      }).map(e => { return e.id; });
+      await this.getRepo().admin.sys.Role_department.insert(realDeleteRowIds);
+    }
+    return role;
   }
 
   /**
@@ -66,15 +167,6 @@ export default class SysRoleService extends BaseService {
       });
     }
     return [];
-  }
-
-  /**
-   * 新增角色信息
-   */
-  async add(param: any) {
-    const user = await this.service.admin.sys.user.info(this.ctx.user.uid);
-    param.userId = user?.name;
-    await this.getRepo().admin.sys.Role.save(param);
   }
 
 }
