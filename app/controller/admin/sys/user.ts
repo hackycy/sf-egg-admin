@@ -34,6 +34,48 @@ export default class SysUserController extends BaseController {
     });
   }
 
+  @AdminRoute('/sys/user/delete', 'post')
+  async delete() {
+    const errors = this.app.validator.validate({
+      userIds: 'array',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { userIds } = this.getBody();
+    await this.service.admin.sys.user.delete(userIds);
+    this.res();
+  }
+
+  @AdminRoute('/sys/user/page', 'get')
+  async page() {
+    const errors = this.app.validator.validate({
+      departmentId: 'string',
+    }, this.getQuery());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { page = 1, limit = 25, departmentId } = this.getQuery();
+    if (page < 1) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    this.res({
+      data: {
+        users: await this.service.admin.sys.user.page(departmentId, page - 1, limit),
+        userTotalCount: await this.service.admin.sys.user.count(departmentId),
+      },
+    });
+  }
+
   @AdminRoute('/sys/user/update', 'post')
   async update() {
     const errors = this.app.validator.validate({

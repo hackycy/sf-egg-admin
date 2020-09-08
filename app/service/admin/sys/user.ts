@@ -1,5 +1,7 @@
 import * as _ from 'lodash';
 import BaseService from '../../base';
+import { Not } from 'typeorm';
+
 /**
  * 系统-用户
  */
@@ -33,6 +35,39 @@ export default class SysUserService extends BaseService {
   }
 
   /**
+   * 根据ID列表删除用户
+   */
+  async delete(userIds: number[]) {
+    await this.getRepo().admin.sys.User.delete(userIds);
+  }
+
+  /**
+   * 根据部门ID列举用户条数：除去超级管理员
+   */
+  async count(deptId: number) {
+    const count = await this.getRepo().admin.sys.User.count({ username: Not('root'), departmentId: deptId });
+    return count;
+  }
+
+  /**
+   * 根据部门ID进行分页查询用户列表
+   */
+  async page(deptId: number, page: number, count: number) {
+    const result = await this.getRepo().admin.sys.User.find({
+      where: {
+        username: Not('root'),
+        departmentId: deptId,
+      },
+      order: {
+        id: 'ASC',
+      },
+      take: count,
+      skip: page * count,
+    });
+    return result;
+  }
+
+  /**
    * 更新用户信息
    */
   async update(param: any) {
@@ -40,7 +75,7 @@ export default class SysUserService extends BaseService {
     //   // root用户不支持修改
     //   throw new Error('root unsupport update');
     // }
-    if (!_.isEmpty()) {
+    if (!_.isEmpty(param.password)) {
       param.password = this.getHelper().aesEncrypt(
         this.getHelper().aesDecrypt(param.password, this.config.aesSecret.front), this.config.aesSecret.admin);
       param.passwordV = param.passwordV + 1;
