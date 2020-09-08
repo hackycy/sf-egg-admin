@@ -53,18 +53,42 @@ export default class SysUserService extends BaseService {
    * 根据部门ID进行分页查询用户列表
    */
   async page(deptId: number, page: number, count: number) {
-    const result = await this.getRepo().admin.sys.User.find({
-      where: {
-        username: Not('root'),
-        departmentId: deptId,
-      },
-      order: {
-        id: 'ASC',
-      },
-      take: count,
-      skip: page * count,
+    const result = await this.getRepo().admin.sys.User.createQueryBuilder('user')
+      .innerJoinAndSelect('sys_department', 'dept', 'dept.id = user.departmentId')
+      .where("user.username != 'root'")
+      .andWhere('user.departmentId = :deptId', { deptId })
+      .skip(page * count)
+      .take(count)
+      .getRawMany();
+    const dealResult = result.map(e => {
+      return {
+        createTime: e.user_createTime,
+        departmentId: e.user_department_id,
+        email: e.user_email,
+        headImd: e.user_head_img,
+        id: e.user_id,
+        name: e.user_name,
+        nickName: e.user_nick_name,
+        phone: e.user_phone,
+        remark: e.user_remark,
+        status: e.user_status,
+        updateTime: e.user_updateTime,
+        username: e.user_username,
+        departmentName: e.dept_name,
+      };
     });
-    return result;
+    // const result = await this.getRepo().admin.sys.User.find({
+    //   where: {
+    //     username: Not('root'),
+    //     departmentId: deptId,
+    //   },
+    //   order: {
+    //     id: 'ASC',
+    //   },
+    //   take: count,
+    //   skip: page * count,
+    // });
+    return dealResult;
   }
 
   /**
