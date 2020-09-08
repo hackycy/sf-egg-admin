@@ -48,7 +48,7 @@ export default class CommService extends BaseService {
   async getLoginSign(username: string, password: string) {
     const decodeUserName = this.getHelper().aesDecrypt(username, this.config.aesSecret.front);
     const decodePassword = this.getHelper().aesDecrypt(password, this.config.aesSecret.front);
-    const user = await this.getRepo().admin.sys.User.findOne({ username: decodeUserName });
+    const user = await this.getRepo().admin.sys.User.findOne({ username: decodeUserName, status: 1 });
     if (_.isEmpty(user)) {
       return null;
     }
