@@ -61,7 +61,7 @@ export default class SysUserController extends BaseController {
       });
       return;
     }
-    const { page = 1, limit = 25, departmentId } = this.getQuery();
+    const { page = 1, limit = 25, departmentId = -1 } = this.getQuery();
     if (page < 1) {
       this.res({
         code: 10000,
@@ -70,8 +70,8 @@ export default class SysUserController extends BaseController {
     }
     this.res({
       data: {
-        users: await this.service.admin.sys.user.page(departmentId, page - 1, limit),
-        userTotalCount: await this.service.admin.sys.user.count(departmentId),
+        users: await this.service.admin.sys.user.page(parseInt(departmentId), page - 1, limit),
+        userTotalCount: await this.service.admin.sys.user.count(parseInt(departmentId)),
       },
     });
   }

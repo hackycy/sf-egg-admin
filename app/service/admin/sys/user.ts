@@ -51,12 +51,13 @@ export default class SysUserService extends BaseService {
 
   /**
    * 根据部门ID进行分页查询用户列表
+   * deptId = -1 时查询全部
    */
   async page(deptId: number, page: number, count: number) {
     const result = await this.getRepo().admin.sys.User.createQueryBuilder('user')
       .innerJoinAndSelect('sys_department', 'dept', 'dept.id = user.departmentId')
       .where(`user.username != '${this.config.rootUserName}'`)
-      .andWhere('user.departmentId = :deptId', { deptId })
+      .andWhere(deptId === -1 ? '1 = 1' : `user.departmentId = '${deptId}'`)
       .skip(page * count)
       .take(count)
       .getRawMany();

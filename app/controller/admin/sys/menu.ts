@@ -47,7 +47,6 @@ export default class SysMenuController extends BaseController {
       rules = permRules;
     }
     const errors = this.app.validator.validate(rules, this.getBody());
-    this.ctx.logger.error(errors);
     if (errors) {
       this.res({
         code: 10000,
