@@ -1,11 +1,11 @@
-import BaseService from '../base';
+import BaseService from '../../base';
 import * as svgCaptcha from 'svg-captcha';
 import * as _ from 'lodash';
 
 /**
  * 通用功能Servce
  */
-export default class CommService extends BaseService {
+export default class VerifyService extends BaseService {
 
   /**
    * 生成图片验证码

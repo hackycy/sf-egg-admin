@@ -8,6 +8,9 @@ export default (appInfo: EggAppInfo) => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1597893009804_8539';
 
+  // add your egg config in here
+  config.middleware = [ 'adminAuthority', 'notfoundHandler' ];
+
   config.aesSecret = {
     admin: 'hXuLvp6zmhahtW1kf21DpYxm',
     front: 'eECRYHR5Er93BijVlkMz9CIn',
@@ -17,8 +20,16 @@ export default (appInfo: EggAppInfo) => {
     secret: 'INnyQ50BEE6AITQraIaDGooJ',
   };
 
-  // add your egg config in here
-  config.middleware = [ 'adminAuthority', 'notfoundHandler' ];
+  /**
+   * 七牛配置
+   */
+  config.qiniu = {
+    accessKey: '_MkCZiF7CrlkVVevh9JA2YtBnThz6dAXdSNA-Km4',
+    secretKey: '8TFReK-x3Mu0p4SK4lRt9dFPNLJwRXF5H0d1s-f2',
+    bucket: 'siyee',
+    cdnUrl: 'http://image.si-yee.com',
+    zone: 'Zone_z2',
+  };
 
   // Root角色对应ID
   config.rootRoleId = 1;
@@ -75,6 +86,13 @@ export default (appInfo: EggAppInfo) => {
     // maxAge: 31536000,
     maxAge: 0,
     buffer: false,
+  };
+
+  /**
+   * https://eggjs.org/zh-cn/basics/controller.html#获取上传的文件
+   */
+  config.multipart = {
+    mode: 'file',
   };
 
   // https://eggjs.org/zh-cn/core/error-handling.html

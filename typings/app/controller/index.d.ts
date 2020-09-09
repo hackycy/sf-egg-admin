@@ -4,7 +4,8 @@
 import 'egg';
 import ExportBase from '../../../app/controller/base';
 import ExportWelcome from '../../../app/controller/welcome';
-import ExportAdminComm from '../../../app/controller/admin/comm';
+import ExportAdminCommLogin from '../../../app/controller/admin/comm/login';
+import ExportAdminCommUpload from '../../../app/controller/admin/comm/upload';
 import ExportAdminSysDept from '../../../app/controller/admin/sys/dept';
 import ExportAdminSysMenu from '../../../app/controller/admin/sys/menu';
 import ExportAdminSysRole from '../../../app/controller/admin/sys/role';
@@ -15,7 +16,10 @@ declare module 'egg' {
     base: ExportBase;
     welcome: ExportWelcome;
     admin: {
-      comm: ExportAdminComm;
+      comm: {
+        login: ExportAdminCommLogin;
+        upload: ExportAdminCommUpload;
+      }
       sys: {
         dept: ExportAdminSysDept;
         menu: ExportAdminSysMenu;

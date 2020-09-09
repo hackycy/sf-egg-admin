@@ -1,5 +1,5 @@
-import BaseController from '../base';
-import { AdminRoute } from '../../decorator/router_register';
+import BaseController from '../../base';
+import { AdminRoute } from '../../../decorator/router_register';
 
 /**
  * 通用功能控制器
@@ -11,7 +11,7 @@ export default class CommController extends BaseController {
    */
   @AdminRoute('/captcha/img', 'get')
   async captchaByImg() {
-    const result = await this.service.admin.comm.getImgCaptcha(this.getQuery());
+    const result = await this.service.admin.comm.verify.getImgCaptcha(this.getQuery());
     this.res({
       data: result,
     });
@@ -35,14 +35,14 @@ export default class CommController extends BaseController {
       return;
     }
     const { username, password, captchaId, verifyCode } = this.getBody();
-    const success = await this.service.admin.comm.checkImgCaptcha(captchaId, verifyCode);
+    const success = await this.service.admin.comm.verify.checkImgCaptcha(captchaId, verifyCode);
     if (!success) {
       this.res({
         code: 10002,
       });
       return;
     }
-    const sign = await this.service.admin.comm.getLoginSign(username, password);
+    const sign = await this.service.admin.comm.verify.getLoginSign(username, password);
     if (!sign) {
       this.res({
         code: 10003,
@@ -62,7 +62,7 @@ export default class CommController extends BaseController {
   @AdminRoute('/permmenu', 'get')
   async permmenu() {
     this.res({
-      data: await this.service.admin.comm.getPermMenu(this.ctx.token.uid),
+      data: await this.service.admin.comm.verify.getPermMenu(this.ctx.token.uid),
     });
   }
 
