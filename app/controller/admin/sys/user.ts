@@ -9,6 +9,7 @@ export default class SysUserController extends BaseController {
       departmentId: 'int',
       name: 'string',
       username: 'string',
+      roles: 'array',
     }, this.getBody());
     if (errors) {
       this.res({
@@ -16,13 +17,11 @@ export default class SysUserController extends BaseController {
       });
       return;
     }
-    const success = await this.service.admin.sys.user.add(this.getBody());
-    if (success) {
+    const result = await this.service.admin.sys.user.add(this.getBody());
+    if (result) {
       this.res();
     } else {
-      this.res({
-        code: 10001,
-      });
+      this.res({ code: 10001 });
     }
   }
 

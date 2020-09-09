@@ -7,6 +7,7 @@ type AnyFunc<T = any> = (...args: any[]) => T;
 type CanExportFunc = AnyFunc<Promise<any>> | AnyFunc<IterableIterator<any>>;
 type AutoInstanceType<T, U = T extends CanExportFunc ? T : T extends AnyFunc ? ReturnType<T> : T> = U extends AnyClass ? InstanceType<U> : U;
 import ExportBase from '../../../app/service/base';
+import ExportAdminCommEmail from '../../../app/service/admin/comm/email';
 import ExportAdminCommOss from '../../../app/service/admin/comm/oss';
 import ExportAdminCommVerify from '../../../app/service/admin/comm/verify';
 import ExportAdminSysDept from '../../../app/service/admin/sys/dept';
@@ -19,6 +20,7 @@ declare module 'egg' {
     base: AutoInstanceType<typeof ExportBase>;
     admin: {
       comm: {
+        email: AutoInstanceType<typeof ExportAdminCommEmail>;
         oss: AutoInstanceType<typeof ExportAdminCommOss>;
         verify: AutoInstanceType<typeof ExportAdminCommVerify>;
       }

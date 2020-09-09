@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import BaseService from '../../base';
-import { Not } from 'typeorm';
+import { Not, In } from 'typeorm';
 
 /**
  * 系统-用户
@@ -18,7 +18,29 @@ export default class SysUserService extends BaseService {
     }
     const pwd = this.getHelper().generateRandomValue(8);
     param.password = this.getHelper().aesEncrypt(pwd, this.config.aesSecret.admin);
-    await this.getRepo().admin.sys.User.save(param);
+    const result = await this.getRepo().admin.sys.User.save(param);
+    const { roles } = param;
+    const insertRoles = roles.map(e => {
+      return {
+        roleId: e,
+        userId: result.id,
+      };
+    });
+    // 分配角色
+    await this.getRepo().admin.sys.User_role.insert(insertRoles);
+    // 发送初始密码邮件
+    if (param.email) {
+      try {
+        await this.service.admin.comm.email.sendEmail({
+          from: 'noreply@mail.si-yee.com', // sender address
+          to: param.email, // list of receivers
+          subject: '系统登录初始密码，请妥善保管', // Subject line
+          text: `您的思忆后台账号：${param.username}的初始密码为${pwd}，请妥善保管好初始密码以登录系统`, // plain text body
+        });
+      } catch (e) {
+        // send error will nothing to do
+      }
+    }
     return true;
   }
 
@@ -39,6 +61,7 @@ export default class SysUserService extends BaseService {
    */
   async delete(userIds: number[]) {
     await this.getRepo().admin.sys.User.delete(userIds);
+    await this.getRepo().admin.sys.User_role.delete({ userId: In(userIds) });
   }
 
   /**

@@ -21,6 +21,17 @@ export default (appInfo: EggAppInfo) => {
   };
 
   /**
+   * 邮件推送配置
+   */
+  config.mailer = {
+    host: 'smtpdm.aliyun.com',
+    port: 25,
+    user: 'noreply@mail.si-yee.com',
+    pass: 'ZJyzy5201314',
+    secure: false,
+  };
+
+  /**
    * 七牛配置
    */
   config.qiniu = {
