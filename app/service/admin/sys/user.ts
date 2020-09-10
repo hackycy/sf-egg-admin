@@ -89,7 +89,7 @@ export default class SysUserService extends BaseService {
         createTime: e.user_createTime,
         departmentId: e.user_department_id,
         email: e.user_email,
-        headImd: e.user_head_img,
+        headImg: e.user_head_img,
         id: e.user_id,
         name: e.user_name,
         nickName: e.user_nick_name,
