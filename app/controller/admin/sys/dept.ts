@@ -15,4 +15,20 @@ export default class SysDeptController extends BaseController {
     );
   }
 
+  @AdminRoute('/sys/dept/transfer', 'post')
+  async transfer() {
+    const errors = this.app.validator.validate({
+      userIds: 'array',
+      departmentId: 'int',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { userIds, departmentId } = this.getBody();
+    await this.service.admin.sys.dept.transfer(userIds, departmentId);
+    this.res();
+  }
 }

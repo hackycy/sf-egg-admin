@@ -1,5 +1,6 @@
 import BaseService from '../../base';
 import * as _ from 'lodash';
+import { In } from 'typeorm';
 
 /**
  * 系统部门Service
@@ -11,6 +12,13 @@ export default class SysDeptService extends BaseService {
    */
   async list() {
     return await this.getRepo().admin.sys.Department.find();
+  }
+
+  /**
+   * 转移部门
+   */
+  async transfer(userIds: number[], deptId: number) {
+    await this.getRepo().admin.sys.User.update({ id: In(userIds) }, { departmentId: deptId });
   }
 
   /**
