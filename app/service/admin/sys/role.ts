@@ -47,6 +47,7 @@ export default class SysRoleService extends BaseService {
       await manager.delete(SysRole, roleIds);
       await manager.delete(SysRoleMenu, { roleId: In(roleIds) });
       await manager.delete(SysRoleDepartment, { roleId: In(roleIds) });
+      // TODO：需要连同用户一并删除
     });
   }
 

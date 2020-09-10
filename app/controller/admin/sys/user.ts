@@ -25,9 +25,18 @@ export default class SysUserController extends BaseController {
     }
   }
 
-  @AdminRoute('/sys/user/info', 'post')
+  @AdminRoute('/sys/user/info', 'get')
   async info() {
-    const user = await this.service.admin.sys.user.info(this.ctx.token.uid);
+    const errors = this.app.validator.validate({
+      userId: 'string',
+    }, this.getQuery());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const user = await this.service.admin.sys.user.info(parseInt(this.getQuery().userId));
     this.res({
       data: user,
     });
@@ -78,7 +87,10 @@ export default class SysUserController extends BaseController {
   @AdminRoute('/sys/user/update', 'post')
   async update() {
     const errors = this.app.validator.validate({
-      id: 'int',
+      departmentId: 'int',
+      name: 'string',
+      username: 'string',
+      roles: 'array',
     }, this.getBody());
     if (errors) {
       this.res({
@@ -86,6 +98,8 @@ export default class SysUserController extends BaseController {
       });
       return;
     }
+    await this.service.admin.sys.user.update(this.getBody());
+    this.res();
   }
 
 }

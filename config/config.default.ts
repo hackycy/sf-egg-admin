@@ -45,7 +45,7 @@ export default (appInfo: EggAppInfo) => {
   // Root角色对应ID
   config.rootRoleId = 1;
   // Root角色对应账户
-  config.rootUserName = 'root';
+  config.rootUserName = 'hackycy';
 
   /**
    * 框架内置了国际化（I18n）支持，由 egg-i18n 插件提供。

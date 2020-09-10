@@ -45,15 +45,69 @@ export default class SysUserService extends BaseService {
   }
 
   /**
+   * 更新用户信息
+   */
+  async update(param: any) {
+    const { resetPassword = false } = param;
+    let pwd: string | null = null;
+    if (resetPassword) {
+      // 需要重置密码
+      pwd = this.getHelper().generateRandomValue(8);
+      param.password = this.getHelper().aesEncrypt(pwd, this.config.aesSecret.admin);
+    }
+    delete param.resetPassword;
+    const result = await this.getRepo().admin.sys.User.save(param);
+    // 先删除原来的角色关系
+    await this.getRepo().admin.sys.User_role.delete({ userId: result.id });
+    const { roles } = param;
+    const insertRoles = roles.map(e => {
+      return {
+        roleId: e,
+        userId: result.id,
+      };
+    });
+    // 重新分配角色
+    await this.getRepo().admin.sys.User_role.insert(insertRoles);
+    if (param.status === 0) {
+      // 禁用状态
+      await this.forbidden(param.id);
+    }
+    if (resetPassword) {
+      await this.upgradePasswordV(result.id);
+    }
+    // 发送初始密码邮件
+    if (resetPassword && param.email) {
+      try {
+        await this.service.admin.comm.email.sendEmail({
+          from: 'noreply@mail.si-yee.com', // sender address
+          to: param.email, // list of receivers
+          subject: '重置登录密码，请妥善保管', // Subject line
+          text: `重置密码为${pwd}，请妥善保管好密码以登录系统`, // plain text body
+        });
+      } catch (e) {
+        // send error will nothing to do
+      }
+    }
+  }
+
+  /**
    * 查找用户信息
    * @param id 用户id
    */
   async info(id: number) {
     const user = await this.getRepo().admin.sys.User.findOne(id);
-    if (!_.isEmpty(user)) {
-      user!.password = this.getHelper().aesDecrypt(user!.password, this.config.aesSecret.admin);
+    if (_.isEmpty(user)) {
+      throw new Error('unfind this user info');
     }
-    return user;
+    const departmentRow = await this.getRepo().admin.sys.Department.findOne({ id: user!.departmentId });
+    if (_.isEmpty(departmentRow)) {
+      throw new Error('unfind this user info');
+    }
+    const roleRows = await this.getRepo().admin.sys.User_role.find({ userId: user!.id });
+    const roles = roleRows.map(e => {
+      return e.roleId;
+    });
+    return { ...user, roles, departmentName: departmentRow!.name };
   }
 
   /**
@@ -118,7 +172,7 @@ export default class SysUserService extends BaseService {
   /**
    * 更新用户信息
    */
-  async update(param: any) {
+  async updateSelf(param: any) {
     // if (param.id && param.id === 1) {
     //   // root用户不支持修改
     //   throw new Error('root unsupport update');
@@ -143,6 +197,17 @@ export default class SysUserService extends BaseService {
    */
   async forbidden(id: number) {
     await this.app.redis.get('admin').del(`admin:token:${id}`);
+  }
+
+  /**
+   * 升级用户版本密码
+   */
+  async upgradePasswordV(id: number) {
+    // admin:passwordVersion:${param.id}
+    const v = await this.app.redis.get('admin').get(`admin:passwordVersion:${id}`);
+    if (!_.isEmpty(v)) {
+      await this.app.redis.get('admin').set(`admin:passwordVersion:${id}`, parseInt(v) + 1);
+    }
   }
 
 }
