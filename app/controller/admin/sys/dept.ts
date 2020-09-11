@@ -48,6 +48,23 @@ export default class SysDeptController extends BaseController {
     this.res();
   }
 
+  @AdminRoute('/sys/dept/info', 'get')
+  async info() {
+    const errors = this.app.validator.validate({
+      departmentId: 'string',
+    }, this.getQuery());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { departmentId } = this.getQuery();
+    this.res({
+      data: await this.service.admin.sys.dept.info(parseInt(departmentId)),
+    });
+  }
+
   @AdminRoute('/sys/dept/transfer', 'post')
   async transfer() {
     const errors = this.app.validator.validate({

@@ -15,6 +15,18 @@ export default class SysDeptService extends BaseService {
   }
 
   /**
+   * 根据ID查找部门信息
+   */
+  async info(id: number) {
+    const department = await this.getRepo().admin.sys.Department.findOne({ id });
+    let parentDepartment: any = null;
+    if (department!.parentId) {
+      parentDepartment = await this.getRepo().admin.sys.Department.findOne({ id: department!.parentId });
+    }
+    return { department, parentDepartment };
+  }
+
+  /**
    * 转移部门
    */
   async transfer(userIds: number[], deptId: number) {
