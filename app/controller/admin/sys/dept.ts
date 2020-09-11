@@ -44,6 +44,14 @@ export default class SysDeptController extends BaseController {
       return;
     }
     const { departmentId } = this.getBody();
+    // 查询是否有关联用户，如果含有则无法删除
+    const count = await this.service.admin.sys.dept.countUserByDeptId(departmentId);
+    if (count > 0) {
+      this.res({
+        code: 10009,
+      });
+      return;
+    }
     await this.service.admin.sys.dept.delete(departmentId);
     this.res();
   }

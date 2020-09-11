@@ -60,6 +60,13 @@ export default class SysDeptService extends BaseService {
   }
 
   /**
+   * 根据部门查询关联的用户ID
+   */
+  async countUserByDeptId(id: number) {
+    return await this.getRepo().admin.sys.User.count({ departmentId: id });
+  }
+
+  /**
    * 根据当前角色id获取部门列表
    */
   async getDepts(uid: number) {
