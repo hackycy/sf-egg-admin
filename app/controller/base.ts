@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import { IHelper } from '../../typings/app';
 
 export interface ResOp {
   data?: any;
@@ -32,7 +33,7 @@ export default abstract class BaseController extends Controller {
   /**
    * 获取Helper
    */
-  protected getHelper() {
+  protected getHelper(): IHelper {
     return this.ctx.helper;
   }
 
