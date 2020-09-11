@@ -1,5 +1,6 @@
 import BaseController from '../../base';
 import { AdminRoute } from '../../../decorator/router_register';
+import * as _ from 'lodash';
 
 export default class SysRoleController extends BaseController {
 
@@ -39,6 +40,13 @@ export default class SysRoleController extends BaseController {
       return;
     }
     const { roleIds } = this.getBody();
+    const result = await this.service.admin.sys.role.getRoleIdByUser(roleIds);
+    if (_.isEmpty(result)) {
+      this.res({
+        code: 10008,
+      });
+      return;
+    }
     await this.service.admin.sys.role.delete(roleIds);
     this.res();
   }

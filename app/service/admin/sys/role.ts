@@ -170,4 +170,14 @@ export default class SysRoleService extends BaseService {
     return [];
   }
 
+  /**
+   * 根据角色ID列表查找关联用户ID
+   */
+  async getUserIdByRole(ids: number[]) {
+    if (_.includes(ids, this.config.rootRoleId)) {
+      throw new Error('Not Support Delete Root');
+    }
+    return await this.getRepo().admin.sys.User_role.find({ roleId: In(ids) });
+  }
+
 }
