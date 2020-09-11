@@ -31,7 +31,7 @@ export default class SysMenuController extends BaseController {
       parentId: 'int',
       name: 'string',
       router: 'string',
-      viewPath: 'string',
+      // viewPath: 'string',
     };
     const permRules = {
       parentId: 'int',
