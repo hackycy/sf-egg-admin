@@ -39,8 +39,8 @@ export default class SysRoleController extends BaseController {
       return;
     }
     const { roleIds } = this.getBody();
-    const result = await this.service.admin.sys.role.getUserIdByRole(roleIds);
-    if (result && result.length > 0) {
+    const count = await this.service.admin.sys.role.countUserIdByRole(roleIds);
+    if (count > 0) {
       this.res({
         code: 10008,
       });
