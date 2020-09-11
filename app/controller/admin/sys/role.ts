@@ -1,6 +1,5 @@
 import BaseController from '../../base';
 import { AdminRoute } from '../../../decorator/router_register';
-import * as _ from 'lodash';
 
 export default class SysRoleController extends BaseController {
 
