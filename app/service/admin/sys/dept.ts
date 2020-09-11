@@ -27,6 +27,18 @@ export default class SysDeptService extends BaseService {
   }
 
   /**
+   * 更新部门信息
+   */
+  async update(param: any) {
+    const { id } = param;
+    delete param.id;
+    if (param.parentId === -1) {
+      delete param.parentId;
+    }
+    await this.getRepo().admin.sys.Department.update(id, param);
+  }
+
+  /**
    * 转移部门
    */
   async transfer(userIds: number[], deptId: number) {

@@ -65,6 +65,23 @@ export default class SysDeptController extends BaseController {
     });
   }
 
+  @AdminRoute('/sys/dept/update', 'post')
+  async update() {
+    const errors = this.app.validator.validate({
+      id: 'int',
+      name: 'string',
+      parentId: 'int',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    await this.service.admin.sys.dept.update(this.getBody());
+    this.res();
+  }
+
   @AdminRoute('/sys/dept/transfer', 'post')
   async transfer() {
     const errors = this.app.validator.validate({
