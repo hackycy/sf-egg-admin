@@ -22,6 +22,13 @@ export default class SysDeptService extends BaseService {
   }
 
   /**
+   * 根据ID删除部门
+   */
+  async delete(departmentId: number) {
+    await this.getRepo().admin.sys.Department.delete(departmentId);
+  }
+
+  /**
    * 根据当前角色id获取部门列表
    */
   async getDepts(uid: number) {

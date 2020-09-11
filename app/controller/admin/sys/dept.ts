@@ -15,6 +15,22 @@ export default class SysDeptController extends BaseController {
     );
   }
 
+  @AdminRoute('/sys/dept/delete', 'post')
+  async delete() {
+    const errors = this.app.validator.validate({
+      departmentId: 'int',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { departmentId } = this.getBody();
+    await this.service.admin.sys.dept.delete(departmentId);
+    this.res();
+  }
+
   @AdminRoute('/sys/dept/transfer', 'post')
   async transfer() {
     const errors = this.app.validator.validate({
