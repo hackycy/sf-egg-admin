@@ -22,6 +22,13 @@ export default class SysDeptService extends BaseService {
   }
 
   /**
+   * 新增部门
+   */
+  async add(deptName: string, parentDeptId: number) {
+    await this.getRepo().admin.sys.Department.insert({ name: deptName, parentId: parentDeptId === -1 ? undefined : parentDeptId });
+  }
+
+  /**
    * 根据ID删除部门
    */
   async delete(departmentId: number) {
