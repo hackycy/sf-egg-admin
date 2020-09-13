@@ -12,7 +12,7 @@ export default class VerifyService extends BaseService {
    */
   async getImgCaptcha(params) {
     const svg = svgCaptcha.create({
-      size: params.size ?? 4,
+      size: 4,
       color: true,
       noise: 4,
       width: params.width ?? 100,
