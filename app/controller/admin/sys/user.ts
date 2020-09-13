@@ -70,7 +70,7 @@ export default class SysUserController extends BaseController {
       return;
     }
     const { page = 1, limit = 25, departmentId = -1 } = this.getQuery();
-    if (page < 1) {
+    if (page < 1 || limit <= 0) {
       this.res({
         code: 10000,
       });

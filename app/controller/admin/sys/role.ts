@@ -13,7 +13,7 @@ export default class SysRoleController extends BaseController {
   @AdminRoute('/sys/role/page', 'get')
   async page() {
     const { page = 1, limit = 25 } = this.getQuery();
-    if (page < 1) {
+    if (page < 1 || limit <= 0) {
       this.res({
         code: 10000,
       });
