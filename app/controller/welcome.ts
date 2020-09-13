@@ -1,15 +1,15 @@
 import BaseController from './base';
-import { Route } from '../decorator/router_register';
+// import { Route } from '../decorator/router_register';
 // import * as _ from 'lodash';
 
 export default class WelcomeController extends BaseController {
 
-  @Route('/', 'all')
-  async index() {
-    this.res({
-      message: '/',
-    });
-  }
+  // @Route('/', 'all')
+  // async index() {
+  //   this.res({
+  //     message: '/',
+  //   });
+  // }
 
   // @Route('/test', 'all')
   // async test() {

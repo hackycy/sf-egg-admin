@@ -11,6 +11,7 @@ import ExportAdminCommEmail from '../../../app/service/admin/comm/email';
 import ExportAdminCommOss from '../../../app/service/admin/comm/oss';
 import ExportAdminCommVerify from '../../../app/service/admin/comm/verify';
 import ExportAdminSysDept from '../../../app/service/admin/sys/dept';
+import ExportAdminSysLog from '../../../app/service/admin/sys/log';
 import ExportAdminSysMenu from '../../../app/service/admin/sys/menu';
 import ExportAdminSysRole from '../../../app/service/admin/sys/role';
 import ExportAdminSysUser from '../../../app/service/admin/sys/user';
@@ -26,6 +27,7 @@ declare module 'egg' {
       }
       sys: {
         dept: AutoInstanceType<typeof ExportAdminSysDept>;
+        log: AutoInstanceType<typeof ExportAdminSysLog>;
         menu: AutoInstanceType<typeof ExportAdminSysMenu>;
         role: AutoInstanceType<typeof ExportAdminSysRole>;
         user: AutoInstanceType<typeof ExportAdminSysUser>;
