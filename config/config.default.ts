@@ -1,5 +1,6 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 import * as path from 'path';
+import * as fs from 'fs';
 
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
@@ -7,6 +8,11 @@ export default (appInfo: EggAppInfo) => {
   // override config from framework / plugin
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1597893009804_8539';
+
+  // 配置网站图标 可为网络图标
+  config.siteFile = {
+    '/favicon.ico': fs.readFileSync(path.join(__dirname, '../favicon.ico')),
+  };
 
   // add your egg config in here
   config.middleware = [ 'adminAuthority', 'notfoundHandler' ];
