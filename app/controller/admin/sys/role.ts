@@ -80,9 +80,8 @@ export default class SysRoleController extends BaseController {
       });
       return;
     }
-    this.res({
-      data: await this.service.admin.sys.role.update(this.getBody()),
-    });
+    await this.service.admin.sys.role.update(this.getBody());
+    this.res();
   }
 
   @AdminRoute('/sys/role/info', 'get')
