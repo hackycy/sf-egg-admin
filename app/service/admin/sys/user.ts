@@ -188,10 +188,6 @@ export default class SysUserService extends BaseService {
    * 更新用户信息
    */
   async updatePerson(param: any) {
-    // if (param.id && param.id === 1) {
-    //   // root用户不支持修改
-    //   throw new Error('root unsupport update');
-    // }
     if (!_.isEmpty(param.password)) {
       param.password = this.getHelper().aesEncrypt(
         this.getHelper().aesDecrypt(param.password, this.config.aesSecret.front), this.config.aesSecret.admin);
@@ -205,8 +201,10 @@ export default class SysUserService extends BaseService {
   /**
    * 禁用用户
    */
-  async forbidden(id: number) {
-    await this.app.redis.get('admin').del(`admin:token:${id}`);
+  async forbidden(uid: number) {
+    await this.app.redis.get('admin').del(`admin:pv:${uid}`);
+    await this.app.redis.get('admin').del(`admin:token:${uid}`);
+    await this.app.redis.get('admin').del(`admin:perms:${uid}`);
   }
 
   /**

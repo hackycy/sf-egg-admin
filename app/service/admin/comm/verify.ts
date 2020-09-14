@@ -72,9 +72,7 @@ export default class VerifyService extends BaseService {
    * 清除登录状态信息
    */
   async clearLoginStatus(uid: number) {
-    await this.app.redis.get('admin').del(`admin:pv:${uid}`);
-    await this.app.redis.get('admin').del(`admin:token:${uid}`);
-    await this.app.redis.get('admin').del(`admin:perms:${uid}`);
+    await this.service.admin.sys.user.forbidden(uid);
   }
 
   /**
