@@ -120,7 +120,7 @@ export default class SysMenuController extends BaseController {
     const { menuId } = this.getBody();
     // 如果有子目录，一并删除
     const childMenus = await this.service.admin.sys.menu.findChildMenus(menuId);
-    await this.service.admin.sys.menu.deleteMenuItem(_.concat([ menuId ], childMenus));
+    await this.service.admin.sys.menu.deleteMenuItem(_.flattenDeep([ menuId, childMenus ]));
     await this.service.admin.sys.menu.refreshPerms(this.ctx.token.uid);
     this.res();
   }

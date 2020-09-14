@@ -45,13 +45,21 @@ export default class SysMenuService extends BaseService {
    * 查找当前菜单下的子菜单，目录以及菜单
    */
   async findChildMenus(mid: number) {
+    const allMenus: any = [];
     const menus = await this.getRepo().admin.sys.Menu.find({ parentId: mid });
-    if (_.isEmpty(menus)) {
-      return [];
+    // if (_.isEmpty(menus)) {
+    //   return allMenus;
+    // }
+    // const childMenus: any = [];
+    for (let i = 0; i < menus.length; i++) {
+      if (menus[i].type !== 2) {
+        // 子目录下是菜单或目录，继续往下级查找
+        const c = await this.findChildMenus(menus[i].id);
+        allMenus.push(c);
+      }
+      allMenus.push(menus[i].id);
     }
-    return menus.map(e => {
-      return e.id;
-    });
+    return allMenus;
   }
 
   /**
