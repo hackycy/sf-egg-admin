@@ -18,4 +18,25 @@ export default class SysLogService extends BaseService {
     });
   }
 
+  /**
+   * 计算日志总数
+   */
+  async count() {
+    return await this.getRepo().admin.sys.Log.count();
+  }
+
+  /**
+   * 分页加载日志信息
+   */
+  async page(page: number, count: number) {
+    const result = await this.getRepo().admin.sys.Log.find({
+      order: {
+        id: 'DESC',
+      },
+      take: count,
+      skip: page * count,
+    });
+    return result;
+  }
+
 }
