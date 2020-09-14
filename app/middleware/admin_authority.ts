@@ -10,6 +10,7 @@ const noTokenUrl = [
 const noPermUrl = [
   '/admin/permmenu',
   '/admin/upload/img',
+  '/admin/person',
 ];
 
 

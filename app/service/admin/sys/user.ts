@@ -8,6 +8,21 @@ import { Not, In } from 'typeorm';
 export default class SysUserService extends BaseService {
 
   /**
+   * 查询用户个人信息
+   */
+  async person(uid: number) {
+    const user: any = await this.getRepo().admin.sys.User.findOne({ id: uid });
+    this.logger.info(user);
+    if (!_.isEmpty(user)) {
+      delete user.password;
+      delete user.departmentId;
+      delete user.status;
+      delete user.remark;
+    }
+    return user;
+  }
+
+  /**
    * 增加系统用户，如果返回false则表示已存在该用户
    * @param param Object 对应SysUser实体类
    */
@@ -172,7 +187,7 @@ export default class SysUserService extends BaseService {
   /**
    * 更新用户信息
    */
-  async updateSelf(param: any) {
+  async updatePerson(param: any) {
     // if (param.id && param.id === 1) {
     //   // root用户不支持修改
     //   throw new Error('root unsupport update');
@@ -180,14 +195,9 @@ export default class SysUserService extends BaseService {
     if (!_.isEmpty(param.password)) {
       param.password = this.getHelper().aesEncrypt(
         this.getHelper().aesDecrypt(param.password, this.config.aesSecret.front), this.config.aesSecret.admin);
-      param.passwordV = param.passwordV + 1;
-      await this.app.redis.get('admin').set(`admin:passwordVersion:${param.id}`, param.passwordV);
+      this.upgradePasswordV(param.id);
     } else {
       delete param.password;
-    }
-    if (param.status === 0) {
-      // 禁用状态
-      await this.forbidden(param.id);
     }
     await this.getRepo().admin.sys.User.save(param);
   }

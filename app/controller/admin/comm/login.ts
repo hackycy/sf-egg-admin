@@ -66,4 +66,14 @@ export default class CommController extends BaseController {
     });
   }
 
+  /**
+   * 获取当前登录用户信息
+   */
+  @AdminRoute('/person', 'get')
+  async person() {
+    this.res({
+      data: await this.service.admin.sys.user.person(this.ctx.token.uid),
+    });
+  }
+
 }
