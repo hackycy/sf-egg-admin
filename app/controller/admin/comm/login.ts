@@ -56,6 +56,12 @@ export default class CommController extends BaseController {
     });
   }
 
+  @AdminRoute('/logout', 'post')
+  async logout() {
+    await this.service.admin.comm.verify.clearLoginStatus(this.ctx.token.uid);
+    this.res();
+  }
+
   /**
    * 获取权限菜单
    */
