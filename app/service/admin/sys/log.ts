@@ -39,4 +39,28 @@ export default class SysLogService extends BaseService {
     return result;
   }
 
+  /**
+   * 分页查询
+   */
+  async search(page: number, count: number, q: string) {
+    const allResult = await this.getRepo().admin.sys.Log.createQueryBuilder('log')
+      .where(`log.userId LIKE '%${q}%'`)
+      .orWhere(`log.ip LIKE '%${q}%'`)
+      .orWhere(`log.action LIKE '%${q}%'`)
+      .orWhere(`log.params LIKE '%${q}%'`)
+      .getMany();
+    const result = await this.getRepo().admin.sys.Log.createQueryBuilder('log')
+      .where(`log.userId LIKE '%${q}%'`)
+      .orWhere(`log.ip LIKE '%${q}%'`)
+      .orWhere(`log.action LIKE '%${q}%'`)
+      .orWhere(`log.params LIKE '%${q}%'`)
+      .skip(page * count)
+      .take(count)
+      .getMany();
+    return {
+      count: allResult.length,
+      logs: result,
+    };
+  }
+
 }

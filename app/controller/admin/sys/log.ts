@@ -6,9 +6,6 @@ import BaseController from '../../base';
  */
 export default class SysLogController extends BaseController {
 
-  /**
-   * 分页查询日志
-   */
   @AdminRoute('/sys/log/page', 'get')
   async page() {
     const { page = 1, limit = 50 } = this.getQuery();
@@ -23,6 +20,23 @@ export default class SysLogController extends BaseController {
         logs: await this.service.admin.sys.log.page(page - 1, limit),
         count: await this.service.admin.sys.log.count(),
       },
+    });
+  }
+
+  @AdminRoute('/sys/log/search', 'get')
+  async search() {
+    const errors = this.app.validator.validate({
+      q: 'string',
+    }, this.getQuery());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { page = 1, limit = 50, q } = this.getQuery();
+    this.res({
+      data: await this.service.admin.sys.log.search(page - 1, limit, q),
     });
   }
 
