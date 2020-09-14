@@ -46,7 +46,7 @@ export default class SysUserService extends BaseService {
     // 发送初始密码邮件
     if (param.email) {
       try {
-        await this.service.admin.comm.email.sendEmail({
+        this.service.admin.comm.email.sendEmail({
           from: 'noreply@mail.si-yee.com', // sender address
           to: param.email, // list of receivers
           subject: '系统登录初始密码，请妥善保管', // Subject line
@@ -63,22 +63,23 @@ export default class SysUserService extends BaseService {
    * 更新用户信息
    */
   async update(param: any) {
-    const { resetPassword = false } = param;
+    const { resetPassword = false, id, roles } = param;
     let pwd: string | null = null;
     if (resetPassword) {
       // 需要重置密码
       pwd = this.getHelper().generateRandomValue(8);
       param.password = this.getHelper().aesEncrypt(pwd, this.config.aesSecret.admin);
     }
+    delete param.roles;
+    delete param.id;
     delete param.resetPassword;
-    const result = await this.getRepo().admin.sys.User.save(param);
+    await this.getRepo().admin.sys.User.update(id, param);
     // 先删除原来的角色关系
-    await this.getRepo().admin.sys.User_role.delete({ userId: result.id });
-    const { roles } = param;
+    await this.getRepo().admin.sys.User_role.delete({ userId: id });
     const insertRoles = roles.map(e => {
       return {
         roleId: e,
-        userId: result.id,
+        userId: id,
       };
     });
     // 重新分配角色
@@ -88,12 +89,12 @@ export default class SysUserService extends BaseService {
       await this.forbidden(param.id);
     }
     if (resetPassword) {
-      await this.upgradePasswordV(result.id);
+      await this.upgradePasswordV(id);
     }
     // 发送初始密码邮件
     if (resetPassword && param.email) {
       try {
-        await this.service.admin.comm.email.sendEmail({
+        this.service.admin.comm.email.sendEmail({
           from: 'noreply@mail.si-yee.com', // sender address
           to: param.email, // list of receivers
           subject: '重置登录密码，请妥善保管', // Subject line

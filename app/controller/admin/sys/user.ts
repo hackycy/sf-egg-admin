@@ -87,12 +87,20 @@ export default class SysUserController extends BaseController {
   @AdminRoute('/sys/user/update', 'post')
   async update() {
     const errors = this.app.validator.validate({
+      id: 'int',
       departmentId: 'int',
       name: 'string',
       username: 'string',
       roles: 'array',
     }, this.getBody());
     if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { status } = this.getBody();
+    if (status !== 0 && status !== 1) {
       this.res({
         code: 10000,
       });
