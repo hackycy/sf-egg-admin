@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 14/09/2020 12:11:21
+ Date: 14/09/2020 18:28:12
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,6 @@ CREATE TABLE `sys_department` (
 BEGIN;
 INSERT INTO `sys_department` VALUES ('2020-08-27 03:33:19.000000', '2020-08-27 03:33:19.000000', 1, NULL, '思忆技术', 0);
 INSERT INTO `sys_department` VALUES ('2020-09-08 05:31:32.426851', '2020-09-11 08:56:17.000000', 2, 1, '管理部门', 0);
-INSERT INTO `sys_department` VALUES ('2020-09-11 02:55:54.554265', '2020-09-11 08:56:27.000000', 3, NULL, '人事部门', 0);
 COMMIT;
 
 -- ----------------------------
@@ -53,7 +52,7 @@ CREATE TABLE `sys_log` (
   `params` varchar(255) DEFAULT NULL,
   `action` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=448 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -74,7 +73,7 @@ CREATE TABLE `sys_menu` (
   `keepalive` tinyint(4) DEFAULT '1',
   `isShow` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -95,7 +94,7 @@ INSERT INTO `sys_menu` VALUES ('2020-09-04 09:41:43.133191', '2020-09-14 03:54:1
 INSERT INTO `sys_menu` VALUES ('2020-09-07 02:44:27.663925', '2020-09-07 08:51:18.000000', 25, 23, '删除', '', 'sys:role:delete', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-07 02:49:36.058795', '2020-09-14 03:56:56.000000', 26, 44, '饿了么文档', 'http://element-cn.eleme.io/#/zh-CN/component/installation', '', 1, 'international', 0, 'views/charts/keyboard', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-07 02:50:03.345817', '2020-09-14 03:56:47.000000', 27, 44, 'TypeORM中文文档', 'https://www.bookstack.cn/read/TypeORM-0.2.20-zh/README.md', '', 1, 'international', 2, 'views/error-log/components/ErrorTestB', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-09-07 07:08:18.106272', '2020-09-11 06:14:46.000000', 28, 23, '新增', '', 'sys:dept:list,sys:menu:list,sys:role:add', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-09-07 07:08:18.106272', '2020-09-14 10:26:58.000000', 28, 23, '新增', '', 'sys:role:add', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-07 08:51:48.319938', '2020-09-07 08:51:58.000000', 29, 23, '修改', '', 'sys:role:update', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-07 10:39:50.396350', '2020-09-09 06:34:13.000000', 32, 23, '查询', '', 'sys:role:list,sys:role:page,sys:role:info', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-08 05:29:40.117403', '2020-09-11 06:03:43.000000', 33, 4, '部门查询', '', 'sys:dept:list,sys:dept:info', 2, '', 0, '', 1, 1);
@@ -107,8 +106,9 @@ INSERT INTO `sys_menu` VALUES ('2020-09-11 04:34:52.949262', '2020-09-14 03:35:4
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:12:14.621531', '2020-09-11 06:12:14.621531', 39, 4, '部门新增', '', 'sys:dept:add', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:13:23.752133', '2020-09-11 06:13:23.752133', 40, 4, '部门删除', '', 'sys:dept:delete', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:29:52.437621', '2020-09-11 06:29:52.437621', 41, 4, '部门更新', '', 'sys:dept:update', 2, '', 0, '', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-09-14 03:14:48.168779', '2020-09-14 03:14:48.168779', 43, 38, '查询', '', 'sys:log:page', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-09-14 03:14:48.168779', '2020-09-14 10:00:55.000000', 43, 38, '查询', '', 'sys:log:page,sys:log:search', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 03:56:24.740870', '2020-09-14 03:56:24.740870', 44, NULL, '文档', '/document', '', 0, 'documentation', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-09-14 06:55:17.544866', '2020-09-14 08:39:30.000000', 45, NULL, '通用权限', '/common', '', 0, '', 0, '', 1, 0);
 COMMIT;
 
 -- ----------------------------
@@ -126,13 +126,14 @@ CREATE TABLE `sys_role` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_223de54d6badbe43a5490450c3` (`name`),
   UNIQUE KEY `IDX_f2d07943355da93c3a8a1c411a` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_role` VALUES ('2020-08-27 03:35:05.000000', '2020-08-27 03:35:05.000000', 1, 'root', 'root', '超级管理员', NULL);
+INSERT INTO `sys_role` VALUES ('2020-09-14 07:39:02.423786', '2020-09-14 07:39:02.423786', 2, '1', '测试角色', 'testrole', '');
 COMMIT;
 
 -- ----------------------------
@@ -146,7 +147,16 @@ CREATE TABLE `sys_role_department` (
   `role_id` bigint(20) NOT NULL,
   `department_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of sys_role_department
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_role_department` VALUES ('2020-09-14 07:39:02.445216', '2020-09-14 07:39:02.445216', 1, 2, 1);
+INSERT INTO `sys_role_department` VALUES ('2020-09-14 07:39:02.445216', '2020-09-14 07:39:02.445216', 2, 2, 2);
+INSERT INTO `sys_role_department` VALUES ('2020-09-14 07:39:02.445216', '2020-09-14 07:39:02.445216', 3, 2, 3);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -159,7 +169,16 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint(20) NOT NULL,
   `menu_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of sys_role_menu
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_role_menu` VALUES ('2020-09-14 07:39:02.432650', '2020-09-14 07:39:02.432650', 1, 2, 44);
+INSERT INTO `sys_role_menu` VALUES ('2020-09-14 07:39:02.432650', '2020-09-14 07:39:02.432650', 2, 2, 26);
+INSERT INTO `sys_role_menu` VALUES ('2020-09-14 07:39:02.432650', '2020-09-14 07:39:02.432650', 3, 2, 27);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -181,13 +200,14 @@ CREATE TABLE `sys_user` (
   `status` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_9e7164b2f1ea1348bc0eb0a7da` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-08-27 03:38:30.000000', 1, 1, '杨长源', 'hackycy', 'U2FsdGVkX19Lo7YsVEfAv5GU4hnCtmYcVS+m9ZwGEzE=', NULL, NULL, 'qa894178522@qq.com', '15622472425', NULL, 1);
+INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-08-27 03:38:30.000000', 1, 1, '杨长源', 'hackycy', 'U2FsdGVkX19Lo7YsVEfAv5GU4hnCtmYcVS+m9ZwGEzE=', NULL, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', 'qa894178522@qq.com', '15622472425', NULL, 1);
+INSERT INTO `sys_user` VALUES ('2020-09-14 07:41:33.732044', '2020-09-14 07:41:33.732044', 2, 2, '杨长源', 'test001', 'U2FsdGVkX1+1ieIz8hYRRjiSwiy1pDIXBjjnWJonYhU=', '', '', 'qa894178522@qq.com', '', '', 1);
 COMMIT;
 
 -- ----------------------------
@@ -201,13 +221,14 @@ CREATE TABLE `sys_user_role` (
   `user_id` bigint(20) NOT NULL,
   `role_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_user_role` VALUES ('2020-09-14 04:10:34.371646', '2020-09-14 04:10:34.371646', 1, 1, 1);
+INSERT INTO `sys_user_role` VALUES ('2020-09-14 07:41:33.740680', '2020-09-14 07:41:33.740680', 2, 2, 2);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
