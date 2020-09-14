@@ -22,7 +22,7 @@ export default class SysUser extends BaseEntity {
   nickName: string;
 
   @Column({ name: 'head_img', nullable: true })
-  headImd: string;
+  headImg: string;
 
   @Column({ nullable: true })
   email: string;
