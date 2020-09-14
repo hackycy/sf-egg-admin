@@ -111,10 +111,10 @@ export default class SysMenuService extends BaseService {
   }
 
   /**
-   * 删除一项菜单
+   * 删除多项菜单
    */
-  async deleteMenuItem(mid: number[]) {
-    return await this.getRepo().admin.sys.Menu.delete(mid);
+  async deleteMenuItem(mids: number[]) {
+    return await this.getRepo().admin.sys.Menu.delete(mids);
   }
 
   /**
