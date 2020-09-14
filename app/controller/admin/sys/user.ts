@@ -107,6 +107,7 @@ export default class SysUserController extends BaseController {
       return;
     }
     await this.service.admin.sys.user.update(this.getBody());
+    await this.service.admin.sys.menu.refreshPerms(this.ctx.token.uid);
     this.res();
   }
 
