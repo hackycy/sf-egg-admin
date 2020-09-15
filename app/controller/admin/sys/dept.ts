@@ -52,6 +52,14 @@ export default class SysDeptController extends BaseController {
       });
       return;
     }
+    // 查询是否有关联的角色，角色与部门存在数据相互绑定
+    const count2 = await this.service.admin.sys.dept.countRoleByDeptId(departmentId);
+    if (count2) {
+      this.res({
+        code: 10010,
+      });
+      return;
+    }
     await this.service.admin.sys.dept.delete(departmentId);
     this.res();
   }
