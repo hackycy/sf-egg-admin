@@ -41,7 +41,7 @@ export default function adminAuthority(): any {
           await next();
           return;
         }
-        const pv = await ctx.app.redis.get('admin').get(`admin:pv:${ctx.token.uid}`);
+        const pv = await ctx.app.redis.get('admin').get(`admin:passwordVersion:${ctx.token.uid}`);
         if (pv !== `${ctx.token.pv}`) {
           // 判断密码版本，防止登录时更改密码还在允许使用
           errorCode = 11002;
@@ -72,7 +72,7 @@ export default function adminAuthority(): any {
         }
       }
       if (statusCode > 200) {
-        ctx.status = statusCode;
+        ctx.status = 200;
         ctx.body = {
           code: errorCode,
           message: ctx.helper.getErrorMessageByCode(`${errorCode}`),
