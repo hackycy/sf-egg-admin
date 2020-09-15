@@ -62,7 +62,7 @@ export default class VerifyService extends BaseService {
     }, {
       expiresIn: '24h',
     });
-    await this.app.redis.get('admin').set(`admin:pv:${user!.id}`, 1);
+    await this.app.redis.get('admin').set(`admin:passwordVersion:${user!.id}`, 1);
     await this.app.redis.get('admin').set(`admin:token:${user!.id}`, jwtSign);
     await this.app.redis.get('admin').set(`admin:perms:${user!.id}`, JSON.stringify(perms));
     return jwtSign;

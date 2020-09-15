@@ -12,14 +12,40 @@ export default class SysUserService extends BaseService {
    */
   async person(uid: number) {
     const user: any = await this.getRepo().admin.sys.User.findOne({ id: uid });
-    this.logger.info(user);
     if (!_.isEmpty(user)) {
-      delete user.password;
       delete user.departmentId;
       delete user.status;
       delete user.remark;
+      delete user.password;
     }
     return user;
+  }
+
+  /**
+   * 更新个人信息
+   */
+  async personUpdate(uid: number, param: any) {
+    const { name, nickName, email, phone, originPassword, newPassword, remark } = param;
+    let savePassword: string | undefined;
+    if (originPassword && newPassword) {
+      const user = await this.getRepo().admin.sys.User.findOne({ id: uid });
+      const decodePassword = this.getHelper().aesDecrypt(user!.password, this.config.aesSecret.admin);
+      const decodeOriginPassword = this.getHelper().aesDecrypt(originPassword, this.config.aesSecret.front);
+      const decodeNewPassword = this.getHelper().aesDecrypt(newPassword, this.config.aesSecret.front);
+      if (decodePassword === decodeOriginPassword) {
+        // 旧密码不一致
+        savePassword = this.getHelper().aesEncrypt(decodeNewPassword, this.config.aesSecret.admin);
+      } else {
+        return false;
+      }
+    }
+    const obj: any = { name, nickName, email, phone, remark };
+    if (savePassword) {
+      await this.service.admin.sys.user.upgradePasswordV(uid);
+      obj.password = savePassword;
+    }
+    await this.getRepo().admin.sys.User.update(uid, obj);
+    return true;
   }
 
   /**
@@ -186,24 +212,10 @@ export default class SysUserService extends BaseService {
   }
 
   /**
-   * 更新用户信息
-   */
-  async updatePerson(param: any) {
-    if (!_.isEmpty(param.password)) {
-      param.password = this.getHelper().aesEncrypt(
-        this.getHelper().aesDecrypt(param.password, this.config.aesSecret.front), this.config.aesSecret.admin);
-      this.upgradePasswordV(param.id);
-    } else {
-      delete param.password;
-    }
-    await this.getRepo().admin.sys.User.save(param);
-  }
-
-  /**
    * 禁用用户
    */
   async forbidden(uid: number) {
-    await this.app.redis.get('admin').del(`admin:pv:${uid}`);
+    await this.app.redis.get('admin').del(`admin:passwordVersion:${uid}`);
     await this.app.redis.get('admin').del(`admin:token:${uid}`);
     await this.app.redis.get('admin').del(`admin:perms:${uid}`);
   }

@@ -82,4 +82,25 @@ export default class CommController extends BaseController {
     });
   }
 
+  @AdminRoute('/person', 'post')
+  async personUpdate() {
+    const errors = this.app.validator.validate({
+      name: 'string',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const result = await this.service.admin.sys.user.personUpdate(this.ctx.token.uid, this.getBody());
+    if (!result) {
+      this.res({
+        code: 10011,
+      });
+    } else {
+      this.res();
+    }
+  }
+
 }
