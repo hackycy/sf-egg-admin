@@ -12,7 +12,7 @@ export default class SysLog extends BaseEntity {
   @Column({ type: 'bigint', nullable: true, name: 'user_id' })
   userId: number;
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   params: string;
 
   @Column({ length: 100, nullable: true })
