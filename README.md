@@ -1,4 +1,4 @@
-# 思忆后台管理系统
+# 思忆后台Api服务端
 
 基于TypeScript + Eggjs实现
 
