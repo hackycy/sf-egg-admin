@@ -137,7 +137,7 @@ export default class SysUserService extends BaseService {
    * @param id 用户id
    */
   async info(id: number) {
-    const user = await this.getRepo().admin.sys.User.findOne(id);
+    const user: any = await this.getRepo().admin.sys.User.findOne(id);
     if (_.isEmpty(user)) {
       throw new Error('unfind this user info');
     }
@@ -149,6 +149,7 @@ export default class SysUserService extends BaseService {
     const roles = roleRows.map(e => {
       return e.roleId;
     });
+    delete user!.password;
     return { ...user, roles, departmentName: departmentRow!.name };
   }
 
