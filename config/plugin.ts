@@ -8,7 +8,7 @@ const plugin: EggPlugin = {
   // },
   typeorm: {
     enable: true,
-    package: 'egg-ts-typeorm',
+    package: '@hackycy/egg-typeorm',
   },
   redis: {
     enable: true,
