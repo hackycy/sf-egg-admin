@@ -31,8 +31,8 @@ export default class SysRoleService extends BaseService {
    */
   async info(rid: number) {
     const roleInfo = await this.getRepo().admin.sys.Role.findOne({ id: rid });
-    const menus = await this.getRepo().admin.sys.Role_menu.find({ roleId: rid });
-    const depts = await this.getRepo().admin.sys.Role_department.find({ roleId: rid });
+    const menus = await this.getRepo().admin.sys.RoleMenu.find({ roleId: rid });
+    const depts = await this.getRepo().admin.sys.RoleDepartment.find({ roleId: rid });
     return { roleInfo, menus, depts };
   }
 
@@ -67,7 +67,7 @@ export default class SysRoleService extends BaseService {
           menuId: m,
         };
       });
-      await this.getRepo().admin.sys.Role_menu.insert(insertRows);
+      await this.getRepo().admin.sys.RoleMenu.insert(insertRows);
     }
     if (depts && depts.length > 0) {
       // 关联部门
@@ -77,7 +77,7 @@ export default class SysRoleService extends BaseService {
           departmentId: d,
         };
       });
-      await this.getRepo().admin.sys.Role_department.insert(insertRows);
+      await this.getRepo().admin.sys.RoleDepartment.insert(insertRows);
     }
     return { roleId };
   }
@@ -88,8 +88,8 @@ export default class SysRoleService extends BaseService {
   async update(param: any) {
     const { roleId, name, label, remark, menus, depts } = param;
     const role = await this.getRepo().admin.sys.Role.save({ id: roleId, name, label, remark });
-    const originDeptRows = await this.getRepo().admin.sys.Role_department.find({ roleId });
-    const originMenuRows = await this.getRepo().admin.sys.Role_menu.find({ roleId });
+    const originDeptRows = await this.getRepo().admin.sys.RoleDepartment.find({ roleId });
+    const originMenuRows = await this.getRepo().admin.sys.RoleMenu.find({ roleId });
     const originMenuIds = originMenuRows.map(e => { return e.menuId; });
     const originDeptIds = originDeptRows.map(e => { return e.departmentId; });
     // 开始对比差异
@@ -106,14 +106,14 @@ export default class SysRoleService extends BaseService {
           menuId: e,
         };
       });
-      await this.getRepo().admin.sys.Role_menu.insert(insertRows);
+      await this.getRepo().admin.sys.RoleMenu.insert(insertRows);
     }
     if (deleteMenusRowIds.length > 0) {
       // 有条目需要删除
       const realDeleteRowIds = _.filter(originMenuRows, e => {
         return _.includes(deleteMenusRowIds, e.menuId);
       }).map(e => { return e.id; });
-      await this.getRepo().admin.sys.Role_menu.delete(realDeleteRowIds);
+      await this.getRepo().admin.sys.RoleMenu.delete(realDeleteRowIds);
     }
     // 部门
     if (insertDeptRowIds.length > 0) {
@@ -124,14 +124,14 @@ export default class SysRoleService extends BaseService {
           departmentId: e,
         };
       });
-      await this.getRepo().admin.sys.Role_department.insert(insertRows);
+      await this.getRepo().admin.sys.RoleDepartment.insert(insertRows);
     }
     if (deleteDeptRowIds.length > 0) {
       // 有条目需要删除
       const realDeleteRowIds = _.filter(originDeptRows, e => {
         return _.includes(deleteDeptRowIds, e.departmentId);
       }).map(e => { return e.id; });
-      await this.getRepo().admin.sys.Role_department.delete(realDeleteRowIds);
+      await this.getRepo().admin.sys.RoleDepartment.delete(realDeleteRowIds);
     }
     return role;
   }
@@ -157,7 +157,7 @@ export default class SysRoleService extends BaseService {
    * 根据用户id查找角色信息
    */
   async getRoleIdByUser(id: number) {
-    const result = await this.getRepo().admin.sys.User_role.find({
+    const result = await this.getRepo().admin.sys.UserRole.find({
       where: {
         userId: id,
       },
@@ -177,7 +177,7 @@ export default class SysRoleService extends BaseService {
     if (_.includes(ids, this.config.rootRoleId)) {
       throw new Error('Not Support Delete Root');
     }
-    return await this.getRepo().admin.sys.User_role.count({ roleId: In(ids) });
+    return await this.getRepo().admin.sys.UserRole.count({ roleId: In(ids) });
   }
 
 }
