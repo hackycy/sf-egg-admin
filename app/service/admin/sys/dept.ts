@@ -70,7 +70,7 @@ export default class SysDeptService extends BaseService {
    * 根据部门查询关联的角色
    */
   async countRoleByDeptId(id: number) {
-    return await this.getRepo().admin.sys.Role_department.count({ departmentId: id });
+    return await this.getRepo().admin.sys.RoleDepartment.count({ departmentId: id });
   }
 
   /**

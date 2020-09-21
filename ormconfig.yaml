@@ -1,0 +1,2 @@
+default: # 默认连接 
+  entitiesDir: app/entities

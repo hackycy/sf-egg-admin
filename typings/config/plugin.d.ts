@@ -14,7 +14,7 @@ import 'egg-schedule';
 import 'egg-static';
 import 'egg-jsonp';
 import 'egg-view';
-import 'egg-ts-typeorm';
+import '@hackycy/egg-typeorm';
 import 'egg-redis';
 import 'egg-validate';
 import 'egg-global-header';

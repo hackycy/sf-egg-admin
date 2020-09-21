@@ -68,7 +68,7 @@ export default class SysUserService extends BaseService {
       };
     });
     // 分配角色
-    await this.getRepo().admin.sys.User_role.insert(insertRoles);
+    await this.getRepo().admin.sys.UserRole.insert(insertRoles);
     // 发送初始密码邮件
     if (param.email) {
       try {
@@ -101,7 +101,7 @@ export default class SysUserService extends BaseService {
     delete param.resetPassword;
     await this.getRepo().admin.sys.User.update(id, param);
     // 先删除原来的角色关系
-    await this.getRepo().admin.sys.User_role.delete({ userId: id });
+    await this.getRepo().admin.sys.UserRole.delete({ userId: id });
     const insertRoles = roles.map(e => {
       return {
         roleId: e,
@@ -109,7 +109,7 @@ export default class SysUserService extends BaseService {
       };
     });
     // 重新分配角色
-    await this.getRepo().admin.sys.User_role.insert(insertRoles);
+    await this.getRepo().admin.sys.UserRole.insert(insertRoles);
     if (param.status === 0) {
       // 禁用状态
       await this.forbidden(param.id);
@@ -145,7 +145,7 @@ export default class SysUserService extends BaseService {
     if (_.isEmpty(departmentRow)) {
       throw new Error('unfind this user info');
     }
-    const roleRows = await this.getRepo().admin.sys.User_role.find({ userId: user!.id });
+    const roleRows = await this.getRepo().admin.sys.UserRole.find({ userId: user!.id });
     const roles = roleRows.map(e => {
       return e.roleId;
     });
@@ -158,7 +158,7 @@ export default class SysUserService extends BaseService {
    */
   async delete(userIds: number[]) {
     await this.getRepo().admin.sys.User.delete(userIds);
-    await this.getRepo().admin.sys.User_role.delete({ userId: In(userIds) });
+    await this.getRepo().admin.sys.UserRole.delete({ userId: In(userIds) });
   }
 
   /**
