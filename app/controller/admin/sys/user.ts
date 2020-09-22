@@ -78,7 +78,7 @@ export default class SysUserController extends BaseController {
     }
     this.res({
       data: {
-        users: await this.service.admin.sys.user.page(parseInt(departmentId), page - 1, limit),
+        users: await this.service.admin.sys.user.page(parseInt(departmentId), parseInt(page) - 1, parseInt(limit)),
         userTotalCount: await this.service.admin.sys.user.count(parseInt(departmentId)),
       },
     });

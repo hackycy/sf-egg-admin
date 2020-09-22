@@ -17,7 +17,7 @@ export default class SysLogController extends BaseController {
     }
     this.res({
       data: {
-        logs: await this.service.admin.sys.log.page(page - 1, limit),
+        logs: await this.service.admin.sys.log.page(parseInt(page) - 1, parseInt(limit)),
         count: await this.service.admin.sys.log.count(),
       },
     });

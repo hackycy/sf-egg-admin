@@ -21,7 +21,7 @@ export default class SysRoleController extends BaseController {
     }
     this.res({
       data: {
-        roles: await this.service.admin.sys.role.page(page - 1, limit),
+        roles: await this.service.admin.sys.role.page(parseInt(page) - 1, parseInt(limit)),
         roleTotalCount: await this.service.admin.sys.role.count(),
       },
     });
