@@ -11,6 +11,8 @@ import EntitiesAdminSysRoleDepartment from '../app/entities/admin/sys/role_depar
 import EntitiesAdminSysRoleMenu from '../app/entities/admin/sys/role_menu'
 import EntitiesAdminSysUser from '../app/entities/admin/sys/user'
 import EntitiesAdminSysUserRole from '../app/entities/admin/sys/user_role'
+import EntitiesAdminImageSpaceInfo from '../app/entities/admin/image/space/info'
+import EntitiesAdminImageSpaceType from '../app/entities/admin/image/space/type'
 
 declare module 'egg' {
   interface Context {
@@ -26,6 +28,12 @@ declare module 'egg' {
           User: typeof EntitiesAdminSysUser
           UserRole: typeof EntitiesAdminSysUserRole
         }
+        image: {
+          space: {
+            Info: typeof EntitiesAdminImageSpaceInfo
+            Type: typeof EntitiesAdminImageSpaceType
+          }
+        }
       }
     }
     repo: {
@@ -39,6 +47,12 @@ declare module 'egg' {
           RoleMenu: Repository<EntitiesAdminSysRoleMenu>
           User: Repository<EntitiesAdminSysUser>
           UserRole: Repository<EntitiesAdminSysUserRole>
+        }
+        image: {
+          space: {
+            Info: Repository<EntitiesAdminImageSpaceInfo>
+            Type: Repository<EntitiesAdminImageSpaceType>
+          }
         }
       }
     }
