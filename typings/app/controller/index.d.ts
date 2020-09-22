@@ -5,7 +5,7 @@ import 'egg';
 import ExportBase from '../../../app/controller/base';
 import ExportWelcome from '../../../app/controller/welcome';
 import ExportAdminCommLogin from '../../../app/controller/admin/comm/login';
-import ExportAdminCommUpload from '../../../app/controller/admin/comm/upload';
+import ExportAdminSpaceImage from '../../../app/controller/admin/space/image';
 import ExportAdminSysDept from '../../../app/controller/admin/sys/dept';
 import ExportAdminSysLog from '../../../app/controller/admin/sys/log';
 import ExportAdminSysMenu from '../../../app/controller/admin/sys/menu';
@@ -19,7 +19,9 @@ declare module 'egg' {
     admin: {
       comm: {
         login: ExportAdminCommLogin;
-        upload: ExportAdminCommUpload;
+      }
+      space: {
+        image: ExportAdminSpaceImage;
       }
       sys: {
         dept: ExportAdminSysDept;

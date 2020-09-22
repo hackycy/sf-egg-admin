@@ -10,6 +10,7 @@ import ExportBase from '../../../app/service/base';
 import ExportAdminCommEmail from '../../../app/service/admin/comm/email';
 import ExportAdminCommOss from '../../../app/service/admin/comm/oss';
 import ExportAdminCommVerify from '../../../app/service/admin/comm/verify';
+import ExportAdminSpaceImage from '../../../app/service/admin/space/image';
 import ExportAdminSysDept from '../../../app/service/admin/sys/dept';
 import ExportAdminSysLog from '../../../app/service/admin/sys/log';
 import ExportAdminSysMenu from '../../../app/service/admin/sys/menu';
@@ -24,6 +25,9 @@ declare module 'egg' {
         email: AutoInstanceType<typeof ExportAdminCommEmail>;
         oss: AutoInstanceType<typeof ExportAdminCommOss>;
         verify: AutoInstanceType<typeof ExportAdminCommVerify>;
+      }
+      space: {
+        image: AutoInstanceType<typeof ExportAdminSpaceImage>;
       }
       sys: {
         dept: AutoInstanceType<typeof ExportAdminSysDept>;
