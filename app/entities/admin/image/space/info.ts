@@ -6,7 +6,7 @@ export default class ImageSpaceInfo extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
-  @Column({ name: 'type_id', type: 'bigint', nullable: true })
+  @Column({ name: 'type_id', type: 'bigint' })
   typeId: number;
 
   @Column({ type: 'varchar', length: 500 })
