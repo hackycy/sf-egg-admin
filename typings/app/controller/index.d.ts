@@ -3,7 +3,6 @@
 
 import 'egg';
 import ExportBase from '../../../app/controller/base';
-import ExportWelcome from '../../../app/controller/welcome';
 import ExportAdminCommLogin from '../../../app/controller/admin/comm/login';
 import ExportAdminSpaceImage from '../../../app/controller/admin/space/image';
 import ExportAdminSysDept from '../../../app/controller/admin/sys/dept';
@@ -15,7 +14,6 @@ import ExportAdminSysUser from '../../../app/controller/admin/sys/user';
 declare module 'egg' {
   interface IController {
     base: ExportBase;
-    welcome: ExportWelcome;
     admin: {
       comm: {
         login: ExportAdminCommLogin;
