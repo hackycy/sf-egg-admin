@@ -19,3 +19,7 @@ config/**/*.js
 app/**/*.map
 test/**/*.map
 config/**/*.map
+
+typings/app/*
+typings/config/*
+typings/typeorm.d.ts
