@@ -6,19 +6,19 @@ import BaseController from '../../base';
  */
 export default class ImageSpaceController extends BaseController {
 
-  @AdminRoute('/image/space/page', 'get')
+  @AdminRoute('/space/image/page', 'get')
   async page() {
-    // const errors = this.app.validator.validate({
-    //   typeId: 'string',
-    // }, this.getQuery());
-    // if (errors) {
-    //   this.res({
-    //     code: 10000,
-    //   });
-    //   return;
-    // }
+    const errors = this.app.validator.validate({
+      typeId: 'string',
+    }, this.getQuery());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
     // typeIda为-1时则查找全部
-    const { page = 1, limit = 25, typeId = -1 } = this.getQuery();
+    const { page = 1, limit = 12, typeId = -1 } = this.getQuery();
     if (page < 1 || limit <= 0) {
       this.res({
         code: 10000,
@@ -27,20 +27,20 @@ export default class ImageSpaceController extends BaseController {
     }
     this.res({
       data: {
-        images: await this.service.admin.space.image.page(typeId, parseInt(page) - 1, parseInt(limit)),
-        imageTotalCount: await this.service.admin.space.image.count(typeId),
+        images: await this.service.admin.space.image.page(parseInt(typeId), parseInt(page) - 1, parseInt(limit)),
+        imageTotalCount: await this.service.admin.space.image.count(parseInt(typeId)),
       },
     });
   }
 
-  @AdminRoute('/image/sapce/type', 'get')
+  @AdminRoute('/space/image/type', 'get')
   async type() {
     this.res({
       data: await this.service.admin.space.image.type(),
     });
   }
 
-  @AdminRoute('/image/space/upload', 'post')
+  @AdminRoute('/space/image/upload', 'post')
   async upload() {
     const errors = this.app.validator.validate({
       typeId: 'int',
