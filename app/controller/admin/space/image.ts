@@ -17,8 +17,8 @@ export default class ImageSpaceController extends BaseController {
     //   });
     //   return;
     // }
-    // 不穿typeId默认查找全部
-    const { page = 1, limit = 25, typeId } = this.getQuery();
+    // typeIda为-1时则查找全部
+    const { page = 1, limit = 25, typeId = -1 } = this.getQuery();
     if (page < 1 || limit <= 0) {
       this.res({
         code: 10000,
@@ -42,6 +42,30 @@ export default class ImageSpaceController extends BaseController {
 
   @AdminRoute('/image/space/upload', 'post')
   async upload() {
+    const errors = this.app.validator.validate({
+      typeId: 'int',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { typeId } = this.getQuery();
+    if (typeId === -1) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const existsSpace = await this.service.admin.space.image.find(typeId);
+    // 查找图片空间是否存在
+    if (!existsSpace) {
+      this.res({
+        code: 20002,
+      });
+      return;
+    }
     const file = this.ctx.request.files[0];
     if (!file) {
       this.res({ code: 20001 });
@@ -50,13 +74,14 @@ export default class ImageSpaceController extends BaseController {
     try {
       const data: any = await this.service.admin.comm.oss.upload(file);
       const { key, hash } = data;
+      const url = `${cdnUrl}/${key}`;
+      await this.service.admin.space.image.add(typeId, url, JSON.stringify({ key, hash }));
       this.res({
         data: {
-          url: `${cdnUrl}/${key}`,
+          url,
           hash,
         },
       });
-
     } catch (e) {
       this.res({ code: 20001 });
     }
