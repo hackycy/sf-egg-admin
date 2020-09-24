@@ -25,7 +25,7 @@ export default class SysUserService extends BaseService {
    * 更新个人信息
    */
   async personUpdate(uid: number, param: any) {
-    const { name, nickName, email, phone, originPassword, newPassword, remark } = param;
+    const { name, nickName, email, phone, originPassword, newPassword, remark, headImg } = param;
     let savePassword: string | undefined;
     if (originPassword && newPassword) {
       const user = await this.getRepo().admin.sys.User.findOne({ id: uid });
@@ -39,7 +39,7 @@ export default class SysUserService extends BaseService {
         return false;
       }
     }
-    const obj: any = { name, nickName, email, phone, remark };
+    const obj: any = { name, nickName, email, phone, remark, headImg };
     if (savePassword) {
       await this.service.admin.sys.user.upgradePasswordV(uid);
       obj.password = savePassword;
