@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 24/09/2020 15:48:53
+ Date: 24/09/2020 17:18:12
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `image_space_info` (
   `url` varchar(500) NOT NULL,
   `extra` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of image_space_info
@@ -50,7 +50,7 @@ CREATE TABLE `image_space_type` (
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_91decef4a2b88cb59caf658d44` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of image_space_type
@@ -95,7 +95,7 @@ CREATE TABLE `sys_log` (
   `params` text,
   `action` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1912 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2055 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -127,13 +127,13 @@ INSERT INTO `sys_menu` VALUES ('2020-08-01 00:00:00.000000', '2020-09-14 03:53:3
 INSERT INTO `sys_menu` VALUES ('2020-08-08 00:00:00.000000', '2020-09-08 06:54:45.000000', 4, 3, '用户列表', '/sys/permssion/user', NULL, 1, 'peoples', 0, 'views/system/permission/user', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-08-15 00:00:00.000000', '2020-09-11 06:11:52.000000', 5, 4, '新增', NULL, 'sys:user:add', 2, NULL, 0, NULL, 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-08-15 00:00:00.000000', '2020-09-11 06:13:03.000000', 6, 4, '删除', NULL, 'sys:user:delete', 2, NULL, 0, NULL, 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-08-08 00:00:00.000000', '2020-09-14 03:53:52.000000', 7, 3, '菜单管理', '/sys/permssion/menu', NULL, 1, 'nested', 0, 'views/system/permission/menu', 0, 1);
+INSERT INTO `sys_menu` VALUES ('2020-08-08 00:00:00.000000', '2020-09-24 09:16:46.000000', 7, 3, '菜单列表', '/sys/permssion/menu', NULL, 1, 'menu', 0, 'views/system/permission/menu', 0, 1);
 INSERT INTO `sys_menu` VALUES ('2020-08-15 00:00:00.000000', '2020-08-15 00:00:00.000000', 8, 7, '新增', NULL, 'sys:menu:add', 2, NULL, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES ('2020-08-15 00:00:00.000000', '2020-08-15 00:00:00.000000', 9, 7, '删除', NULL, 'sys:menu:delete', 2, NULL, 0, NULL, 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-02 08:22:27.548410', '2020-09-02 08:22:27.548410', 10, 7, '查询', NULL, 'sys:menu:list,sys:menu:info', 2, NULL, 0, NULL, 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-04 06:26:36.408290', '2020-09-04 07:13:30.000000', 17, 16, '测试', '', 'sys:menu:list,sys:menu:update,sys:menu:info,sys:menu:add', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-04 08:08:53.621419', '2020-09-04 08:08:53.621419', 19, 7, '修改', '', 'sys:menu:update', 2, '', 0, '', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-09-04 09:41:43.133191', '2020-09-14 03:54:18.000000', 23, 3, '角色管理', '/sys/permission/role', '', 1, 'role', 0, 'views/system/permission/role', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-09-04 09:41:43.133191', '2020-09-24 09:16:56.000000', 23, 3, '角色列表', '/sys/permission/role', '', 1, 'role', 0, 'views/system/permission/role', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-07 02:44:27.663925', '2020-09-07 08:51:18.000000', 25, 23, '删除', '', 'sys:role:delete', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-07 02:49:36.058795', '2020-09-14 03:56:56.000000', 26, 44, '饿了么文档', 'http://element-cn.eleme.io/#/zh-CN/component/installation', '', 1, 'international', 0, 'views/charts/keyboard', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-07 02:50:03.345817', '2020-09-14 03:56:47.000000', 27, 44, 'TypeORM中文文档', 'https://www.bookstack.cn/read/TypeORM-0.2.20-zh/README.md', '', 1, 'international', 2, 'views/error-log/components/ErrorTestB', 1, 1);
@@ -145,13 +145,13 @@ INSERT INTO `sys_menu` VALUES ('2020-09-09 07:10:08.435753', '2020-09-10 03:41:3
 INSERT INTO `sys_menu` VALUES ('2020-09-10 05:09:31.904519', '2020-09-10 05:09:31.904519', 35, 4, '更新', '', 'sys:user:update', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-10 08:02:29.853643', '2020-09-10 08:02:40.000000', 36, 4, '部门转移', '', 'sys:dept:transfer', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-11 04:34:00.379002', '2020-09-14 03:29:59.000000', 37, 1, '系统监控', '/sys/monitor', '', 0, 'monitor', 0, '', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-09-11 04:34:52.949262', '2020-09-14 03:35:49.000000', 38, 37, '系统日志', '/sys/monitor/log', '', 1, 'log', 0, 'views/system/monitor/log', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-09-11 04:34:52.949262', '2020-09-24 09:16:33.000000', 38, 37, '请求日志', '/sys/monitor/log', '', 1, 'log', 0, 'views/system/monitor/log', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:12:14.621531', '2020-09-11 06:12:14.621531', 39, 4, '部门新增', '', 'sys:dept:add', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:13:23.752133', '2020-09-11 06:13:23.752133', 40, 4, '部门删除', '', 'sys:dept:delete', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:29:52.437621', '2020-09-11 06:29:52.437621', 41, 4, '部门更新', '', 'sys:dept:update', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 03:14:48.168779', '2020-09-14 10:00:55.000000', 43, 38, '查询', '', 'sys:log:page,sys:log:search', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 03:56:24.740870', '2020-09-14 03:56:24.740870', 44, NULL, '文档', '/document', '', 0, 'documentation', 0, '', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-09-14 06:55:17.544866', '2020-09-14 08:39:30.000000', 45, NULL, '通用权限', '/common', '', 0, '', 0, '', 1, 0);
+INSERT INTO `sys_menu` VALUES ('2020-09-14 06:55:17.544866', '2020-09-24 08:00:12.000000', 45, NULL, '通用权限', '/common', '', 0, '', 0, '', 1, 0);
 INSERT INTO `sys_menu` VALUES ('2020-09-23 07:31:28.700348', '2020-09-24 05:22:45.000000', 46, 45, '图片空间', '', 'space:image:type:list,space:image:type:add,space:image:type:delete,space:image:page,space:image:delete,space:image:upload', 2, '', 0, '', 1, 1);
 COMMIT;
 
@@ -264,7 +264,7 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-09-24 06:21:13.000000', 1, 1, '杨长源', 'hackycy', 'U2FsdGVkX18E8MLkt/45xe3xRALUa6mE9udOXcxrVCA=', '', 'http://image.si-yee.com/头像/20200924_022044.jpeg', 'qa894178522@qq.com', '15622472425', NULL, 1);
-INSERT INTO `sys_user` VALUES ('2020-09-14 07:41:33.732000', '2020-09-14 07:41:33.732000', 2, 2, '杨长源', 'test001', 'U2FsdGVkX1+iVR+kHHErkPNInZiV27Mpk4pFL8uhtTQ=', '', '', 'qa894178522@qq.com', '', '', 1);
+INSERT INTO `sys_user` VALUES ('2020-09-14 07:41:33.732000', '2020-09-14 07:41:33.732000', 2, 2, '杨长源', 'test001', 'U2FsdGVkX1+iVR+kHHErkPNInZiV27Mpk4pFL8uhtTQ=', '', '', 'qa894178522@qq.com', '', '', 0);
 COMMIT;
 
 -- ----------------------------
@@ -278,14 +278,14 @@ CREATE TABLE `sys_user_role` (
   `user_id` bigint(20) NOT NULL,
   `role_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_user_role` VALUES ('2020-09-14 04:10:34.371646', '2020-09-14 04:10:34.371646', 1, 1, 1);
-INSERT INTO `sys_user_role` VALUES ('2020-09-23 03:59:13.035554', '2020-09-23 03:59:13.035554', 6, 2, 2);
+INSERT INTO `sys_user_role` VALUES ('2020-09-24 07:59:41.903155', '2020-09-24 07:59:41.903155', 7, 2, 2);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
