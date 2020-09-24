@@ -1,5 +1,6 @@
 import { AdminRoute } from '../../../decorator/router_register';
 import BaseController from '../../base';
+import * as _ from 'lodash';
 
 /**
  * 图片空间控制器
@@ -80,6 +81,23 @@ export default class ImageSpaceController extends BaseController {
 
   @AdminRoute('/space/image/delete', 'post')
   async deleteImage() {
+    const errors = this.app.validator.validate({
+      imageIds: 'array',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { imageIds } = this.getBody();
+    if (imageIds.length <= 0) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    await this.service.admin.space.image.deleteImageByIds(imageIds);
     this.res();
   }
 
@@ -97,26 +115,23 @@ export default class ImageSpaceController extends BaseController {
     let { typeId } = this.getBody();
     typeId = parseInt(typeId);
     if (typeId === -1) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const existsSpace = await this.service.admin.space.image.find(typeId);
-    // 查找图片空间是否存在
-    if (!existsSpace) {
-      this.res({
-        code: 20002,
-      });
+      this.res({ code: 10000 });
       return;
     }
     const file = this.ctx.request.files[0];
     if (!file) {
       this.res({ code: 20001 });
+      return;
+    }
+    const type = await this.service.admin.space.image.find(typeId);
+    // 查找图片空间是否存在
+    if (_.isEmpty(type)) {
+      this.res({ code: 20002 });
+      return;
     }
     const { cdnUrl } = this.config.qiniu;
     try {
-      const data: any = await this.service.admin.comm.oss.upload(file);
+      const data: any = await this.service.admin.comm.oss.upload(file, type!.name);
       const { key, hash } = data;
       const url = `${cdnUrl}/${key}`;
       await this.service.admin.space.image.add(typeId, url, JSON.stringify({ key, hash }));

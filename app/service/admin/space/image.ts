@@ -1,5 +1,5 @@
 import BaseService from '../../base';
-import * as _ from 'lodash';
+import { In } from 'typeorm';
 
 /**
  * 图片空间Service
@@ -11,10 +11,7 @@ export default class ImageSpaceService extends BaseService {
    */
   async find(typeId: number) {
     const result = await this.getRepo().admin.image.space.Type.findOne({ id: typeId });
-    if (_.isEmpty(result)) {
-      return false;
-    }
-    return true;
+    return result;
   }
 
   /**
@@ -51,6 +48,15 @@ export default class ImageSpaceService extends BaseService {
    */
   async count(typeId: number) {
     return await this.getRepo().admin.image.space.Info.count(typeId === -1 ? {} : { typeId });
+  }
+
+  /**
+   * 根据数据id删除图片
+   */
+  async deleteImageByIds(ids: number[]) {
+    const result = await this.getRepo().admin.image.space.Info.find({ id: In(ids) });
+    this.service.admin.comm.oss.delete(result);
+    await this.getRepo().admin.image.space.Info.delete(ids);
   }
 
   /**
