@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 24/09/2020 10:59:35
+ Date: 24/09/2020 15:48:53
 */
 
 SET NAMES utf8mb4;
@@ -29,28 +29,14 @@ CREATE TABLE `image_space_info` (
   `url` varchar(500) NOT NULL,
   `extra` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of image_space_info
 -- ----------------------------
 BEGIN;
-INSERT INTO `image_space_info` VALUES ('2020-09-22 08:29:10.169555', '2020-09-22 08:29:10.169555', 1, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', ' ');
-INSERT INTO `image_space_info` VALUES ('2020-09-23 08:09:15.116649', '2020-09-23 08:09:15.116649', 2, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', ' ');
-INSERT INTO `image_space_info` VALUES ('2020-09-23 08:10:15.000722', '2020-09-23 08:10:15.000722', 3, 2, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 08:52:57.360613', '2020-09-23 08:52:57.360613', 4, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 08:53:00.395905', '2020-09-23 08:53:00.395905', 5, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 08:53:03.423155', '2020-09-23 08:53:03.423155', 6, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 08:53:06.145714', '2020-09-23 08:53:06.145714', 7, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 08:53:08.554969', '2020-09-23 08:53:08.554969', 8, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 08:53:11.906641', '2020-09-23 08:53:11.906641', 9, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 08:53:14.482663', '2020-09-23 08:53:14.482663', 10, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 08:53:17.204328', '2020-09-23 08:53:17.204328', 11, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 09:13:41.781169', '2020-09-23 09:13:41.781169', 12, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 09:13:44.355620', '2020-09-23 09:13:44.355620', 13, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 09:13:47.324658', '2020-09-23 09:13:47.324658', 14, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 09:13:50.440748', '2020-09-23 09:13:50.440748', 15, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
-INSERT INTO `image_space_info` VALUES ('2020-09-23 09:13:52.873038', '2020-09-23 09:13:52.873038', 16, 1, 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', NULL);
+INSERT INTO `image_space_info` VALUES ('2020-09-24 06:11:00.706996', '2020-09-24 06:11:00.706996', 2, 2, 'http://image.si-yee.com/思忆/20200924_021100.png', '{\"key\":\"思忆/20200924_021100.png\",\"hash\":\"FlcrAvWiCZQvsBTU7XKaDwpv0sSF\"}');
+INSERT INTO `image_space_info` VALUES ('2020-09-24 06:20:44.617766', '2020-09-24 06:20:44.617766', 3, 1, 'http://image.si-yee.com/头像/20200924_022044.jpeg', '{\"key\":\"头像/20200924_022044.jpeg\",\"hash\":\"Fikim5OW0KWgyLqRXktE0FqJQr6Y\"}');
 COMMIT;
 
 -- ----------------------------
@@ -64,14 +50,14 @@ CREATE TABLE `image_space_type` (
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_91decef4a2b88cb59caf658d44` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of image_space_type
 -- ----------------------------
 BEGIN;
-INSERT INTO `image_space_type` VALUES ('2020-09-23 07:29:12.077952', '2020-09-23 07:29:12.077952', 1, '头像');
-INSERT INTO `image_space_type` VALUES ('2020-09-23 07:29:50.913517', '2020-09-23 07:29:50.913517', 2, '资料');
+INSERT INTO `image_space_type` VALUES ('2020-09-24 06:04:51.708064', '2020-09-24 06:04:51.708064', 1, '头像');
+INSERT INTO `image_space_type` VALUES ('2020-09-24 06:10:36.509527', '2020-09-24 06:10:36.509527', 2, '思忆');
 COMMIT;
 
 -- ----------------------------
@@ -109,7 +95,7 @@ CREATE TABLE `sys_log` (
   `params` text,
   `action` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1111 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1912 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -166,7 +152,7 @@ INSERT INTO `sys_menu` VALUES ('2020-09-11 06:29:52.437621', '2020-09-11 06:29:5
 INSERT INTO `sys_menu` VALUES ('2020-09-14 03:14:48.168779', '2020-09-14 10:00:55.000000', 43, 38, '查询', '', 'sys:log:page,sys:log:search', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 03:56:24.740870', '2020-09-14 03:56:24.740870', 44, NULL, '文档', '/document', '', 0, 'documentation', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 06:55:17.544866', '2020-09-14 08:39:30.000000', 45, NULL, '通用权限', '/common', '', 0, '', 0, '', 1, 0);
-INSERT INTO `sys_menu` VALUES ('2020-09-23 07:31:28.700348', '2020-09-23 07:31:28.700348', 46, 45, '图片空间', '', 'space:image:type,space:image:page,space:image:upload', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-09-23 07:31:28.700348', '2020-09-24 05:22:45.000000', 46, 45, '图片空间', '', 'space:image:type:list,space:image:type:add,space:image:type:delete,space:image:page,space:image:delete,space:image:upload', 2, '', 0, '', 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -277,7 +263,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-09-23 05:22:54.000000', 1, 1, '杨长源', 'hackycy', 'U2FsdGVkX18E8MLkt/45xe3xRALUa6mE9udOXcxrVCA=', '', 'https://i.pinimg.com/originals/1f/00/27/1f0027a3a80f470bcfa5de596507f9f4.png', 'qa894178522@qq.com', '15622472425', NULL, 1);
+INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-09-24 06:21:13.000000', 1, 1, '杨长源', 'hackycy', 'U2FsdGVkX18E8MLkt/45xe3xRALUa6mE9udOXcxrVCA=', '', 'http://image.si-yee.com/头像/20200924_022044.jpeg', 'qa894178522@qq.com', '15622472425', NULL, 1);
 INSERT INTO `sys_user` VALUES ('2020-09-14 07:41:33.732000', '2020-09-14 07:41:33.732000', 2, 2, '杨长源', 'test001', 'U2FsdGVkX1+iVR+kHHErkPNInZiV27Mpk4pFL8uhtTQ=', '', '', 'qa894178522@qq.com', '', '', 1);
 COMMIT;
 
