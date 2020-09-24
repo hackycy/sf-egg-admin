@@ -86,7 +86,7 @@ export default class ImageSpaceController extends BaseController {
   @AdminRoute('/space/image/upload', 'post')
   async upload() {
     const errors = this.app.validator.validate({
-      typeId: 'int',
+      typeId: 'string',
     }, this.getBody());
     if (errors) {
       this.res({
@@ -94,7 +94,8 @@ export default class ImageSpaceController extends BaseController {
       });
       return;
     }
-    const { typeId } = this.getQuery();
+    let { typeId } = this.getBody();
+    typeId = parseInt(typeId);
     if (typeId === -1) {
       this.res({
         code: 10000,
