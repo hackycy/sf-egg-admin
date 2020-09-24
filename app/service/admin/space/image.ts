@@ -25,6 +25,13 @@ export default class ImageSpaceService extends BaseService {
   }
 
   /**
+   * 增加分类
+   */
+  async addType(name: string) {
+    await this.getRepo().admin.image.space.Type.insert({ name });
+  }
+
+  /**
    * 获取当前图片空间下的所有图片数量
    */
   async count(typeId: number) {

@@ -18,7 +18,7 @@ export default class ImageSpaceController extends BaseController {
       return;
     }
     // typeIda为-1时则查找全部
-    const { page = 1, limit = 12, typeId = -1 } = this.getQuery();
+    const { page = 1, limit = 8, typeId = -1 } = this.getQuery();
     if (page < 1 || limit <= 0) {
       this.res({
         code: 10000,
@@ -33,11 +33,36 @@ export default class ImageSpaceController extends BaseController {
     });
   }
 
-  @AdminRoute('/space/image/type', 'get')
-  async type() {
+  @AdminRoute('/space/image/type/list', 'get')
+  async typeList() {
     this.res({
       data: await this.service.admin.space.image.type(),
     });
+  }
+
+  @AdminRoute('/space/image/type/add', 'post')
+  async addType() {
+    const errors = this.app.validator.validate({
+      name: 'string',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    await this.service.admin.space.image.addType(this.getBody().name);
+    this.res();
+  }
+
+  @AdminRoute('/space/image/type/delete', 'post')
+  async deleteType() {
+    this.res();
+  }
+
+  @AdminRoute('/space/image/delete', 'post')
+  async deleteImage() {
+    this.res();
   }
 
   @AdminRoute('/space/image/upload', 'post')
