@@ -57,6 +57,24 @@ export default class ImageSpaceController extends BaseController {
 
   @AdminRoute('/space/image/type/delete', 'post')
   async deleteType() {
+    const errors = this.app.validator.validate({
+      typeId: 'int',
+    }, this.getBody());
+    if (errors) {
+      this.res({
+        code: 10000,
+      });
+      return;
+    }
+    const { typeId } = this.getBody();
+    const hasImage = await this.service.admin.space.image.findCurrentTypeHasImage(typeId);
+    if (hasImage) {
+      this.res({
+        code: 20003,
+      });
+      return;
+    }
+    await this.service.admin.space.image.deleteType(typeId);
     this.res();
   }
 

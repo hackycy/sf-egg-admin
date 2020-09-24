@@ -32,6 +32,21 @@ export default class ImageSpaceService extends BaseService {
   }
 
   /**
+   * 删除分类
+   */
+  async deleteType(id: number) {
+    await this.getRepo().admin.image.space.Type.delete(id);
+  }
+
+  /**
+   * 查找当前分类下是否有图片
+   */
+  async findCurrentTypeHasImage(id: number) {
+    const count = await this.getRepo().admin.image.space.Info.count({ typeId: id });
+    return count > 0;
+  }
+
+  /**
    * 获取当前图片空间下的所有图片数量
    */
   async count(typeId: number) {
