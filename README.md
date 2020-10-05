@@ -1,4 +1,4 @@
-# 思忆后台Api服务端
+# 思忆分享技术平台服务端
 
 基于TypeScript + Eggjs实现
 
