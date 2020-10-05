@@ -33,6 +33,7 @@
     "egg-redis": "^2.4.0",
     "egg-scripts": "^2.6.0",
     "egg-validate": "^2.0.2",
+    "egg-view-nunjucks": "^2.2.0",
     "js-yaml": "^3.14.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
