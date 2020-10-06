@@ -10,13 +10,13 @@ const plugin: EggPlugin = {
     enable: true,
     package: '@hackycy/egg-typeorm',
   },
+  classValidator: {
+    enable: true,
+    package: '@hackycy/egg-class-validator',
+  },
   redis: {
     enable: true,
     package: 'egg-redis',
-  },
-  validate: {
-    enable: true,
-    package: 'egg-validate',
   },
   globalHeader: {
     enable: true,

@@ -23,6 +23,7 @@
     "build": "npm run tsc"
   },
   "dependencies": {
+    "@hackycy/egg-class-validator": "0.0.5",
     "@hackycy/egg-typeorm": "^0.2.6",
     "axios": "^0.19.2",
     "bull": "^3.18.0",
