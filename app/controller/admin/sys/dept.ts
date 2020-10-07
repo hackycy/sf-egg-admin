@@ -1,5 +1,6 @@
 import BaseController from '../../base';
 import { AdminRoute } from '../../../decorator/router_register';
+import { CreateDeptDto, DeleteDeptDto, InfoDeptDto, UpdateDeptDto, TransferDeptDto } from '../../../dto/admin/sys/dept';
 
 /**
  * 系统部门控制器
@@ -17,35 +18,16 @@ export default class SysDeptController extends BaseController {
 
   @AdminRoute('/sys/dept/add', 'post')
   async add() {
-    const errors = this.app.validator.validate({
-      departmentName: 'string',
-      parentDepartmentId: 'int',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { departmentName, parentDepartmentId } = this.getBody();
-    await this.service.admin.sys.dept.add(departmentName, parentDepartmentId);
+    const dto = await this.ctx.validate<CreateDeptDto>(CreateDeptDto);
+    await this.service.admin.sys.dept.add(dto.departmentName, dto.parentDepartmentId);
     this.res();
   }
 
   @AdminRoute('/sys/dept/delete', 'post')
   async delete() {
-    const errors = this.app.validator.validate({
-      departmentId: 'int',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { departmentId } = this.getBody();
+    const dto = await this.ctx.validate<DeleteDeptDto>(DeleteDeptDto);
     // 查询是否有关联用户，如果含有则无法删除
-    const count = await this.service.admin.sys.dept.countUserByDeptId(departmentId);
+    const count = await this.service.admin.sys.dept.countUserByDeptId(dto.departmentId);
     if (count > 0) {
       this.res({
         code: 10009,
@@ -53,65 +35,36 @@ export default class SysDeptController extends BaseController {
       return;
     }
     // 查询是否有关联的角色，角色与部门存在数据相互绑定
-    const count2 = await this.service.admin.sys.dept.countRoleByDeptId(departmentId);
+    const count2 = await this.service.admin.sys.dept.countRoleByDeptId(dto.departmentId);
     if (count2) {
       this.res({
         code: 10010,
       });
       return;
     }
-    await this.service.admin.sys.dept.delete(departmentId);
+    await this.service.admin.sys.dept.delete(dto.departmentId);
     this.res();
   }
 
   @AdminRoute('/sys/dept/info', 'get')
   async info() {
-    const errors = this.app.validator.validate({
-      departmentId: 'string',
-    }, this.getQuery());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { departmentId } = this.getQuery();
+    const q = await this.ctx.validate<InfoDeptDto>(InfoDeptDto, this.getQuery());
     this.res({
-      data: await this.service.admin.sys.dept.info(parseInt(departmentId)),
+      data: await this.service.admin.sys.dept.info(parseInt(q.departmentId)),
     });
   }
 
   @AdminRoute('/sys/dept/update', 'post')
   async update() {
-    const errors = this.app.validator.validate({
-      id: 'int',
-      name: 'string',
-      parentId: 'int',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    await this.service.admin.sys.dept.update(this.getBody());
+    const dto = await this.ctx.validate<UpdateDeptDto>(UpdateDeptDto);
+    await this.service.admin.sys.dept.update(dto);
     this.res();
   }
 
   @AdminRoute('/sys/dept/transfer', 'post')
   async transfer() {
-    const errors = this.app.validator.validate({
-      userIds: 'array',
-      departmentId: 'int',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { userIds, departmentId } = this.getBody();
-    await this.service.admin.sys.dept.transfer(userIds, departmentId);
+    const dto = await this.ctx.validate<TransferDeptDto>(TransferDeptDto);
+    await this.service.admin.sys.dept.transfer(dto.userIds, dto.departmentId);
     this.res();
   }
 }

@@ -2,17 +2,20 @@ import {
   IsInt,
   IsOptional,
   IsNumberString,
+  Min,
 } from 'class-validator';
 import { Expose } from 'class-transformer';
 
 export class PagePostDto {
   @IsOptional()
   @IsInt()
+  @Min(0)
   @Expose()
   limit: number;
 
   @IsOptional()
   @IsInt()
+  @Min(0)
   @Expose()
   page: number;
 }
@@ -24,10 +27,10 @@ export class PageGetDto {
   @IsOptional()
   @IsNumberString()
   @Expose()
-  limit: number;
+  limit: string;
 
   @IsOptional()
   @IsNumberString()
   @Expose()
-  page: number;
+  page: string;
 }

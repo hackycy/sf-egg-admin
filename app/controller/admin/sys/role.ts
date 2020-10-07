@@ -1,5 +1,7 @@
 import BaseController from '../../base';
 import { AdminRoute } from '../../../decorator/router_register';
+import { PageGetDto } from '../../../dto/comm';
+import { DeleteRoleDto, CreateRoleDto, UpdateRoleDto, InfoRoleDto } from '../../../dto/admin/sys/role';
 
 export default class SysRoleController extends BaseController {
 
@@ -12,16 +14,10 @@ export default class SysRoleController extends BaseController {
 
   @AdminRoute('/sys/role/page', 'get')
   async page() {
-    const { page = 1, limit = 25 } = this.getQuery();
-    if (page < 1 || limit <= 0) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
+    const dto = await this.ctx.validate<PageGetDto>(PageGetDto, this.getQuery());
     this.res({
       data: {
-        roles: await this.service.admin.sys.role.page(parseInt(page) - 1, parseInt(limit)),
+        roles: await this.service.admin.sys.role.page(parseInt(dto.page) - 1, parseInt(dto.limit)),
         roleTotalCount: await this.service.admin.sys.role.count(),
       },
     });
@@ -29,75 +25,38 @@ export default class SysRoleController extends BaseController {
 
   @AdminRoute('/sys/role/delete', 'post')
   async delete() {
-    const errors = this.app.validator.validate({
-      roleIds: 'array',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { roleIds } = this.getBody();
-    const count = await this.service.admin.sys.role.countUserIdByRole(roleIds);
+    const dto = await this.ctx.validate<DeleteRoleDto>(DeleteRoleDto);
+    const count = await this.service.admin.sys.role.countUserIdByRole(dto.roleIds);
     if (count > 0) {
       this.res({
         code: 10008,
       });
       return;
     }
-    await this.service.admin.sys.role.delete(roleIds);
+    await this.service.admin.sys.role.delete(dto.roleIds);
     this.res();
   }
 
   @AdminRoute('/sys/role/add', 'post')
   async add() {
-    const errors = this.app.validator.validate({
-      name: 'string',
-      label: 'string',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
+    const dto = await this.ctx.validate<CreateRoleDto>(CreateRoleDto);
     this.res({
-      data: await this.service.admin.sys.role.add(this.getBody(), this.ctx.token.uid),
+      data: await this.service.admin.sys.role.add(dto, this.ctx.token.uid),
     });
   }
 
   @AdminRoute('/sys/role/update', 'post')
   async update() {
-    const errors = this.app.validator.validate({
-      roleId: 'int',
-      name: 'string',
-      label: 'string',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    await this.service.admin.sys.role.update(this.getBody());
+    const dto = await this.ctx.validate<UpdateRoleDto>(UpdateRoleDto);
+    await this.service.admin.sys.role.update(dto);
     this.res();
   }
 
   @AdminRoute('/sys/role/info', 'get')
   async info() {
-    const errors = this.app.validator.validate({
-      roleId: 'string',
-    }, this.getQuery());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { roleId } = this.getQuery();
+    const dto = await this.ctx.validate<InfoRoleDto>(InfoRoleDto, this.getQuery());
     this.res({
-      data: await this.service.admin.sys.role.info(parseInt(roleId)),
+      data: await this.service.admin.sys.role.info(parseInt(dto.roleId)),
     });
   }
 

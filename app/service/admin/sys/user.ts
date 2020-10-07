@@ -1,6 +1,8 @@
 import * as _ from 'lodash';
 import BaseService from '../../base';
 import { Not, In } from 'typeorm';
+import { PersonInfoDto } from '../../../dto/admin/verify';
+import { CreateUserDto } from '../../../dto/admin/sys/user';
 
 /**
  * 系统-用户
@@ -24,7 +26,7 @@ export default class SysUserService extends BaseService {
   /**
    * 更新个人信息
    */
-  async personUpdate(uid: number, param: any) {
+  async personUpdate(uid: number, param: PersonInfoDto) {
     const { name, nickName, email, phone, originPassword, newPassword, remark, headImg } = param;
     let savePassword: string | undefined;
     if (originPassword && newPassword) {
@@ -52,14 +54,15 @@ export default class SysUserService extends BaseService {
    * 增加系统用户，如果返回false则表示已存在该用户
    * @param param Object 对应SysUser实体类
    */
-  async add(param: any) {
+  async add(param: CreateUserDto) {
+    const insertData: any = { ...CreateUserDto };
     const exists = await this.getRepo().admin.sys.User.findOne({ username: param.username });
     if (!_.isEmpty(exists)) {
       return false;
     }
     const pwd = this.getHelper().generateRandomValue(8);
-    param.password = this.getHelper().aesEncrypt(pwd, this.config.aesSecret.admin);
-    const result = await this.getRepo().admin.sys.User.save(param);
+    insertData.password = this.getHelper().aesEncrypt(pwd, this.config.aesSecret.admin);
+    const result = await this.getRepo().admin.sys.User.save(insertData);
     const { roles } = param;
     const insertRoles = roles.map(e => {
       return {

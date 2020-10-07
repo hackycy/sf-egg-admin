@@ -7,6 +7,7 @@ import {
   IsBoolean,
   Allow,
   IsNumberString,
+  ValidateIf,
 } from 'class-validator';
 import { Expose } from 'class-transformer';
 
@@ -15,50 +16,59 @@ import { Expose } from 'class-transformer';
  */
 export class CreateMenuDto {
 
-  @IsInt({ always: true })
-  @Min(0, { always: true })
-  @Max(2, { always: true })
+  @IsInt()
+  @Min(0)
+  @Max(2)
   @Expose()
   type: number;
 
-  @IsInt({ always: true })
+  @IsInt()
   @Expose()
   parentId: number;
 
-  @MinLength(2, { always: true })
+  @MinLength(2)
   @Expose()
   name: string;
 
-  @IsInt({ always: true })
-  @Min(0, { always: true })
+  @IsInt()
+  @Min(0)
   @Expose()
   orderNum: number;
 
-  @IsString({
-    groups: [ 'menu' ],
-  })
+  @ValidateIf(o => { return o.type === 1 || o.type === 0; })
+  @IsString()
   @Expose()
   router: string;
 
-  @IsBoolean({ groups: [ 'menu' ] })
+  @ValidateIf(o => { return o.type === 1 || o.type === 0; })
+  @IsBoolean()
   @Expose()
   isShow: boolean;
 
-  @IsBoolean({ groups: [ 'menu' ] })
+  @ValidateIf(o => { return o.type === 1 || o.type === 0; })
+  @IsBoolean()
   @Expose()
   keepalive: boolean;
 
-  @IsString({ groups: [ 'menu' ] })
+  @ValidateIf(o => { return o.type === 1 || o.type === 0; })
+  @IsString()
   @Expose()
   icon: string;
 
-  @IsString({ groups: [ 'perm' ] })
+  @ValidateIf(o => { return o.type === 2; })
+  @IsString()
   @Expose()
   perms: string;
 
   @Allow()
   @Expose()
   viewPath: string;
+}
+
+export class UpdateMenuDto extends CreateMenuDto {
+  @IsInt()
+  @Expose()
+  menuId: number;
 }
 
 /**

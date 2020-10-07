@@ -1,5 +1,6 @@
 import BaseController from '../../base';
 import { AdminRoute } from '../../../decorator/router_register';
+import { LoginInfoDto, PersonInfoDto } from '../../../dto/admin/verify';
 
 /**
  * 通用功能控制器
@@ -22,27 +23,16 @@ export default class CommController extends BaseController {
    */
   @AdminRoute('/login', 'post')
   async login() {
-    const errors = this.app.validator.validate({
-      username: 'string',
-      password: 'string',
-      captchaId: 'string',
-      verifyCode: 'string',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { username, password, captchaId, verifyCode } = this.getBody();
-    const success = await this.service.admin.comm.verify.checkImgCaptcha(captchaId, verifyCode);
+    const dto = await this.ctx.validate<LoginInfoDto>(LoginInfoDto);
+    // const { username, password, captchaId, verifyCode } = info;
+    const success = await this.service.admin.comm.verify.checkImgCaptcha(dto.captchaId, dto.verifyCode);
     if (!success) {
       this.res({
         code: 10002,
       });
       return;
     }
-    const sign = await this.service.admin.comm.verify.getLoginSign(username, password);
+    const sign = await this.service.admin.comm.verify.getLoginSign(dto.username, dto.password);
     if (!sign) {
       this.res({
         code: 10003,
@@ -84,16 +74,8 @@ export default class CommController extends BaseController {
 
   @AdminRoute('/person', 'post')
   async personUpdate() {
-    const errors = this.app.validator.validate({
-      name: 'string',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const result = await this.service.admin.sys.user.personUpdate(this.ctx.token.uid, this.getBody());
+    const dto = await this.ctx.validate<PersonInfoDto>(PersonInfoDto);
+    const result = await this.service.admin.sys.user.personUpdate(this.ctx.token.uid, dto);
     if (!result) {
       this.res({
         code: 10011,

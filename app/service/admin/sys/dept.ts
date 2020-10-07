@@ -1,6 +1,7 @@
 import BaseService from '../../base';
 import * as _ from 'lodash';
 import { In } from 'typeorm';
+import { UpdateDeptDto } from '../../../dto/admin/sys/dept';
 
 /**
  * 系统部门Service
@@ -29,13 +30,8 @@ export default class SysDeptService extends BaseService {
   /**
    * 更新部门信息
    */
-  async update(param: any) {
-    const { id } = param;
-    delete param.id;
-    if (param.parentId === -1) {
-      delete param.parentId;
-    }
-    await this.getRepo().admin.sys.Department.update(id, param);
+  async update(param: UpdateDeptDto) {
+    await this.getRepo().admin.sys.Department.update(param.id, { parentId: param.parentId === -1 ? undefined : param.parentId });
   }
 
   /**

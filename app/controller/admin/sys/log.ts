@@ -1,5 +1,7 @@
 import { AdminRoute } from '../../../decorator/router_register';
+import { SearchLogDto } from '../../../dto/admin/sys/log';
 import BaseController from '../../base';
+import { PageGetDto } from '../../../dto/comm';
 
 /**
  * 系统日志控制器
@@ -8,16 +10,10 @@ export default class SysLogController extends BaseController {
 
   @AdminRoute('/sys/log/page', 'get')
   async page() {
-    const { page = 1, limit = 50 } = this.getQuery();
-    if (page < 1 || limit <= 0) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
+    const dto = await this.ctx.validate<PageGetDto>(PageGetDto, this.getQuery());
     this.res({
       data: {
-        logs: await this.service.admin.sys.log.page(parseInt(page) - 1, parseInt(limit)),
+        logs: await this.service.admin.sys.log.page(parseInt(dto.page) - 1, parseInt(dto.limit)),
         count: await this.service.admin.sys.log.count(),
       },
     });
@@ -25,18 +21,9 @@ export default class SysLogController extends BaseController {
 
   @AdminRoute('/sys/log/search', 'get')
   async search() {
-    const errors = this.app.validator.validate({
-      q: 'string',
-    }, this.getQuery());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { page = 1, limit = 50, q } = this.getQuery();
+    const dto = await this.ctx.validate<SearchLogDto>(SearchLogDto, this.getQuery());
     this.res({
-      data: await this.service.admin.sys.log.search(page - 1, limit, q),
+      data: await this.service.admin.sys.log.search(parseInt(dto.page) - 1, parseInt(dto.limit), dto.q),
     });
   }
 

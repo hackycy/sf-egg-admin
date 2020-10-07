@@ -4,6 +4,7 @@ import { Not, getManager, In } from 'typeorm';
 import SysRole from '../../../entities/admin/sys/role';
 import SysRoleMenu from '../../../entities/admin/sys/role_menu';
 import SysRoleDepartment from '../../../entities/admin/sys/role_department';
+import { CreateRoleDto, UpdateRoleDto } from '../../../dto/admin/sys/role';
 
 /**
  * 系统-角色
@@ -54,7 +55,7 @@ export default class SysRoleService extends BaseService {
   /**
    * 增加角色
    */
-  async add(param: any, uid: string) {
+  async add(param: CreateRoleDto, uid: string) {
     const { name, label, remark, menus, depts } = param;
     const role = await this.getRepo().admin.sys.Role.insert({ name, label, remark, userId: uid });
     const { identifiers } = role;
@@ -85,7 +86,7 @@ export default class SysRoleService extends BaseService {
   /**
    * 更新角色信息
    */
-  async update(param: any) {
+  async update(param: UpdateRoleDto) {
     const { roleId, name, label, remark, menus, depts } = param;
     const role = await this.getRepo().admin.sys.Role.save({ id: roleId, name, label, remark });
     const originDeptRows = await this.getRepo().admin.sys.RoleDepartment.find({ roleId });

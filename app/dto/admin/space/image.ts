@@ -2,6 +2,7 @@ import {
   IsNumberString,
   IsInt,
   ArrayNotEmpty,
+  ArrayMinSize,
   Length,
 } from 'class-validator';
 import { Expose } from 'class-transformer';
@@ -27,12 +28,13 @@ export class QueryImageDto extends PageGetDto {
 
 export class DeleteImageDto {
   @ArrayNotEmpty()
+  @ArrayMinSize(1)
   @Expose()
   imageIds: number[];
 }
 
 export class UploadImageDto {
-  @IsInt()
+  @IsNumberString()
   @Expose()
-  typeId: number;
+  typeId: string;
 }

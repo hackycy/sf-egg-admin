@@ -53,6 +53,7 @@ export class CreateUserDto {
   @Expose()
   status: string;
 
+  @IsOptional()
   @IsBoolean()
   @Expose()
   resetPassword: boolean;

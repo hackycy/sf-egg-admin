@@ -1,23 +1,13 @@
 import BaseController from '../../base';
 import { AdminRoute } from '../../../decorator/router_register';
+import { CreateUserDto, InfoUserDto, DeleteUserDto, QueryUserDto, UpdateUserDto } from '../../../dto/admin/sys/user';
 
 export default class SysUserController extends BaseController {
 
   @AdminRoute('/sys/user/add', 'post')
   async add() {
-    const errors = this.app.validator.validate({
-      departmentId: 'int',
-      name: 'string',
-      username: 'string',
-      roles: 'array',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const result = await this.service.admin.sys.user.add(this.getBody());
+    const dto = await this.ctx.validate<CreateUserDto>(CreateUserDto);
+    const result = await this.service.admin.sys.user.add(dto);
     if (result) {
       this.res();
     } else {
@@ -27,16 +17,8 @@ export default class SysUserController extends BaseController {
 
   @AdminRoute('/sys/user/info', 'get')
   async info() {
-    const errors = this.app.validator.validate({
-      userId: 'string',
-    }, this.getQuery());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const user = await this.service.admin.sys.user.info(parseInt(this.getQuery().userId));
+    const dto = await this.ctx.validate<InfoUserDto>(InfoUserDto, this.getQuery());
+    const user = await this.service.admin.sys.user.info(parseInt(dto.userId));
     this.res({
       data: user,
     });
@@ -44,69 +26,26 @@ export default class SysUserController extends BaseController {
 
   @AdminRoute('/sys/user/delete', 'post')
   async delete() {
-    const errors = this.app.validator.validate({
-      userIds: 'array',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { userIds } = this.getBody();
-    await this.service.admin.sys.user.delete(userIds);
+    const dto = await this.ctx.validate<DeleteUserDto>(DeleteUserDto);
+    await this.service.admin.sys.user.delete(dto.userIds);
     this.res();
   }
 
   @AdminRoute('/sys/user/page', 'get')
   async page() {
-    const errors = this.app.validator.validate({
-      departmentId: 'string',
-    }, this.getQuery());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { page = 1, limit = 25, departmentId = -1 } = this.getQuery();
-    if (page < 1 || limit <= 0) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
+    const dto = await this.ctx.validate<QueryUserDto>(QueryUserDto, this.getQuery());
     this.res({
       data: {
-        users: await this.service.admin.sys.user.page(parseInt(departmentId), parseInt(page) - 1, parseInt(limit)),
-        userTotalCount: await this.service.admin.sys.user.count(parseInt(departmentId)),
+        users: await this.service.admin.sys.user.page(parseInt(dto.departmentId), parseInt(dto.page) - 1, parseInt(dto.limit)),
+        userTotalCount: await this.service.admin.sys.user.count(parseInt(dto.departmentId)),
       },
     });
   }
 
   @AdminRoute('/sys/user/update', 'post')
   async update() {
-    const errors = this.app.validator.validate({
-      id: 'int',
-      departmentId: 'int',
-      name: 'string',
-      username: 'string',
-      roles: 'array',
-    }, this.getBody());
-    if (errors) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    const { status } = this.getBody();
-    if (status !== 0 && status !== 1) {
-      this.res({
-        code: 10000,
-      });
-      return;
-    }
-    await this.service.admin.sys.user.update(this.getBody());
+    const dto = await this.ctx.validate<UpdateUserDto>(UpdateUserDto);
+    await this.service.admin.sys.user.update(dto);
     await this.service.admin.sys.menu.refreshPerms(this.ctx.token.uid);
     this.res();
   }

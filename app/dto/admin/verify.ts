@@ -9,7 +9,7 @@ import { Expose } from 'class-transformer';
 
 export class LoginInfoDto {
 
-  @Length(6, 20)
+  @IsString()
   @Expose()
   username: string;
 
