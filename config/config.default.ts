@@ -94,9 +94,14 @@ export default (appInfo: EggAppInfo) => {
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
 
+  // 模板渲染配置
+  config.view = {
+    defaultViewEngine: 'nunjucks',
+  };
+
   // static config
   config.static = {
-    prefix: '/',
+    prefix: '/static/',
     dir: path.join(appInfo.baseDir, 'app/public'),
     dynamic: true,
     preload: false,
