@@ -1,0 +1,37 @@
+.main {
+    width: 1320px;
+    margin: 10px auto;
+    overflow: hidden;
+}
+
+.main .right-pane {
+    width: 300px;
+    background-color: blue;
+    float: right;
+}
+
+.main .middle-pane {
+    background-color: aqua;
+    overflow: hidden;
+}
+
+.main .middle-pane,
+.main .right-pane {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 100010px;
+    margin-bottom: -100000px;
+}
+
+@media screen and (max-width: 1320px) {
+    .main {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .main .right-pane {
+        display: none;
+    }
+}

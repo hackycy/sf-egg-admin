@@ -49,6 +49,19 @@ table {
 
 /* reset css end */
 
+ /* 解决高度塌陷 */
+ .clearfix {
+  *zoom: 1;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/*  */
+
 .header-nav {
   height: 60px;
   width: 100%;
