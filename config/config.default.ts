@@ -102,7 +102,7 @@ export default (appInfo: EggAppInfo) => {
   // static config
   config.static = {
     prefix: '/static/',
-    dir: path.join(appInfo.baseDir, 'app/public'),
+    dir: path.join(appInfo.baseDir, 'public'),
     dynamic: true,
     preload: false,
     // maxAge: 31536000,

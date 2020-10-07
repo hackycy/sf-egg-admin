@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>思忆分享技术平台</title>
-    <link href="/static/css/home.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/comm.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- js -->
+    <script src="/static/js/jquery-3.5.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
   </head>
-  <body>
-    code
-  </body>
+  <body></body>
 </html>
