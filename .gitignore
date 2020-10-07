@@ -9,7 +9,7 @@ logs/
 .vscode
 *.swp
 *.lock
-*.js
+#*.js
 !.autod.conf.js
 package-lock.json
 
