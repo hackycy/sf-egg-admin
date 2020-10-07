@@ -13,7 +13,7 @@ export default class SysLogController extends BaseController {
     const dto = await this.ctx.validate<PageGetDto>(PageGetDto, this.getQuery());
     this.res({
       data: {
-        logs: await this.service.admin.sys.log.page(parseInt(dto.page) - 1, parseInt(dto.limit)),
+        logs: await this.service.admin.sys.log.page(dto.page - 1, dto.limit),
         count: await this.service.admin.sys.log.count(),
       },
     });
@@ -23,7 +23,7 @@ export default class SysLogController extends BaseController {
   async search() {
     const dto = await this.ctx.validate<SearchLogDto>(SearchLogDto, this.getQuery());
     this.res({
-      data: await this.service.admin.sys.log.search(parseInt(dto.page) - 1, parseInt(dto.limit), dto.q),
+      data: await this.service.admin.sys.log.search(dto.page - 1, dto.limit, dto.q),
     });
   }
 

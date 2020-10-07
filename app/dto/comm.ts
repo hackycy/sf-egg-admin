@@ -1,10 +1,9 @@
 import {
   IsInt,
   IsOptional,
-  IsNumberString,
   Min,
 } from 'class-validator';
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 
 export class PagePostDto {
   @IsOptional()
@@ -15,7 +14,7 @@ export class PagePostDto {
 
   @IsOptional()
   @IsInt()
-  @Min(0)
+  @Min(1)
   @Expose()
   page: number;
 }
@@ -25,12 +24,16 @@ export class PagePostDto {
  */
 export class PageGetDto {
   @IsOptional()
-  @IsNumberString()
+  @IsInt()
+  @Min(0)
+  @Transform(v => parseInt(v), { toClassOnly: true })
   @Expose()
-  limit: string;
+  limit: number;
 
   @IsOptional()
-  @IsNumberString()
+  @IsInt()
+  @Min(1)
+  @Transform(v => parseInt(v), { toClassOnly: true })
   @Expose()
-  page: string;
+  page: number;
 }
