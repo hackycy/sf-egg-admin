@@ -4,7 +4,7 @@ import {
   ArrayNotEmpty,
   IsString,
   Min,
-  ValidateIf,
+  IsOptional,
 } from 'class-validator';
 import { Expose } from 'class-transformer';
 
@@ -18,7 +18,7 @@ export class CreateDeptDto {
   @Expose()
   parentDepartmentId: number;
 
-  @ValidateIf((_o, v) => { return !(v === undefined || v === null); })
+  @IsOptional()
   @IsInt()
   @Min(0)
   @Expose()
@@ -38,7 +38,7 @@ export class UpdateDeptDto {
   @Expose()
   parentId: number;
 
-  @ValidateIf((_o, v) => { return !(v === undefined || v === null); })
+  @IsOptional()
   @IsInt()
   @Min(0)
   @Expose()
