@@ -57,7 +57,7 @@ export default class SysMenuController extends BaseController {
       this.res({ code: 10005 });
       return;
     }
-    const originMenu = await this.service.admin.sys.menu.getMenuItemInfo(dto.id);
+    const originMenu = await this.service.admin.sys.menu.getMenuItemInfo(dto.menuId);
     if (originMenu && (originMenu.type !== dto.type)) {
       // 节点类型发生变化则直接返回
       this.res({
