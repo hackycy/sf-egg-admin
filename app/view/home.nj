@@ -13,12 +13,12 @@
 </head>
 <body>
   <div class="header-nav">
-    <label class="btn-menu"><i class="glyphicon glyphicon-menu-hamburger"></i></label>
+    <input class="checkbtn" type="checkbox" id="checkbtn">
+    <label for="checkbtn" class="icon-menu"><i class="glyphicon glyphicon-menu-hamburger"></i></label>
     <label class="logo"><a href="/">思忆分享</a></label>
     <ul>
-      <li class="crumb"><a href="bikes">捐赠</a></li>
-      <li class="crumb"><a href="bikes">分类</a></li>
-      <li class="crumb"><a href="bikes">登录/注册</a></li>
+      <li class="crumb"><a href="/">分类</a></li>
+      <li class="crumb"><a href="/">登录/注册</a></li>
     </ul>
   </div>
 </body>

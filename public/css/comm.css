@@ -64,7 +64,7 @@ label.logo {
   padding: 0 100px;
 }
 
-.btn-menu {
+label.icon-menu {
   font-size: 14px;
   color: white;
   line-height: 60px;
@@ -109,6 +109,10 @@ label a:hover {
   text-decoration:none;
 }
 
+#checkbtn {
+  display: none;
+}
+
 @media screen and (max-width: 952px) {
   label.logo {
     padding-left: 50px;
@@ -119,10 +123,29 @@ label a:hover {
   label.logo {
     padding-left: 20px;
   }
-  .btn-menu {
+  label.icon-menu {
     display: block;
   }
   .header-nav ul {
-    display: none;
+    position: fixed;
+    background-color: #24292e;
+    top: 60px;
+    left: -100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+    transition: all .3s;
+  }
+  .header-nav ul li {
+    display: block;
+    line-height: 50px;
+    font-size: 14px;
+  }
+  .header-nav .checkbtn:checked {
+    display: block;
+  }
+  #checkbtn:checked ~ ul {
+    left: 0;
   }
 }
