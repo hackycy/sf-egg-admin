@@ -1,6 +1,6 @@
 import BaseController from '../../base';
 import { AdminRoute } from '../../../decorator/router_register';
-import { LoginInfoDto, PersonInfoDto } from '../../../dto/admin/verify';
+import { LoginInfoDto, UpdatePersonInfoDto } from '../../../dto/admin/verify';
 
 /**
  * 通用功能控制器
@@ -74,7 +74,7 @@ export default class CommController extends BaseController {
 
   @AdminRoute('/person', 'post')
   async personUpdate() {
-    const dto = await this.ctx.validate<PersonInfoDto>(PersonInfoDto);
+    const dto = await this.ctx.validate<UpdatePersonInfoDto>(UpdatePersonInfoDto);
     const result = await this.service.admin.sys.user.personUpdate(this.ctx.token.uid, dto);
     if (!result) {
       this.res({

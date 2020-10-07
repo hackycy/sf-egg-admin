@@ -26,7 +26,7 @@ export class LoginInfoDto {
   verifyCode: string;
 }
 
-export class PersonInfoDto {
+export class UpdatePersonInfoDto {
   @Length(2, 20)
   @Expose()
   name: string;

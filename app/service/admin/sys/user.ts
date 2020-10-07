@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import BaseService from '../../base';
 import { Not, In } from 'typeorm';
-import { PersonInfoDto } from '../../../dto/admin/verify';
+import { UpdatePersonInfoDto } from '../../../dto/admin/verify';
 import { CreateUserDto } from '../../../dto/admin/sys/user';
 
 /**
@@ -26,7 +26,7 @@ export default class SysUserService extends BaseService {
   /**
    * 更新个人信息
    */
-  async personUpdate(uid: number, param: PersonInfoDto) {
+  async personUpdate(uid: number, param: UpdatePersonInfoDto) {
     const { name, nickName, email, phone, originPassword, newPassword, remark, headImg } = param;
     let savePassword: string | undefined;
     if (originPassword && newPassword) {
