@@ -1,8 +1,6 @@
 .main {
     width: 1320px;
     margin: 0 auto;
-    /* header hight & footer height & margin */
-    min-height: calc(100vh - 60px - 130px);
 }
 
 .main .classfy {
@@ -64,6 +62,9 @@
     display: -webkit-flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
+    /* header hight & footer height & margin */
+    min-height: calc(100vh - 60px - 180px);
 }
 
 .main .content::after {
