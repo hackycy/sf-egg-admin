@@ -1,6 +1,8 @@
 .main {
     width: 1320px;
     margin: 0 auto;
+    /* header hight & footer height & margin */
+    min-height: calc(100vh - 60px - 130px);
 }
 
 .main .classfy {

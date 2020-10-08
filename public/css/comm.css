@@ -126,8 +126,57 @@ label a:hover {
   display: none;
 }
 
-
 /* footer */
+
+.footer {
+  width: 100%;
+  background-color: #1c1f21;
+  margin-top: 25px;
+  padding: 30px 0;
+}
+
+.footer .wrapper {
+  width: 1024px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer .wrapper .friend-link {
+  font-size: 13px;
+}
+
+.footer .wrapper .friend-link ul {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
+
+.footer .wrapper .friend-link ul li {
+  display: inline-block;
+  margin-right: 15px;
+  line-height: 30px;
+}
+
+.footer .wrapper .friend-link a {
+  text-decoration: none;
+  color: #c8cdd2;
+}
+
+.footer .wrapper .friend-link a:hover {
+  color: white;
+}
+
+.footer .wrapper .copyright {
+  font-size: 12px;
+  margin-top: 20px;
+  color: #787D82;
+}
+
+@media screen and (max-width: 1024px) {
+  .footer .wrapper {
+    width: 100%;
+  }
+}
 
 @media screen and (max-width: 952px) {
   label.logo {
