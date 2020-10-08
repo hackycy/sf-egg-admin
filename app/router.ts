@@ -8,4 +8,5 @@ export default (app: Application) => {
   initRouter(app);
   // share server router
   router.get('/', controller.app.home.index);
+  router.get('/login', controller.app.home.login);
 };

@@ -9,4 +9,8 @@ export default class HomeController extends BaseController {
     await this.ctx.render('home.nj');
   }
 
+  async login() {
+    await this.ctx.render('login.nj');
+  }
+
 }
