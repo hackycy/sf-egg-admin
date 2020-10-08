@@ -126,6 +126,9 @@ label a:hover {
   display: none;
 }
 
+
+/* footer */
+
 @media screen and (max-width: 952px) {
   label.logo {
     padding-left: 50px;
@@ -148,6 +151,7 @@ label a:hover {
     overflow-y: auto;
     overflow-x: hidden;
     text-align: center;
+    z-index: 999;
     transition: all .3s;
   }
   .header-nav ul li {

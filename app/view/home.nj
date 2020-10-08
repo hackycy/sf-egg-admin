@@ -1,46 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>思忆分享技术平台</title>
-    <link
-      href="/static/css/bootstrap.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <!-- js -->
-    <script src="/static/js/jquery-3.5.1.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <link href="/static/css/comm.css" rel="stylesheet" type="text/css" />
-    <link href="/static/css/home.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <!-- header -->
-    <div class="header-nav">
-      <input class="checkbtn" type="checkbox" id="checkbtn" />
-      <label for="checkbtn" class="icon-menu"
-        ><i class="glyphicon glyphicon-menu-hamburger"></i
-      ></label>
-      <label class="logo"><a href="/">思忆分享</a></label>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>思忆分享技术平台</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- js -->
+  <script src="/static/js/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="/static/css/comm.css" rel="stylesheet" type="text/css" />
+  <link href="/static/css/home.css" rel="stylesheet" type="text/css" />
+  <link href="/static/css/iconfont.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <!-- header -->
+  <div class="header-nav">
+    <input class="checkbtn" type="checkbox" id="checkbtn" />
+    <label for="checkbtn" class="icon-menu"><span class="iconfont icon-ego-caidan"></span></label>
+    <label class="logo"><a href="/">思忆分享</a></label>
+    <ul>
+      <li class="crumb"><a href="/">登录</a></li>
+      <li class="crumb"><a href="/">注册</a></li>
+    </ul>
+  </div>
+  <!-- main -->
+  <div class="main">
+    <div class="classfy">
       <ul>
-        <li class="crumb"><a href="/">分类</a></li>
-        <li class="crumb"><a href="/">登录</a></li>
-        <li class="crumb"><a href="/">注册</a></li>
+        <li><a class="active" href="/">全部</a></li>
+        <li><a href="/">后端开发</a></li>
+        <li><a href="/">前端开发</a></li>
+        <li><a href="/">移动开发</a></li>
       </ul>
     </div>
-    <!-- main -->
-    <div class="main">
-      <!-- ad -->
-      <div class="right-pane">
-        <p>aa</p>
-        <p>aa</p>
-        <p>aa</p>
+    <div class="content">
+      <div class="card">
+        <a href="/">
+          <!-- main pic -->
+          <div class="course-main-pic">
+            <img src="http://img1.sycdn.imooc.com/szimg/5f583a2609dc33b412000676-360-202.jpg" />
+            <ul>
+              <li>Nodejs</li>
+              <li>EggJs</li>
+            </ul>
+          </div>
+          <!-- title -->
+          <div class="course-title">Java实操避坑指南 业务代码-整合框架-存储-缓存常见错误详解啊啊啊啊啊啊啊</div>
+          <!-- use -->
+          <div class="course-status">
+            <div class="course-use"><span class="iconfont icon-custom-user"></span>1772</div>
+            <div class="course-coin"><span class="iconfont icon-jifen"></span>1772</div>
+          </div>
+        </a>
       </div>
-      <!-- items -->
-      <div class="middle-pane">
-        <p>b</p>
+
+      <div class="card">
+        <a href="/">
+          <!-- main pic -->
+          <div class="course-main-pic">
+            <img src="http://img1.sycdn.imooc.com/szimg/5f583a2609dc33b412000676-360-202.jpg" />
+            <ul>
+              <li>Nodejs</li>
+              <li>EggJs</li>
+            </ul>
+          </div>
+          <!-- title -->
+          <div class="course-title">Java实操避坑指南 业务代码-整合框架-存储-缓存常见错误详解啊啊啊啊啊啊啊</div>
+          <!-- use -->
+          <div class="course-status">
+            <div class="course-use"><span class="iconfont icon-custom-user"></span>1772</div>
+            <div class="course-coin"><span class="iconfont icon-jifen"></span>1772</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="card">
+        <a href="/">
+          <!-- main pic -->
+          <div class="course-main-pic">
+            <img src="http://img1.sycdn.imooc.com/szimg/5f583a2609dc33b412000676-360-202.jpg" />
+            <ul>
+              <li>Nodejs</li>
+              <li>EggJs</li>
+            </ul>
+          </div>
+          <!-- title -->
+          <div class="course-title">Java实操避坑指南 业务代码-整合框架-存储-缓存常见错误详解啊啊啊啊啊啊啊</div>
+          <!-- use -->
+          <div class="course-status">
+            <div class="course-use"><span class="iconfont icon-custom-user"></span>1772</div>
+            <div class="course-coin"><span class="iconfont icon-jifen"></span>1772</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="card">
+        <a href="/">
+          <!-- main pic -->
+          <div class="course-main-pic">
+            <img src="http://img1.sycdn.imooc.com/szimg/5f583a2609dc33b412000676-360-202.jpg" />
+            <ul>
+              <li>Nodejs</li>
+              <li>EggJs</li>
+            </ul>
+          </div>
+          <!-- title -->
+          <div class="course-title">Java实操避坑指南 业务代码-整合框架-存储-缓存常见错误详解啊啊啊啊啊啊啊</div>
+          <!-- use -->
+          <div class="course-status">
+            <div class="course-use"><span class="iconfont icon-custom-user"></span>1772</div>
+            <div class="course-coin"><span class="iconfont icon-jifen"></span>1772</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="card">
+        <a href="/">
+          <!-- main pic -->
+          <div class="course-main-pic">
+            <img src="http://img1.sycdn.imooc.com/szimg/5f583a2609dc33b412000676-360-202.jpg" />
+            <ul>
+              <li>Nodejs</li>
+              <li>EggJs</li>
+            </ul>
+          </div>
+          <!-- title -->
+          <div class="course-title">Java实操避坑指南 业务代码-整合框架-存储-缓存常见错误详解啊啊啊啊啊啊啊</div>
+          <!-- use -->
+          <div class="course-status">
+            <div class="course-use"><span class="iconfont icon-custom-user"></span>1772</div>
+            <div class="course-coin"><span class="iconfont icon-jifen"></span>1772</div>
+          </div>
+        </a>
       </div>
     </div>
-  </body>
+  </div>
+  <!-- footer -->
+  <div class="footer">
+    
+  </div>
+</body>
+
 </html>

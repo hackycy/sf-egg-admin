@@ -1,0 +1,29 @@
+@font-face {font-family: "iconfont";
+  src: url('/static/fonts/iconfont.eot?t=1602142458195'); /* IE9 */
+  src: url('/static/fonts/iconfont.eot?t=1602142458195#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAOcAAsAAAAAB6AAAANNAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDHAqCWIJGATYCJAMQCwoABCAFhG0HShu6BsguIScbXkTHjM4MJMBawuUNKPiAeIA/9u+58TLpZ2FaDpPmVTiQYaXAcEADrKQKHr9LXakHYj2R7QeAAB/SSsfyyAowlpfpqQtXDFVSAk6fLFjgagCZNLj9IrNJKjehZDIa8P+Pe6e/tgY2312eyxyTP3UBxlsD2hvbZAWSoLfAziH8TsB5AqomdIg7NL9ch1JlyrSAcCVA3Sg1pJdzSoOyoJiyNgv3UI7X4wvctb8f/imkEhUSZe7xc3M+NPlT/ibtGmUTIWjPCmkTCWuQTLiQaj8lwY2vSVD9DE60CSkri7TV1TejSTgXeVn9yyOJAqFIKa6DdUokfqLzfYWoFVERCnegOIMyFpyEPKaox9qpjFKhW2xrJuKDLuuAGjxZRwf687sKfeeOFJMLu0uMF83GFTrDqq3vDHdGHnze/Q7IR9703/V27NbQh9980GVcfQ8sC0ePZjx8G6nN+PSOByVGN0P/4YOuqeGVNOah3KTvf/XUzedjxjHT9WfNM4M5V57/21x2OHT4SvUVQ3KY+7z5d+VJbOeJzpuP1DmdSNl9cvtwxd4c2upTNerKlb5WlWPxQxaaszd5n9t5/dvj5pR2OaTT+6VYWmElRhyPE/S0K3FznFmxO961e7fLoMTvvpZpXb/TnIqndI5djFa9cBlcCjqQSrko3Y2fGEl4ggyRnsb9t+k3bu/HUmfO6P9yGXz+y3/2jyQqzz/Xgo/gpghKVuWvSDHk/Bbr/F9hti2BfdSqqiZuRZqur22oB/ubDMoGPkQl45CUzWEyYQ0KatahqGwHqlYtbK7p4RKEXMGK/QBB2zWImp5B0vYSkwlfoGDoLxS1QwJUnQgFe9YshED6DAe3AB/2bMYBL4sSzSTSndK1QNeH3TwosqkG4FoghLskJZpagCjwNhZoG2i3EAQTziJ4Hi6DcJhhlbMgeIXkF0IdlmWS9ibJyyIo3QEOuAnAB/PYDAvwYqKIWV9Ij31+LUCtF+bGc1A/7AaA0wR6x7pIlBKYBXm0FOpYrtFsQHUTBAIjOCYCmwcrCKtxBlPTRwUBL0HirxFVDZOpFikrl/pXRo5wA1Qpe+cQQwo5FBQuBQhEM7zrNcEineYy4OlAWafXHfC5owgBAAAA') format('woff2'),
+  url('/static/fonts/iconfont.woff?t=1602142458195') format('woff'),
+  url('/static/fonts/iconfont.ttf?t=1602142458195') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('/static/fonts/iconfont.svg?t=1602142458195#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-jifen:before {
+  content: "\e69b";
+}
+
+.icon-custom-user:before {
+  content: "\e632";
+}
+
+.icon-ego-caidan:before {
+  content: "\e62f";
+}
+
