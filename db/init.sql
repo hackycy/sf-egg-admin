@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 24/09/2020 17:18:12
+ Date: 09/10/2020 15:44:16
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `image_space_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type_id` bigint(20) NOT NULL,
   `url` varchar(500) NOT NULL,
-  `extra` varchar(255) DEFAULT NULL,
+  `extra` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
@@ -61,6 +61,69 @@ INSERT INTO `image_space_type` VALUES ('2020-09-24 06:10:36.509527', '2020-09-24
 COMMIT;
 
 -- ----------------------------
+-- Table structure for share_exchange
+-- ----------------------------
+DROP TABLE IF EXISTS `share_exchange`;
+CREATE TABLE `share_exchange` (
+  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mid` bigint(20) NOT NULL,
+  `gid` bigint(20) NOT NULL,
+  `bcoin` int(10) unsigned NOT NULL,
+  `acoin` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for share_goods
+-- ----------------------------
+DROP TABLE IF EXISTS `share_goods`;
+CREATE TABLE `share_goods` (
+  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `cid` bigint(20) NOT NULL,
+  `title` varchar(30) NOT NULL,
+  `intro` text,
+  `tag` varchar(20) DEFAULT NULL,
+  `ex_coin` int(11) DEFAULT '0',
+  `show` tinyint(4) DEFAULT '1',
+  `status` tinyint(4) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for share_goods_category
+-- ----------------------------
+DROP TABLE IF EXISTS `share_goods_category`;
+CREATE TABLE `share_goods_category` (
+  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) NOT NULL,
+  `mark` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for share_member
+-- ----------------------------
+DROP TABLE IF EXISTS `share_member`;
+CREATE TABLE `share_member` (
+  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(16) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `coin` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `IDX_0c38752704138f4025483b5ec2` (`username`),
+  UNIQUE KEY `IDX_81ffb23ee659a1554daccdd75a` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
 -- Table structure for sys_department
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_department`;
@@ -79,7 +142,7 @@ CREATE TABLE `sys_department` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_department` VALUES ('2020-08-27 03:33:19.000000', '2020-08-27 03:33:19.000000', 1, NULL, '思忆技术', 0);
-INSERT INTO `sys_department` VALUES ('2020-09-08 05:31:32.426851', '2020-09-11 08:56:17.000000', 2, 1, '管理部门', 0);
+INSERT INTO `sys_department` VALUES ('2020-09-08 05:31:32.426851', '2020-10-07 04:25:31.000000', 2, 1, '管理部门', 0);
 COMMIT;
 
 -- ----------------------------
@@ -95,7 +158,7 @@ CREATE TABLE `sys_log` (
   `params` text,
   `action` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2055 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2337 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -116,18 +179,18 @@ CREATE TABLE `sys_menu` (
   `keepalive` tinyint(4) DEFAULT '1',
   `isShow` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_menu` VALUES ('2020-08-28 10:09:26.322745', '2020-09-14 03:53:15.000000', 1, NULL, '系统', '/sys', NULL, 0, 'system', 0, NULL, 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-08-28 10:09:26.322745', '2020-10-07 06:48:13.000000', 1, NULL, '系统', '/sys', NULL, 0, 'system', 0, NULL, 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-08-01 00:00:00.000000', '2020-09-14 03:53:31.000000', 3, 1, '权限管理', '/sys/permssion', NULL, 0, 'permission', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-08-08 00:00:00.000000', '2020-09-08 06:54:45.000000', 4, 3, '用户列表', '/sys/permssion/user', NULL, 1, 'peoples', 0, 'views/system/permission/user', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-08-15 00:00:00.000000', '2020-09-11 06:11:52.000000', 5, 4, '新增', NULL, 'sys:user:add', 2, NULL, 0, NULL, 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-08-15 00:00:00.000000', '2020-09-11 06:13:03.000000', 6, 4, '删除', NULL, 'sys:user:delete', 2, NULL, 0, NULL, 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-08-08 00:00:00.000000', '2020-09-24 09:16:46.000000', 7, 3, '菜单列表', '/sys/permssion/menu', NULL, 1, 'menu', 0, 'views/system/permission/menu', 0, 1);
+INSERT INTO `sys_menu` VALUES ('2020-08-08 00:00:00.000000', '2020-09-24 09:51:40.000000', 7, 3, '菜单列表', '/sys/permssion/menu', NULL, 1, 'menu', 0, 'views/system/permission/menu', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-08-15 00:00:00.000000', '2020-08-15 00:00:00.000000', 8, 7, '新增', NULL, 'sys:menu:add', 2, NULL, 0, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES ('2020-08-15 00:00:00.000000', '2020-08-15 00:00:00.000000', 9, 7, '删除', NULL, 'sys:menu:delete', 2, NULL, 0, NULL, 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-02 08:22:27.548410', '2020-09-02 08:22:27.548410', 10, 7, '查询', NULL, 'sys:menu:list,sys:menu:info', 2, NULL, 0, NULL, 1, 1);
@@ -150,9 +213,11 @@ INSERT INTO `sys_menu` VALUES ('2020-09-11 06:12:14.621531', '2020-09-11 06:12:1
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:13:23.752133', '2020-09-11 06:13:23.752133', 40, 4, '部门删除', '', 'sys:dept:delete', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:29:52.437621', '2020-09-11 06:29:52.437621', 41, 4, '部门更新', '', 'sys:dept:update', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 03:14:48.168779', '2020-09-14 10:00:55.000000', 43, 38, '查询', '', 'sys:log:page,sys:log:search', 2, '', 0, '', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-09-14 03:56:24.740870', '2020-09-14 03:56:24.740870', 44, NULL, '文档', '/document', '', 0, 'documentation', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-09-14 03:56:24.740870', '2020-10-07 06:45:20.000000', 44, 1, '文档', '/document', '', 0, 'documentation', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 06:55:17.544866', '2020-09-24 08:00:12.000000', 45, NULL, '通用权限', '/common', '', 0, '', 0, '', 1, 0);
 INSERT INTO `sys_menu` VALUES ('2020-09-23 07:31:28.700348', '2020-09-24 05:22:45.000000', 46, 45, '图片空间', '', 'space:image:type:list,space:image:type:add,space:image:type:delete,space:image:page,space:image:delete,space:image:upload', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-07 06:52:52.008817', '2020-10-07 06:52:52.008817', 47, 3, '用户列表', '/sys/permssion/user', NULL, 1, 'peoples', 0, 'views/system/permission/user', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-07 06:53:00.640859', '2020-10-07 06:53:00.640859', 48, NULL, '系统', '/sys', NULL, 0, 'system', 0, NULL, 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -263,8 +328,8 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-09-24 06:21:13.000000', 1, 1, '杨长源', 'hackycy', 'U2FsdGVkX18E8MLkt/45xe3xRALUa6mE9udOXcxrVCA=', '', 'http://image.si-yee.com/头像/20200924_022044.jpeg', 'qa894178522@qq.com', '15622472425', NULL, 1);
-INSERT INTO `sys_user` VALUES ('2020-09-14 07:41:33.732000', '2020-09-14 07:41:33.732000', 2, 2, '杨长源', 'test001', 'U2FsdGVkX1+iVR+kHHErkPNInZiV27Mpk4pFL8uhtTQ=', '', '', 'qa894178522@qq.com', '', '', 0);
+INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-10-07 07:17:14.000000', 1, 1, '杨长源', 'hackycy', 'U2FsdGVkX18E8MLkt/45xe3xRALUa6mE9udOXcxrVCA=', '', 'http://image.si-yee.com/思忆/20200924_021100.png', 'qa894178522@qq.com', '15622472425', NULL, 1);
+INSERT INTO `sys_user` VALUES ('2020-09-14 07:41:33.732000', '2020-10-07 04:56:31.000000', 2, 2, '杨长源', 'test001', 'U2FsdGVkX1+iVR+kHHErkPNInZiV27Mpk4pFL8uhtTQ=', '', '', 'qa894178522@qq.com', '', '', 0);
 COMMIT;
 
 -- ----------------------------
@@ -278,14 +343,14 @@ CREATE TABLE `sys_user_role` (
   `user_id` bigint(20) NOT NULL,
   `role_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_user_role` VALUES ('2020-09-14 04:10:34.371646', '2020-09-14 04:10:34.371646', 1, 1, 1);
-INSERT INTO `sys_user_role` VALUES ('2020-09-24 07:59:41.903155', '2020-09-24 07:59:41.903155', 7, 2, 2);
+INSERT INTO `sys_user_role` VALUES ('2020-10-07 04:56:31.750457', '2020-10-07 04:56:31.750457', 8, 2, 2);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
