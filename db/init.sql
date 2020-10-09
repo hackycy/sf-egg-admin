@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 09/10/2020 15:44:16
+ Date: 09/10/2020 15:51:07
 */
 
 SET NAMES utf8mb4;
@@ -158,7 +158,7 @@ CREATE TABLE `sys_log` (
   `params` text,
   `action` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2337 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2372 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -179,7 +179,7 @@ CREATE TABLE `sys_menu` (
   `keepalive` tinyint(4) DEFAULT '1',
   `isShow` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -213,11 +213,11 @@ INSERT INTO `sys_menu` VALUES ('2020-09-11 06:12:14.621531', '2020-09-11 06:12:1
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:13:23.752133', '2020-09-11 06:13:23.752133', 40, 4, '部门删除', '', 'sys:dept:delete', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:29:52.437621', '2020-09-11 06:29:52.437621', 41, 4, '部门更新', '', 'sys:dept:update', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 03:14:48.168779', '2020-09-14 10:00:55.000000', 43, 38, '查询', '', 'sys:log:page,sys:log:search', 2, '', 0, '', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-09-14 03:56:24.740870', '2020-10-07 06:45:20.000000', 44, 1, '文档', '/document', '', 0, 'documentation', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-09-14 03:56:24.740870', '2020-10-09 07:47:05.000000', 44, NULL, '文档', '/document', '', 0, 'documentation', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 06:55:17.544866', '2020-09-24 08:00:12.000000', 45, NULL, '通用权限', '/common', '', 0, '', 0, '', 1, 0);
 INSERT INTO `sys_menu` VALUES ('2020-09-23 07:31:28.700348', '2020-09-24 05:22:45.000000', 46, 45, '图片空间', '', 'space:image:type:list,space:image:type:add,space:image:type:delete,space:image:page,space:image:delete,space:image:upload', 2, '', 0, '', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-10-07 06:52:52.008817', '2020-10-07 06:52:52.008817', 47, 3, '用户列表', '/sys/permssion/user', NULL, 1, 'peoples', 0, 'views/system/permission/user', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-10-07 06:53:00.640859', '2020-10-07 06:53:00.640859', 48, NULL, '系统', '/sys', NULL, 0, 'system', 0, NULL, 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-09 07:49:03.798676', '2020-10-09 07:49:03.798676', 49, NULL, '物品管理', '/product', NULL, 0, 'component', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-09 07:49:55.939508', '2020-10-09 07:49:55.939508', 50, 49, '物品列表', '/product/list', NULL, 1, 'nested', 0, 'views/pms/product', 1, 1);
 COMMIT;
 
 -- ----------------------------
