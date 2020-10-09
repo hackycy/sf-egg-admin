@@ -82,6 +82,8 @@ export default class SysMenuController extends BaseController {
     if (dto.parentId === -1) {
       updateData.parentId = null;
     }
+    // update id
+    updateData.id = dto.menuId;
     const saveData = await this.service.admin.sys.menu.save(updateData);
     // 如果是权限发生更改，则刷新当前用户权限
     await this.service.admin.sys.menu.refreshPerms(this.ctx.token.uid);
