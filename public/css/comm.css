@@ -168,8 +168,9 @@ label a:hover {
 
 .footer .wrapper .copyright {
   font-size: 12px;
-  margin-top: 20px;
+  margin-top: 10px;
   color: #787D82;
+  line-height: 16px;
 }
 
 @media screen and (max-width: 1024px) {
