@@ -16,7 +16,7 @@ export default () => {
       password: '123456',
       database: 'siyee-api',
       synchronize: false,
-      logging: false,
+      logging: true,
       timezone: '+08:00',
       /**
        * JavaScript对数据库中int和bigint的区别对待：
