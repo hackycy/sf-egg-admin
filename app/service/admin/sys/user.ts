@@ -55,14 +55,24 @@ export default class SysUserService extends BaseService {
    * @param param Object 对应SysUser实体类
    */
   async add(param: CreateUserDto) {
-    const insertData: any = { ...CreateUserDto };
+    // const insertData: any = { ...CreateUserDto };
     const exists = await this.getRepo().admin.sys.User.findOne({ username: param.username });
     if (!_.isEmpty(exists)) {
       return false;
     }
-    const pwd = this.getHelper().generateRandomValue(8);
-    insertData.password = this.getHelper().aesEncrypt(pwd, this.config.aesSecret.admin);
-    const result = await this.getRepo().admin.sys.User.save(insertData);
+    // 所有用户初始密码为123456
+    const password = this.getHelper().aesEncrypt('123456', this.config.aesSecret.admin);
+    const result = await this.getRepo().admin.sys.User.save({
+      departmentId: param.departmentId,
+      username: param.username,
+      password,
+      name: param.name,
+      nickName: param.nickName,
+      email: param.email,
+      phone: param.phone,
+      remark: param.remark,
+      status: param.status,
+    });
     const { roles } = param;
     const insertRoles = roles.map(e => {
       return {
@@ -72,19 +82,6 @@ export default class SysUserService extends BaseService {
     });
     // 分配角色
     await this.getRepo().admin.sys.UserRole.insert(insertRoles);
-    // 发送初始密码邮件
-    if (param.email) {
-      try {
-        this.service.admin.comm.email.sendEmail({
-          from: 'noreply@mail.si-yee.com', // sender address
-          to: param.email, // list of receivers
-          subject: '系统登录初始密码，请妥善保管', // Subject line
-          text: `您的思忆后台账号：${param.username}的初始密码为${pwd}，请妥善保管好初始密码以登录系统`, // plain text body
-        });
-      } catch (e) {
-        // send error will nothing to do
-      }
-    }
     return true;
   }
 

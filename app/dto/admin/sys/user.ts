@@ -51,18 +51,18 @@ export class CreateUserDto {
   @IsOptional()
   @IsIn([ 0, 1 ])
   @Expose()
-  status: string;
-
-  @IsOptional()
-  @IsBoolean()
-  @Expose()
-  resetPassword: boolean;
+  status: number;
 }
 
 export class UpdateUserDto extends CreateUserDto {
   @IsInt()
   @Expose()
   id: number;
+
+  @IsOptional()
+  @IsBoolean()
+  @Expose()
+  resetPassword: boolean;
 }
 
 export class InfoUserDto {
