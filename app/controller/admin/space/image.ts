@@ -13,8 +13,12 @@ export default class ImageSpaceController extends BaseController {
     const dto = await this.ctx.validate<QueryImageDto>(QueryImageDto, this.getQuery());
     this.res({
       data: {
-        images: await this.service.admin.space.image.page(parseInt(dto.typeId), dto.page - 1, dto.limit),
-        imageTotalCount: await this.service.admin.space.image.count(parseInt(dto.typeId)),
+        list: await this.service.admin.space.image.page(parseInt(dto.typeId), dto.page - 1, dto.limit),
+        pagination: {
+          page: dto.page,
+          size: dto.limit,
+          total: await this.service.admin.space.image.count(parseInt(dto.typeId)),
+        },
       },
     });
   }

@@ -17,8 +17,12 @@ export default class SysRoleController extends BaseController {
     const dto = await this.ctx.validate<PageGetDto>(PageGetDto, this.getQuery());
     this.res({
       data: {
-        roles: await this.service.admin.sys.role.page(dto.page - 1, dto.limit),
-        roleTotalCount: await this.service.admin.sys.role.count(),
+        list: await this.service.admin.sys.role.page(dto.page - 1, dto.limit),
+        pagination: {
+          page: dto.page,
+          size: dto.limit,
+          total: await this.service.admin.sys.role.count(),
+        },
       },
     });
   }

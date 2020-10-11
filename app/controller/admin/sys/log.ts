@@ -13,8 +13,12 @@ export default class SysLogController extends BaseController {
     const dto = await this.ctx.validate<PageGetDto>(PageGetDto, this.getQuery());
     this.res({
       data: {
-        logs: await this.service.admin.sys.log.page(dto.page - 1, dto.limit),
-        count: await this.service.admin.sys.log.count(),
+        list: await this.service.admin.sys.log.page(dto.page - 1, dto.limit),
+        pagination: {
+          page: dto.page,
+          size: dto.limit,
+          total: await this.service.admin.sys.log.count(),
+        },
       },
     });
   }
