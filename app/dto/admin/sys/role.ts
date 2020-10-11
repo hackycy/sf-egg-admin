@@ -4,7 +4,7 @@ import {
   IsOptional,
   IsNumberString,
   Length,
-  IsAscii,
+  Matches,
   IsInt,
   Allow,
 } from 'class-validator';
@@ -21,7 +21,7 @@ export class CreateRoleDto {
   @Expose()
   name: string;
 
-  @IsAscii()
+  @Matches(/^[a-z0-9A-Z]+$/)
   @Expose()
   label: string;
 

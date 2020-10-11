@@ -1,7 +1,7 @@
 import {
   IsInt,
   Length,
-  IsAscii,
+  Matches,
   Allow,
   IsEmail,
   ArrayNotEmpty,
@@ -22,7 +22,8 @@ export class CreateUserDto {
   @Expose()
   name: string;
 
-  @IsAscii()
+  @Matches(/^[a-z0-9A-Z]+$/)
+  @Length(6, 20)
   @Expose()
   username: string;
 
