@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import BaseService from '../../base';
 import { Not, In } from 'typeorm';
 import { UpdatePersonInfoDto } from '../../../dto/admin/verify';
-import { CreateUserDto } from '../../../dto/admin/sys/user';
+import { CreateUserDto, UpdateUserDto } from '../../../dto/admin/sys/user';
 
 /**
  * 系统-用户
@@ -88,24 +88,23 @@ export default class SysUserService extends BaseService {
   /**
    * 更新用户信息
    */
-  async update(param: any) {
-    const { resetPassword = false, id, roles } = param;
-    let pwd: string | null = null;
-    if (resetPassword) {
-      // 需要重置密码
-      pwd = this.getHelper().generateRandomValue(8);
-      param.password = this.getHelper().aesEncrypt(pwd, this.config.aesSecret.admin);
-    }
-    delete param.roles;
-    delete param.id;
-    delete param.resetPassword;
-    await this.getRepo().admin.sys.User.update(id, param);
+  async update(param: UpdateUserDto) {
+    await this.getRepo().admin.sys.User.update(param.id, {
+      departmentId: param.departmentId,
+      username: param.username,
+      name: param.name,
+      nickName: param.nickName,
+      email: param.email,
+      phone: param.phone,
+      remark: param.remark,
+      status: param.status,
+    });
     // 先删除原来的角色关系
-    await this.getRepo().admin.sys.UserRole.delete({ userId: id });
-    const insertRoles = roles.map(e => {
+    await this.getRepo().admin.sys.UserRole.delete({ userId: param.id });
+    const insertRoles = param.roles.map(e => {
       return {
         roleId: e,
-        userId: id,
+        userId: param.id,
       };
     });
     // 重新分配角色
@@ -113,22 +112,6 @@ export default class SysUserService extends BaseService {
     if (param.status === 0) {
       // 禁用状态
       await this.forbidden(param.id);
-    }
-    if (resetPassword) {
-      await this.upgradePasswordV(id);
-    }
-    // 发送初始密码邮件
-    if (resetPassword && param.email) {
-      try {
-        this.service.admin.comm.email.sendEmail({
-          from: 'noreply@mail.si-yee.com', // sender address
-          to: param.email, // list of receivers
-          subject: '重置登录密码，请妥善保管', // Subject line
-          text: `重置密码为${pwd}，请妥善保管好密码以登录系统`, // plain text body
-        });
-      } catch (e) {
-        // send error will nothing to do
-      }
     }
   }
 

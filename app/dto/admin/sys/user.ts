@@ -8,7 +8,6 @@ import {
   ValidateIf,
   IsOptional,
   IsIn,
-  IsBoolean,
   IsNumberString,
 } from 'class-validator';
 import { Expose } from 'class-transformer';
@@ -58,11 +57,6 @@ export class UpdateUserDto extends CreateUserDto {
   @IsInt()
   @Expose()
   id: number;
-
-  @IsOptional()
-  @IsBoolean()
-  @Expose()
-  resetPassword: boolean;
 }
 
 export class InfoUserDto {
