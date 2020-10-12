@@ -52,9 +52,9 @@ export default class SysRoleService extends BaseService {
   /**
    * 增加角色
    */
-  async add(param: CreateRoleDto, uid: string) {
+  async add(param: CreateRoleDto, uid: number) {
     const { name, label, remark, menus, depts } = param;
-    const role = await this.getRepo().admin.sys.Role.insert({ name, label, remark, userId: uid });
+    const role = await this.getRepo().admin.sys.Role.insert({ name, label, remark, userId: String(uid) });
     const { identifiers } = role;
     const roleId = parseInt(identifiers[0].id);
     if (menus && menus.length > 0) {
