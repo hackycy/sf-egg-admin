@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { BaseEntity } from '../../base';
 
-@Entity({ name: 'sys_log' })
-export default class SysLog extends BaseEntity {
+@Entity({ name: 'sys_req_log' })
+export default class SysReqLog extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
@@ -17,4 +17,7 @@ export default class SysLog extends BaseEntity {
 
   @Column({ length: 100, nullable: true })
   action: string;
+
+  @Column({ length: 15, nullable: true })
+  method: string;
 }
