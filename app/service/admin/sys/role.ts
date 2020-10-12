@@ -1,9 +1,6 @@
 import BaseService from '../../base';
 import * as _ from 'lodash';
 import { Not, In } from 'typeorm';
-import SysRole from '../../../entities/admin/sys/role';
-import SysRoleMenu from '../../../entities/admin/sys/role_menu';
-import SysRoleDepartment from '../../../entities/admin/sys/role_department';
 import { CreateRoleDto, UpdateRoleDto } from '../../../dto/admin/sys/role';
 
 /**
@@ -45,9 +42,9 @@ export default class SysRoleService extends BaseService {
       throw new Error('Not Support Delete Root');
     }
     await this.ctx.ormManager.transaction(async manager => {
-      await manager.delete(SysRole, roleIds);
-      await manager.delete(SysRoleMenu, { roleId: In(roleIds) });
-      await manager.delete(SysRoleDepartment, { roleId: In(roleIds) });
+      await manager.delete(this.getEntity().admin.sys.Role, roleIds);
+      await manager.delete(this.getEntity().admin.sys.RoleMenu, { roleId: In(roleIds) });
+      await manager.delete(this.getEntity().admin.sys.RoleDepartment, { roleId: In(roleIds) });
       // TODO：需要连同用户一并删除
     });
   }
@@ -98,42 +95,45 @@ export default class SysRoleService extends BaseService {
     const deleteMenusRowIds = _.difference(originMenuIds, menus);
     const insertDeptRowIds = _.difference(depts, originDeptIds);
     const deleteDeptRowIds = _.difference(originDeptIds, depts);
-    // 菜单
-    if (insertMenusRowIds.length > 0) {
-      // 有条目更新
-      const insertRows = insertMenusRowIds.map(e => {
-        return {
-          roleId,
-          menuId: e,
-        };
-      });
-      await this.getRepo().admin.sys.RoleMenu.insert(insertRows);
-    }
-    if (deleteMenusRowIds.length > 0) {
-      // 有条目需要删除
-      const realDeleteRowIds = _.filter(originMenuRows, e => {
-        return _.includes(deleteMenusRowIds, e.menuId);
-      }).map(e => { return e.id; });
-      await this.getRepo().admin.sys.RoleMenu.delete(realDeleteRowIds);
-    }
-    // 部门
-    if (insertDeptRowIds.length > 0) {
-      // 有条目更新
-      const insertRows = insertDeptRowIds.map(e => {
-        return {
-          roleId,
-          departmentId: e,
-        };
-      });
-      await this.getRepo().admin.sys.RoleDepartment.insert(insertRows);
-    }
-    if (deleteDeptRowIds.length > 0) {
-      // 有条目需要删除
-      const realDeleteRowIds = _.filter(originDeptRows, e => {
-        return _.includes(deleteDeptRowIds, e.departmentId);
-      }).map(e => { return e.id; });
-      await this.getRepo().admin.sys.RoleDepartment.delete(realDeleteRowIds);
-    }
+    // using transaction
+    await this.ctx.ormManager.transaction(async manager => {
+      // 菜单
+      if (insertMenusRowIds.length > 0) {
+        // 有条目更新
+        const insertRows = insertMenusRowIds.map(e => {
+          return {
+            roleId,
+            menuId: e,
+          };
+        });
+        await manager.insert(this.getEntity().admin.sys.RoleMenu, insertRows);
+      }
+      if (deleteMenusRowIds.length > 0) {
+        // 有条目需要删除
+        const realDeleteRowIds = _.filter(originMenuRows, e => {
+          return _.includes(deleteMenusRowIds, e.menuId);
+        }).map(e => { return e.id; });
+        await manager.delete(this.getEntity().admin.sys.RoleMenu, realDeleteRowIds);
+      }
+      // 部门
+      if (insertDeptRowIds.length > 0) {
+        // 有条目更新
+        const insertRows = insertDeptRowIds.map(e => {
+          return {
+            roleId,
+            departmentId: e,
+          };
+        });
+        await manager.insert(this.getEntity().admin.sys.RoleDepartment, insertRows);
+      }
+      if (deleteDeptRowIds.length > 0) {
+        // 有条目需要删除
+        const realDeleteRowIds = _.filter(originDeptRows, e => {
+          return _.includes(deleteDeptRowIds, e.departmentId);
+        }).map(e => { return e.id; });
+        await manager.delete(this.getEntity().admin.sys.RoleDepartment, realDeleteRowIds);
+      }
+    });
     return role;
   }
 
