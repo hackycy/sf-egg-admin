@@ -15,7 +15,7 @@ export default (appInfo: EggAppInfo) => {
   };
 
   // add your egg config in here
-  config.middleware = [ 'adminReqLog', 'adminAuthority' ];
+  config.middleware = [ 'adminReqLog', 'execption', 'adminAuthority' ];
 
   config.aesSecret = {
     admin: 'hXuLvp6zmhahtW1kf21DpYxm',
@@ -119,18 +119,18 @@ export default (appInfo: EggAppInfo) => {
 
   // https://eggjs.org/zh-cn/core/error-handling.html
   config.onerror = {
-    all(err: any, ctx: any) {
-      // 在此处定义针对所有响应类型的错误处理方法
-      // 注意，定义了 config.all 之后，其他错误处理方法不会再生效
-      ctx.set('Content-Type', 'application/json');
-      // 生产环境时 500 错误的详细错误内容不返回给客户端，因为可能包含敏感信息
-      const status = err.status || 500;
-      const message = status === 500 && ctx.app.config.env === 'prod' ? 'Server internal exception, please try again later' : err.message;
-      ctx.body = JSON.stringify({
-        errorCode: err.errorCode || 500,
-        message,
-      });
-    },
+    // all(err: any, ctx: any) {
+    //   // 在此处定义针对所有响应类型的错误处理方法
+    //   // 注意，定义了 config.all 之后，其他错误处理方法不会再生效
+    //   ctx.set('Content-Type', 'application/json');
+    //   // 生产环境时 500 错误的详细错误内容不返回给客户端，因为可能包含敏感信息
+    //   const status = err.status || 500;
+    //   const message = status === 500 && ctx.app.config.env === 'prod' ? 'Server internal exception, please try again later' : err.message;
+    //   ctx.body = JSON.stringify({
+    //     errorCode: err.errorCode || 500,
+    //     message,
+    //   });
+    // },
   };
 
   // the return config will combines to EggAppConfig

@@ -3,7 +3,7 @@ import { Context } from 'egg';
 /**
  * 日志中间件，记录请求
  */
-export default function adminReqLog(): any {
+export default function AdminReqLog(): any {
   return async (ctx: Context, next: () => Promise<any>) => {
     await next();
     const { url } = ctx;
