@@ -130,7 +130,11 @@ export default class SysMenuService extends BaseService {
    */
   async refreshPerms(uid: number) {
     const perms = await this.getPerms(uid);
-    await this.app.redis.get('admin').set(`admin:perms:${uid}`, JSON.stringify(perms));
+    const online = await this.app.redis.get('admin').get(`admin:token:${uid}`);
+    if (online) {
+      // 判断是否在线
+      await this.app.redis.get('admin').set(`admin:perms:${uid}`, JSON.stringify(perms));
+    }
   }
 
   /**
