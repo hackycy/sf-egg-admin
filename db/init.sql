@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 12/10/2020 16:19:07
+ Date: 12/10/2020 16:48:51
 */
 
 SET NAMES utf8mb4;
@@ -218,8 +218,9 @@ CREATE TABLE `sys_req_log` (
   `params` text,
   `action` varchar(100) DEFAULT NULL,
   `method` varchar(15) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
