@@ -4,7 +4,7 @@ import BaseController from '../../base';
 import { PageGetDto } from '../../../dto/comm';
 
 /**
- * 系统日志控制器
+ * 请求追踪控制器
  */
 export default class SysLogController extends BaseController {
 
