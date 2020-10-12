@@ -21,6 +21,7 @@ export default class SysOnlineController extends BaseController {
       this.res({
         code: 10012,
       });
+      return;
     }
     this.res({
       data: await this.service.admin.sys.user.forbidden(dto.id),
