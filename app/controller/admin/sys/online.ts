@@ -1,4 +1,5 @@
 import { AdminRoute } from '../../../decorator/router_register';
+import { KickDto } from '../../../dto/admin/sys/online';
 import BaseController from '../../base';
 
 /**
@@ -10,6 +11,19 @@ export default class SysOnlineController extends BaseController {
   async page() {
     this.res({
       data: await this.service.admin.sys.online.list(),
+    });
+  }
+
+  @AdminRoute('/sys/online/kick', 'post')
+  async kick() {
+    const dto = await this.ctx.validate<KickDto>(KickDto);
+    if (dto.id === this.ctx.token.uid) {
+      this.res({
+        code: 10012,
+      });
+    }
+    this.res({
+      data: await this.service.admin.sys.user.forbidden(dto.id),
     });
   }
 
