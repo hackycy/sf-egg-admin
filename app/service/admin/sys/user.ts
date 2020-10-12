@@ -61,27 +61,30 @@ export default class SysUserService extends BaseService {
       return false;
     }
     // 所有用户初始密码为123456
-    const password = this.getHelper().aesEncrypt('123456', this.config.aesSecret.admin);
-    const result = await this.getRepo().admin.sys.User.save({
-      departmentId: param.departmentId,
-      username: param.username,
-      password,
-      name: param.name,
-      nickName: param.nickName,
-      email: param.email,
-      phone: param.phone,
-      remark: param.remark,
-      status: param.status,
+    await this.ctx.ormManager.transaction(async manager => {
+      const password = this.getHelper().aesEncrypt('123456', this.config.aesSecret.admin);
+      const u = manager.create(this.getEntity().admin.sys.User, {
+        departmentId: param.departmentId,
+        username: param.username,
+        password,
+        name: param.name,
+        nickName: param.nickName,
+        email: param.email,
+        phone: param.phone,
+        remark: param.remark,
+        status: param.status,
+      });
+      const result = await manager.save(u);
+      const { roles } = param;
+      const insertRoles = roles.map(e => {
+        return {
+          roleId: e,
+          userId: result.id,
+        };
+      });
+      // 分配角色
+      await manager.insert(this.getEntity().admin.sys.UserRole, insertRoles);
     });
-    const { roles } = param;
-    const insertRoles = roles.map(e => {
-      return {
-        roleId: e,
-        userId: result.id,
-      };
-    });
-    // 分配角色
-    await this.getRepo().admin.sys.UserRole.insert(insertRoles);
     return true;
   }
 
