@@ -11,6 +11,10 @@ export default class BaseService extends Service {
     return this.ctx.repo;
   }
 
+  getEntity() {
+    return this.ctx.entity;
+  }
+
   /**
    * 获取Helper
    */
