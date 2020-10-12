@@ -5,8 +5,8 @@ import { Context } from 'egg';
  */
 export default function adminReqLog(): any {
   return async (ctx: Context, next: () => Promise<any>) => {
-    const { url } = ctx;
     await next();
+    const { url } = ctx;
     // 该接口不做记录/admin/sys/log/page
     if (url.startsWith('/admin') && !url.startsWith('/admin/sys/log/page')) {
       ctx.service.admin.sys.reqLog.save(url.split('?')[0],
