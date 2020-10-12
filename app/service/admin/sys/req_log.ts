@@ -10,7 +10,7 @@ export default class SysReqLogService extends BaseService {
    */
   async save(url: string, params: string, userId: number | null) {
     const ip = this.getHelper().getReqIP();
-    await this.getRepo().admin.sys.Log.insert({
+    await this.getRepo().admin.sys.ReqLog.insert({
       action: url,
       params: JSON.stringify(params),
       userId: userId === null ? undefined : userId,
@@ -22,14 +22,14 @@ export default class SysReqLogService extends BaseService {
    * 计算日志总数
    */
   async count() {
-    return await this.getRepo().admin.sys.Log.count();
+    return await this.getRepo().admin.sys.ReqLog.count();
   }
 
   /**
    * 分页加载日志信息
    */
   async page(page: number, count: number) {
-    const result = await this.getRepo().admin.sys.Log.find({
+    const result = await this.getRepo().admin.sys.ReqLog.find({
       order: {
         id: 'DESC',
       },
@@ -43,17 +43,17 @@ export default class SysReqLogService extends BaseService {
    * 分页查询
    */
   async search(page: number, count: number, q: string) {
-    const allResult = await this.getRepo().admin.sys.Log.createQueryBuilder('log')
-      .where(`log.userId LIKE '%${q}%'`)
-      .orWhere(`log.ip LIKE '%${q}%'`)
-      .orWhere(`log.action LIKE '%${q}%'`)
-      .orWhere(`log.params LIKE '%${q}%'`)
+    const allResult = await this.getRepo().admin.sys.ReqLog.createQueryBuilder('req_log')
+      .where(`req_log.userId LIKE '%${q}%'`)
+      .orWhere(`req_log.ip LIKE '%${q}%'`)
+      .orWhere(`req_log.action LIKE '%${q}%'`)
+      .orWhere(`req_log.params LIKE '%${q}%'`)
       .getMany();
-    const result = await this.getRepo().admin.sys.Log.createQueryBuilder('log')
-      .where(`log.userId LIKE '%${q}%'`)
-      .orWhere(`log.ip LIKE '%${q}%'`)
-      .orWhere(`log.action LIKE '%${q}%'`)
-      .orWhere(`log.params LIKE '%${q}%'`)
+    const result = await this.getRepo().admin.sys.ReqLog.createQueryBuilder('req_log')
+      .where(`req_log.userId LIKE '%${q}%'`)
+      .orWhere(`req_log.ip LIKE '%${q}%'`)
+      .orWhere(`req_log.action LIKE '%${q}%'`)
+      .orWhere(`req_log.params LIKE '%${q}%'`)
       .skip(page * count)
       .take(count)
       .getMany();
