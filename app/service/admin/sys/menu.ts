@@ -36,6 +36,7 @@ export default class SysMenuService extends BaseService {
       menus = await this.getRepo().admin.sys.Menu.createQueryBuilder('menu')
         .innerJoinAndSelect('sys_role_menu', 'role_menu', 'menu.id = role_menu.menu_id')
         .andWhere('role_menu.role_id IN (:...roldIds)', { roldIds: roleIds })
+        .orderBy('menu.order_num', 'DESC')
         .getMany();
     }
     return menus;

@@ -83,6 +83,7 @@ export default class SysDeptService extends BaseService {
       depts = await this.getRepo().admin.sys.Department.createQueryBuilder('dept')
         .innerJoinAndSelect('sys_role_department', 'role_dept', 'dept.id = role_dept.department_id')
         .andWhere('role_dept.role_id IN (:...roldIds)', { roldIds: roleIds })
+        .orderBy('dept.order_num', 'ASC')
         .getMany();
     }
     return depts;
