@@ -140,6 +140,14 @@ export default class SysUserService extends BaseService {
   }
 
   /**
+   * 查找列表里的信息
+   */
+  async infoList(ids: number[]) {
+    const users = await this.getRepo().admin.sys.User.findByIds(ids);
+    return users;
+  }
+
+  /**
    * 根据ID列表删除用户
    */
   async delete(userIds: number[]) {
