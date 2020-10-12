@@ -17,7 +17,7 @@ export default class SysUserService extends BaseService {
     if (!_.isEmpty(user)) {
       delete user.departmentId;
       delete user.status;
-      delete user.remark;
+      // delete user.remark;
       delete user.password;
     }
     return user;
