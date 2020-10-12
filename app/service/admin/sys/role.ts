@@ -1,6 +1,6 @@
 import BaseService from '../../base';
 import * as _ from 'lodash';
-import { Not, getManager, In } from 'typeorm';
+import { Not, In } from 'typeorm';
 import SysRole from '../../../entities/admin/sys/role';
 import SysRoleMenu from '../../../entities/admin/sys/role_menu';
 import SysRoleDepartment from '../../../entities/admin/sys/role_department';
@@ -44,7 +44,7 @@ export default class SysRoleService extends BaseService {
     if (_.includes(roleIds, this.config.rootRoleId)) {
       throw new Error('Not Support Delete Root');
     }
-    await getManager().transaction(async manager => {
+    await this.ctx.ormManager.transaction(async manager => {
       await manager.delete(SysRole, roleIds);
       await manager.delete(SysRoleMenu, { roleId: In(roleIds) });
       await manager.delete(SysRoleDepartment, { roleId: In(roleIds) });
