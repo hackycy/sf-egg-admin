@@ -1,9 +1,9 @@
 import BaseService from '../../base';
 
 /**
- * 系统日志服务
+ * 请求追踪服务
  */
-export default class SysLogService extends BaseService {
+export default class SysReqLogService extends BaseService {
 
   /**
    * 记录日志
