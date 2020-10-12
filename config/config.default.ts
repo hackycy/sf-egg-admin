@@ -15,7 +15,7 @@ export default (appInfo: EggAppInfo) => {
   };
 
   // add your egg config in here
-  config.middleware = [ 'adminAuthority', 'adminReqLog', 'notfoundHandler' ];
+  config.middleware = [ 'adminAuthority', 'adminReqLog' ];
 
   config.aesSecret = {
     admin: 'hXuLvp6zmhahtW1kf21DpYxm',
