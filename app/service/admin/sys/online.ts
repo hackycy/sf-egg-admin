@@ -14,6 +14,7 @@ export default class SysOnlineService extends BaseService {
     const users = await this.service.admin.sys.user.infoList(formatNumberIds);
     return users.map(e => {
       return {
+        id: e.id,
         isCurrent: this.ctx.token.uid === e.id,
         username: e.username,
         status: 1, // 1为在线，2为异常(有可能Token失效但是redis还未清理)
