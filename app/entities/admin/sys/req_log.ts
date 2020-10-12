@@ -20,4 +20,7 @@ export default class SysReqLog extends BaseEntity {
 
   @Column({ length: 15, nullable: true })
   method: string;
+
+  @Column({ type: 'int', nullable: true })
+  status: number;
 }
