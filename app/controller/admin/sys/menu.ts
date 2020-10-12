@@ -41,8 +41,8 @@ export default class SysMenuController extends BaseController {
     }
     const saveData = await this.service.admin.sys.menu.save(insertData);
     if (dto.type === 2) {
-      // 如果是权限发生更改，则刷新当前用户权限
-      await this.service.admin.sys.menu.refreshPerms(this.ctx.token.uid);
+      // 如果是权限发生更改，则刷新所有在线用户的权限
+      await this.service.admin.sys.menu.refreshOnlineUserPerms();
     }
     this.res({
       data: saveData,
@@ -85,8 +85,8 @@ export default class SysMenuController extends BaseController {
     // update id
     updateData.id = dto.menuId;
     const saveData = await this.service.admin.sys.menu.save(updateData);
-    // 如果是权限发生更改，则刷新当前用户权限
-    await this.service.admin.sys.menu.refreshPerms(this.ctx.token.uid);
+    // 如果是权限发生更改，则刷新所有在线用户权限
+    await this.service.admin.sys.menu.refreshOnlineUserPerms();
     this.res({
       data: saveData,
     });
@@ -98,7 +98,7 @@ export default class SysMenuController extends BaseController {
     // 如果有子目录，一并删除
     const childMenus = await this.service.admin.sys.menu.findChildMenus(dto.menuId);
     await this.service.admin.sys.menu.deleteMenuItem(_.flattenDeep([ dto.menuId, childMenus ]));
-    await this.service.admin.sys.menu.refreshPerms(this.ctx.token.uid);
+    await this.service.admin.sys.menu.refreshOnlineUserPerms();
     this.res();
   }
 

@@ -50,7 +50,7 @@ export default class SysUserController extends BaseController {
   async update() {
     const dto = await this.ctx.validate<UpdateUserDto>(UpdateUserDto);
     await this.service.admin.sys.user.update(dto);
-    await this.service.admin.sys.menu.refreshPerms(this.ctx.token.uid);
+    await this.service.admin.sys.menu.refreshPerms(dto.id);
     this.res();
   }
 

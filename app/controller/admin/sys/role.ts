@@ -38,6 +38,7 @@ export default class SysRoleController extends BaseController {
       return;
     }
     await this.service.admin.sys.role.delete(dto.roleIds);
+    await this.service.admin.sys.menu.refreshOnlineUserPerms();
     this.res();
   }
 
@@ -53,6 +54,7 @@ export default class SysRoleController extends BaseController {
   async update() {
     const dto = await this.ctx.validate<UpdateRoleDto>(UpdateRoleDto);
     await this.service.admin.sys.role.update(dto);
+    await this.service.admin.sys.menu.refreshOnlineUserPerms();
     this.res();
   }
 
