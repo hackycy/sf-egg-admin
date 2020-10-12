@@ -208,6 +208,25 @@ export default class SysUserService extends BaseService {
   }
 
   /**
+   * 禁用多个用户
+   */
+  async multiForbidden(uids: number[]) {
+    if (uids) {
+      const pvs: string[] = [];
+      const ts: string[] = [];
+      const ps: string[] = [];
+      uids.forEach(e => {
+        pvs.push(`admin:passwordVersion:${e}`);
+        ts.push(`admin:token:${e}`);
+        ps.push(`admin:perms:${e}`);
+      });
+      await this.app.redis.get('admin').del(pvs);
+      await this.app.redis.get('admin').del(ts);
+      await this.app.redis.get('admin').del(ps);
+    }
+  }
+
+  /**
    * 升级用户版本密码
    */
   async upgradePasswordV(id: number) {

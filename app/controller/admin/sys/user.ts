@@ -28,6 +28,7 @@ export default class SysUserController extends BaseController {
   async delete() {
     const dto = await this.ctx.validate<DeleteUserDto>(DeleteUserDto);
     await this.service.admin.sys.user.delete(dto.userIds);
+    await this.service.admin.sys.user.multiForbidden(dto.userIds);
     this.res();
   }
 
