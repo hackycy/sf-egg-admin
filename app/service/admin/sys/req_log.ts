@@ -8,7 +8,7 @@ export default class SysReqLogService extends BaseService {
   /**
    * 记录日志
    */
-  async save(url: string, params: string, method: string | undefined, userId: number | null) {
+  async save(url: string, params: string, status: number, method: string | undefined, userId: number | null) {
     const ip = this.getHelper().getReqIP();
     await this.getRepo().admin.sys.ReqLog.insert({
       action: url,
@@ -16,6 +16,7 @@ export default class SysReqLogService extends BaseService {
       userId: userId === null ? undefined : userId,
       ip,
       method: method ? method.toUpperCase() : undefined,
+      status,
     });
   }
 
