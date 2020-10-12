@@ -18,7 +18,7 @@ const noPermUrl = [
  * Admin权限验证中间件，只检测/admin开头请求
  * Token验证通过会把当前解析的Token解析把对象挂载到ctx.token上,token对象例如{ uid, pv }
  */
-export default function adminAuthority(): any {
+export default function AdminAuthority(): any {
   return async (ctx: Context, next: () => Promise<any>) => {
     const { url } = ctx;
     let statusCode = 200;
