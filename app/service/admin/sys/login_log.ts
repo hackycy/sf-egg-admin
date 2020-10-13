@@ -29,21 +29,30 @@ export default class SysLoginLogService extends BaseService {
    * 分页加载日志信息
    */
   async page(page: number, count: number) {
-    const result = await this.getRepo().admin.sys.LoginLog.find({
-      order: {
-        id: 'DESC',
-      },
-      take: count,
-      skip: page * count,
-    });
+    // const result = await this.getRepo().admin.sys.LoginLog.find({
+    //   order: {
+    //     id: 'DESC',
+    //   },
+    //   take: count,
+    //   skip: page * count,
+    // });
+    const result = await this.getRepo().admin.sys.LoginLog.createQueryBuilder('login_log')
+      .innerJoinAndSelect('sys_user', 'user', 'login_log.user_id = user.id')
+      .orderBy('login_log.time', 'DESC')
+      .skip(page * count)
+      .take(count)
+      .getRawMany();
+    this.ctx.logger.info(result);
     const parser = new UAParser();
     return result.map(e => {
-      const u = parser.setUA(e.ua).getResult();
+      const u = parser.setUA(e.login_log_ua).getResult();
       return {
-        id: e.id,
-        ip: e.ip,
-        os: u.os.name,
-        browser: u.browser.name,
+        id: e.login_log_id,
+        ip: e.login_log_ip,
+        os: `${u.os.name} ${u.os.version}`,
+        browser: `${u.browser.name} ${u.browser.version}`,
+        time: e.login_log_time,
+        username: e.user_username,
       };
     });
   }
