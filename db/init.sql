@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 13/10/2020 17:39:06
+ Date: 13/10/2020 18:06:18
 */
 
 SET NAMES utf8mb4;
@@ -123,7 +123,7 @@ CREATE TABLE `sys_menu` (
   `keepalive` tinyint(4) DEFAULT '1',
   `isShow` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -163,6 +163,8 @@ INSERT INTO `sys_menu` VALUES ('2020-10-12 10:00:49.463487', '2020-10-12 10:00:4
 INSERT INTO `sys_menu` VALUES ('2020-10-13 03:01:13.787832', '2020-10-13 03:01:13.787832', 52, 51, '查询', '', 'sys:online:list', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-10-13 03:01:51.480667', '2020-10-13 03:01:51.480667', 53, 51, '下线', '', 'sys:online:kick', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-10-13 09:37:29.097828', '2020-10-13 09:37:29.097828', 54, 38, '查询', '', 'sys:req-log:page,sys:req-log:search', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-13 09:52:08.932501', '2020-10-13 09:53:44.000000', 55, 37, '登录日志', '/sys/monitor/login-log', NULL, 1, 'guide', 0, 'views/system/monitor/login-log', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-13 09:56:13.285772', '2020-10-13 09:56:13.285772', 56, 55, '查询', '', 'sys:login-log:page', 2, '', 0, '', 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -180,7 +182,7 @@ CREATE TABLE `sys_req_log` (
   `method` varchar(15) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=649 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=753 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
