@@ -63,7 +63,7 @@ export default function AdminAuthority(): any {
                 return e.replace(/:/g, '/');
               });
               if (!perms.includes(url.split('?')[0].replace('/admin/', ''))) {
-                errorCode = 11001;
+                errorCode = 11003;
                 statusCode = 403;
               }
             }
