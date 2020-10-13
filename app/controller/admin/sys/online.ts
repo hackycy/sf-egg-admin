@@ -23,6 +23,12 @@ export default class SysOnlineController extends BaseController {
       });
       return;
     }
+    if (dto.id === this.config.rootRoleId) {
+      this.res({
+        code: 10013,
+      });
+      return;
+    }
     this.res({
       data: await this.service.admin.sys.user.forbidden(dto.id),
     });
