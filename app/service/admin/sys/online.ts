@@ -41,8 +41,9 @@ export default class SysOnlineService extends BaseService {
           isCurrent: this.ctx.token.uid === e.user_id,
           time: moment(e.time).format('YYYY-MM-DD HH:mm:ss'),
           status: 1,
-          os: u.os.name,
-          browser: u.browser.name,
+          os: `${u.os.name} ${u.os.version}`,
+          browser: `${u.browser.name} ${u.browser.version}`,
+          disable: this.ctx.token.uid === e.user_id || e.user_id === this.config.rootRoleId,
         };
       });
     }
