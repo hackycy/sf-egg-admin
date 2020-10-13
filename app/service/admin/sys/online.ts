@@ -1,5 +1,6 @@
 import BaseService from '../../base';
 import * as moment from 'moment';
+import { UAParser } from 'ua-parser-js';
 
 /**
  * 在线用户控制器
@@ -30,7 +31,9 @@ export default class SysOnlineService extends BaseService {
       WHERE n.user_id IN (?)
     `, [ ids ]);
     if (result) {
+      const parser = new UAParser();
       return result.map(e => {
+        const u = parser.setUA(e.ua).getResult();
         return {
           id: e.user_id,
           ip: e.ip,
@@ -38,7 +41,8 @@ export default class SysOnlineService extends BaseService {
           isCurrent: this.ctx.token.uid === e.user_id,
           time: moment(e.time).format('YYYY-MM-DD HH:mm:ss'),
           status: 1,
-          ua: e.ua,
+          os: u.os.name,
+          browser: u.browser.name,
         };
       });
     }
