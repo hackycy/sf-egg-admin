@@ -65,6 +65,13 @@ export default class VerifyService extends BaseService {
     await this.app.redis.get('admin').set(`admin:passwordVersion:${user!.id}`, 1);
     await this.app.redis.get('admin').set(`admin:token:${user!.id}`, jwtSign);
     await this.app.redis.get('admin').set(`admin:perms:${user!.id}`, JSON.stringify(perms));
+    // 保存登录日志
+    await this.getRepo().admin.sys.LoginLog.save({
+      ip: this.getHelper().getReqIP(),
+      userId: user!.id,
+      ua: this.ctx.get('user-agent'),
+      time: new Date(),
+    });
     return jwtSign;
   }
 
