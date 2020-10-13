@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 13/10/2020 15:34:44
+ Date: 13/10/2020 17:39:06
 */
 
 SET NAMES utf8mb4;
@@ -95,7 +95,14 @@ CREATE TABLE `sys_login_log` (
   `time` datetime DEFAULT NULL,
   `ua` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of sys_login_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_login_log` VALUES ('2020-10-13 07:36:16.917110', '2020-10-13 07:36:16.917110', 8, 1, '127.0.0.1', '2020-10-13 15:36:17', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -116,7 +123,7 @@ CREATE TABLE `sys_menu` (
   `keepalive` tinyint(4) DEFAULT '1',
   `isShow` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -149,13 +156,13 @@ INSERT INTO `sys_menu` VALUES ('2020-09-11 04:34:52.949262', '2020-10-12 08:14:5
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:12:14.621531', '2020-09-11 06:12:14.621531', 39, 4, '部门新增', '', 'sys:dept:add', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:13:23.752133', '2020-09-11 06:13:23.752133', 40, 4, '部门删除', '', 'sys:dept:delete', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-11 06:29:52.437621', '2020-09-11 06:29:52.437621', 41, 4, '部门更新', '', 'sys:dept:update', 2, '', 0, '', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-09-14 03:14:48.168779', '2020-10-13 07:33:24.000000', 43, 38, '查询', '', 'sys:req:page,sys:req:search', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 03:56:24.740870', '2020-10-09 07:47:05.000000', 44, NULL, '文档', '/document', '', 0, 'documentation', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 06:55:17.544866', '2020-09-24 08:00:12.000000', 45, NULL, '通用权限', '/common', '', 0, '', 0, '', 1, 0);
 INSERT INTO `sys_menu` VALUES ('2020-09-23 07:31:28.700348', '2020-09-24 05:22:45.000000', 46, 45, '图片空间', '', 'space:image:type:list,space:image:type:add,space:image:type:delete,space:image:page,space:image:delete,space:image:upload', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-10-12 10:00:49.463487', '2020-10-12 10:00:49.463487', 51, 37, '在线用户', '/sys/monitor/online', NULL, 1, 'people', 0, 'views/system/monitor/online', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-10-13 03:01:13.787832', '2020-10-13 03:01:13.787832', 52, 51, '查询', '', 'sys:online:list', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-10-13 03:01:51.480667', '2020-10-13 03:01:51.480667', 53, 51, '下线', '', 'sys:online:kick', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-13 09:37:29.097828', '2020-10-13 09:37:29.097828', 54, 38, '查询', '', 'sys:req-log:page,sys:req-log:search', 2, '', 0, '', 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -173,7 +180,7 @@ CREATE TABLE `sys_req_log` (
   `method` varchar(15) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=327 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=649 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
