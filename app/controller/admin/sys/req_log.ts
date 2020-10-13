@@ -8,7 +8,7 @@ import { PageGetDto } from '../../../dto/comm';
  */
 export default class SysReqLogController extends BaseController {
 
-  @AdminRoute('/sys/req/page', 'get')
+  @AdminRoute('/sys/req-log/page', 'get')
   async page() {
     const dto = await this.ctx.validate<PageGetDto>(PageGetDto, this.getQuery());
     this.res({
@@ -23,7 +23,7 @@ export default class SysReqLogController extends BaseController {
     });
   }
 
-  @AdminRoute('/sys/req/search', 'get')
+  @AdminRoute('/sys/req-log/search', 'get')
   async search() {
     const dto = await this.ctx.validate<SearchLogDto>(SearchLogDto, this.getQuery());
     this.res({
