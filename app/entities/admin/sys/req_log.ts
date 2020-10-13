@@ -24,6 +24,6 @@ export default class SysReqLog extends BaseEntity {
   @Column({ type: 'int', nullable: true })
   status: number;
 
-  @Column({ type: 'int', nullable: true, name: 'consume_time' })
+  @Column({ type: 'int', nullable: true, name: 'consume_time', default: 0 })
   consumeTime: number;
 }
