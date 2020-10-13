@@ -7,7 +7,7 @@ import { PageGetDto } from '../../../dto/comm';
  */
 export default class SysLoginLogController extends BaseController {
 
-  @AdminRoute('/sys/login/page', 'get')
+  @AdminRoute('/sys/login-log/page', 'get')
   async page() {
     const dto = await this.ctx.validate<PageGetDto>(PageGetDto, this.getQuery());
     this.res({
@@ -16,7 +16,7 @@ export default class SysLoginLogController extends BaseController {
         pagination: {
           page: dto.page,
           size: dto.limit,
-          total: await this.service.admin.sys.reqLog.count(),
+          total: await this.service.admin.sys.loginLog.count(),
         },
       },
     });

@@ -1,4 +1,5 @@
 import BaseService from '../../base';
+import { UAParser } from 'ua-parser-js';
 
 /**
  * 登录日志服务
@@ -35,7 +36,16 @@ export default class SysLoginLogService extends BaseService {
       take: count,
       skip: page * count,
     });
-    return result;
+    const parser = new UAParser();
+    return result.map(e => {
+      const u = parser.setUA(e.ua).getResult();
+      return {
+        id: e.id,
+        ip: e.ip,
+        os: u.os.name,
+        browser: u.browser.name,
+      };
+    });
   }
 
 }
