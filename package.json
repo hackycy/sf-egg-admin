@@ -44,6 +44,7 @@
     "nodemailer": "^6.4.11",
     "qiniu": "^7.3.2",
     "svg-captcha": "^1.4.0",
+    "ua-parser-js": "^0.7.22",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
@@ -51,6 +52,7 @@
     "@types/mocha": "^2.2.40",
     "@types/node": "^7.0.12",
     "@types/supertest": "^2.0.0",
+    "@types/ua-parser-js": "^0.7.33",
     "autod": "^3.0.1",
     "autod-egg": "^1.1.0",
     "egg-bin": "^4.11.0",
