@@ -15,6 +15,9 @@ export default class SysOnlineService extends BaseService {
     return await this.findLastLoginInfo(formatNumberIds);
   }
 
+  /**
+   * 根据用户id列表查找最近登录信息和用户信息
+   */
   async findLastLoginInfo(ids: number[]) {
     const result = await this.ctx.ormManager.query(`
     SELECT n.*, u.username
