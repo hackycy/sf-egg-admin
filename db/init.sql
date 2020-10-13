@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 12/10/2020 16:48:51
+ Date: 13/10/2020 11:10:06
 */
 
 SET NAMES utf8mb4;
@@ -61,69 +61,6 @@ INSERT INTO `image_space_type` VALUES ('2020-09-24 06:10:36.509527', '2020-09-24
 COMMIT;
 
 -- ----------------------------
--- Table structure for share_exchange
--- ----------------------------
-DROP TABLE IF EXISTS `share_exchange`;
-CREATE TABLE `share_exchange` (
-  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `mid` bigint(20) NOT NULL,
-  `gid` bigint(20) NOT NULL,
-  `bcoin` int(10) unsigned NOT NULL,
-  `acoin` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Table structure for share_goods
--- ----------------------------
-DROP TABLE IF EXISTS `share_goods`;
-CREATE TABLE `share_goods` (
-  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `cid` bigint(20) NOT NULL,
-  `title` varchar(30) NOT NULL,
-  `intro` text,
-  `tag` varchar(20) DEFAULT NULL,
-  `ex_coin` int(11) DEFAULT '0',
-  `show` tinyint(4) DEFAULT '1',
-  `status` tinyint(4) DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Table structure for share_goods_category
--- ----------------------------
-DROP TABLE IF EXISTS `share_goods_category`;
-CREATE TABLE `share_goods_category` (
-  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(10) NOT NULL,
-  `mark` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Table structure for share_member
--- ----------------------------
-DROP TABLE IF EXISTS `share_member`;
-CREATE TABLE `share_member` (
-  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(16) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `coin` int(10) unsigned DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `IDX_0c38752704138f4025483b5ec2` (`username`),
-  UNIQUE KEY `IDX_81ffb23ee659a1554daccdd75a` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
 -- Table structure for sys_department
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_department`;
@@ -146,6 +83,21 @@ INSERT INTO `sys_department` VALUES ('2020-09-08 05:31:32.426851', '2020-10-07 0
 COMMIT;
 
 -- ----------------------------
+-- Table structure for sys_login_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_login_log`;
+CREATE TABLE `sys_login_log` (
+  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) DEFAULT NULL,
+  `ip` varchar(255) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  `ua` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -164,7 +116,7 @@ CREATE TABLE `sys_menu` (
   `keepalive` tinyint(4) DEFAULT '1',
   `isShow` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -201,8 +153,9 @@ INSERT INTO `sys_menu` VALUES ('2020-09-14 03:14:48.168779', '2020-09-14 10:00:5
 INSERT INTO `sys_menu` VALUES ('2020-09-14 03:56:24.740870', '2020-10-09 07:47:05.000000', 44, NULL, '文档', '/document', '', 0, 'documentation', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-09-14 06:55:17.544866', '2020-09-24 08:00:12.000000', 45, NULL, '通用权限', '/common', '', 0, '', 0, '', 1, 0);
 INSERT INTO `sys_menu` VALUES ('2020-09-23 07:31:28.700348', '2020-09-24 05:22:45.000000', 46, 45, '图片空间', '', 'space:image:type:list,space:image:type:add,space:image:type:delete,space:image:page,space:image:delete,space:image:upload', 2, '', 0, '', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-10-09 07:49:03.798676', '2020-10-09 07:49:03.798676', 49, NULL, '物品管理', '/product', NULL, 0, 'component', 0, '', 1, 1);
-INSERT INTO `sys_menu` VALUES ('2020-10-09 07:49:55.939508', '2020-10-09 07:49:55.939508', 50, 49, '物品列表', '/product/list', NULL, 1, 'nested', 0, 'views/pms/product', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-12 10:00:49.463487', '2020-10-12 10:00:49.463487', 51, 37, '在线用户', '/sys/monitor/online', NULL, 1, 'people', 0, 'views/system/monitor/online', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-13 03:01:13.787832', '2020-10-13 03:01:13.787832', 52, 51, '查询', '', 'sys:online:list', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-13 03:01:51.480667', '2020-10-13 03:01:51.480667', 53, 51, '下线', '', 'sys:online:kick', 2, '', 0, '', 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -220,7 +173,7 @@ CREATE TABLE `sys_req_log` (
   `method` varchar(15) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -279,7 +232,7 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint(20) NOT NULL,
   `menu_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_role_menu
