@@ -48,6 +48,7 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
+    "@types/bull": "^3.14.4",
     "@types/lodash": "^4.14.162",
     "@types/mocha": "^2.2.40",
     "@types/node": "^7.0.12",
