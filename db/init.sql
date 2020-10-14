@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 13/10/2020 18:06:18
+ Date: 14/10/2020 11:03:50
 */
 
 SET NAMES utf8mb4;
@@ -95,13 +95,14 @@ CREATE TABLE `sys_login_log` (
   `time` datetime DEFAULT NULL,
   `ua` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_login_log
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_login_log` VALUES ('2020-10-13 07:36:16.917110', '2020-10-13 07:36:16.917110', 8, 1, '127.0.0.1', '2020-10-13 15:36:17', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36');
+INSERT INTO `sys_login_log` VALUES ('2020-10-14 03:00:57.757747', '2020-10-14 03:00:57.757747', 9, 1, '127.0.0.1', '2020-10-14 11:00:58', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36');
 COMMIT;
 
 -- ----------------------------
@@ -181,8 +182,9 @@ CREATE TABLE `sys_req_log` (
   `action` varchar(100) DEFAULT NULL,
   `method` varchar(15) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
+  `consume_time` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=753 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
