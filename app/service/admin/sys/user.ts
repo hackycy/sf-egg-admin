@@ -210,9 +210,9 @@ export default class SysUserService extends BaseService {
    * 禁用用户
    */
   async forbidden(uid: number) {
-    await this.app.redis.get('admin').del(`admin:passwordVersion:${uid}`);
-    await this.app.redis.get('admin').del(`admin:token:${uid}`);
-    await this.app.redis.get('admin').del(`admin:perms:${uid}`);
+    await this.getAdminRedis().del(`admin:passwordVersion:${uid}`);
+    await this.getAdminRedis().del(`admin:token:${uid}`);
+    await this.getAdminRedis().del(`admin:perms:${uid}`);
   }
 
   /**
@@ -228,9 +228,9 @@ export default class SysUserService extends BaseService {
         ts.push(`admin:token:${e}`);
         ps.push(`admin:perms:${e}`);
       });
-      await this.app.redis.get('admin').del(pvs);
-      await this.app.redis.get('admin').del(ts);
-      await this.app.redis.get('admin').del(ps);
+      await this.getAdminRedis().del(pvs);
+      await this.getAdminRedis().del(ts);
+      await this.getAdminRedis().del(ps);
     }
   }
 
@@ -239,9 +239,9 @@ export default class SysUserService extends BaseService {
    */
   async upgradePasswordV(id: number) {
     // admin:passwordVersion:${param.id}
-    const v = await this.app.redis.get('admin').get(`admin:passwordVersion:${id}`);
+    const v = await this.getAdminRedis().get(`admin:passwordVersion:${id}`);
     if (!_.isEmpty(v)) {
-      await this.app.redis.get('admin').set(`admin:passwordVersion:${id}`, parseInt(v) + 1);
+      await this.getAdminRedis().set(`admin:passwordVersion:${id}`, parseInt(v!) + 1);
     }
   }
 

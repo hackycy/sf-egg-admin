@@ -8,7 +8,7 @@ import { UAParser } from 'ua-parser-js';
 export default class SysOnlineService extends BaseService {
 
   async list() {
-    const onlineUserIds: string[] = await this.app.redis.get('admin').keys('admin:token:*');
+    const onlineUserIds: string[] = await this.getAdminRedis().keys('admin:token:*');
     const formatNumberIds: number[] = onlineUserIds.map(e => {
       const uid = e.split('admin:token:')[1];
       return parseInt(uid);

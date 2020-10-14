@@ -11,10 +11,6 @@ declare module 'egg' {
     token: Token
   }
 
-  interface Application {
-    redis: any;
-  }
-
   interface EggAppConfig {
     rootRoleId: number
     rootUserName: string

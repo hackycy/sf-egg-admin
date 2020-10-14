@@ -131,10 +131,10 @@ export default class SysMenuService extends BaseService {
    */
   async refreshPerms(uid: number) {
     const perms = await this.getPerms(uid);
-    const online = await this.app.redis.get('admin').get(`admin:token:${uid}`);
+    const online = await this.getAdminRedis().get(`admin:token:${uid}`);
     if (online) {
       // 判断是否在线
-      await this.app.redis.get('admin').set(`admin:perms:${uid}`, JSON.stringify(perms));
+      await this.getAdminRedis().set(`admin:perms:${uid}`, JSON.stringify(perms));
     }
   }
 
@@ -142,12 +142,12 @@ export default class SysMenuService extends BaseService {
    * 刷新所有在线用户的权限
    */
   async refreshOnlineUserPerms() {
-    const onlineUserIds: string[] = await this.app.redis.get('admin').keys('admin:token:*');
+    const onlineUserIds: string[] = await this.getAdminRedis().keys('admin:token:*');
     if (onlineUserIds && onlineUserIds.length > 0) {
       for (let i = 0; i < onlineUserIds.length; i++) {
         const uid = onlineUserIds[i].split('admin:token:')[1];
         const perms = await this.getPerms(parseInt(uid));
-        await this.app.redis.get('admin').set(`admin:perms:${uid}`, JSON.stringify(perms));
+        await this.getAdminRedis().set(`admin:perms:${uid}`, JSON.stringify(perms));
       }
     }
   }

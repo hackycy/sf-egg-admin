@@ -23,7 +23,7 @@ export default class VerifyService extends BaseService {
       id: this.getHelper().generateUUID(),
     };
     // 10分钟过期时间
-    await this.app.redis.get('admin').set(`admin:captcha:img:${result.id}`, svg.text, 'EX', 60 * 10);
+    await this.getAdminRedis().set(`admin:captcha:img:${result.id}`, svg.text, 'EX', 60 * 10);
     return result;
   }
 
@@ -31,11 +31,11 @@ export default class VerifyService extends BaseService {
    * 校验验证码
    */
   async checkImgCaptcha(id: string, code: string) {
-    const result = await this.app.redis.get('admin').get(`admin:captcha:img:${id}`);
+    const result = await this.getAdminRedis().get(`admin:captcha:img:${id}`);
     if (_.isEmpty(result)) {
       return false;
     }
-    if (code.toLowerCase() !== result.toLowerCase()) {
+    if (code.toLowerCase() !== result!.toLowerCase()) {
       return false;
     }
     return true;
@@ -62,9 +62,9 @@ export default class VerifyService extends BaseService {
     }, {
       expiresIn: '24h',
     });
-    await this.app.redis.get('admin').set(`admin:passwordVersion:${user!.id}`, 1);
-    await this.app.redis.get('admin').set(`admin:token:${user!.id}`, jwtSign);
-    await this.app.redis.get('admin').set(`admin:perms:${user!.id}`, JSON.stringify(perms));
+    await this.getAdminRedis().set(`admin:passwordVersion:${user!.id}`, 1);
+    await this.getAdminRedis().set(`admin:token:${user!.id}`, jwtSign);
+    await this.getAdminRedis().set(`admin:perms:${user!.id}`, JSON.stringify(perms));
     // 保存登录日志
     await this.service.admin.sys.loginLog.save(user!.id);
     return jwtSign;
@@ -84,6 +84,18 @@ export default class VerifyService extends BaseService {
     const menus = await this.service.admin.sys.menu.getMenus(uid);
     const perms = await this.service.admin.sys.menu.getPerms(uid);
     return { menus, perms };
+  }
+
+  async getRedisPasswordVersionById(id: number) {
+    return this.getAdminRedis().get(`admin:passwordVersion:${id}`);
+  }
+
+  async getRedisTokenById(id: number) {
+    return this.getAdminRedis().get(`admin:token:${id}`);
+  }
+
+  async getRedisPermsById(id: number) {
+    return this.getAdminRedis().get(`admin:perms:${id}`);
   }
 
 }

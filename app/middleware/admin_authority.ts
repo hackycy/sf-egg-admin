@@ -40,29 +40,29 @@ export default function AdminAuthority(): any {
           await next();
           return;
         }
-        const pv = await ctx.app.redis.get('admin').get(`admin:passwordVersion:${ctx.token.uid}`);
+        const pv = await ctx.service.admin.comm.verify.getRedisPasswordVersionById(ctx.token.uid);
         if (pv !== `${ctx.token.pv}`) {
           // 判断密码版本，防止登录时更改密码还在允许使用
           errorCode = 11002;
           statusCode = 401;
         } else {
-          const redisToken = await ctx.app.redis.get('admin').get(`admin:token:${ctx.token.uid}`);
+          const redisToken = await ctx.service.admin.comm.verify.getRedisTokenById(ctx.token.uid);
           // 查询token是否一致
           if (token !== redisToken) {
             errorCode = 11002;
             statusCode = 401;
           } else {
             // 遍历权限是否包含该url，不包含则无访问权限
-            let perms = await ctx.app.redis.get('admin').get(`admin:perms:${ctx.token.uid}`);
+            let perms = await ctx.service.admin.comm.verify.getRedisPermsById(ctx.token.uid);
             if (_.isEmpty(perms)) {
               errorCode = 11001;
               statusCode = 403;
             } else {
               // 将sys:admin:user等转换成sys/admin/user
-              perms = JSON.parse(perms).map(e => {
+              perms = JSON.parse(perms!).map(e => {
                 return e.replace(/:/g, '/');
               });
-              if (!perms.includes(url.split('?')[0].replace('/admin/', ''))) {
+              if (!perms!.includes(url.split('?')[0].replace('/admin/', ''))) {
                 errorCode = 11003;
                 statusCode = 403;
               }

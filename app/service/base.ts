@@ -1,4 +1,5 @@
-import { Service } from 'egg';
+import { Service, Singleton } from 'egg';
+import { Redis } from 'ioredis';
 
 export default class BaseService extends Service {
 
@@ -20,6 +21,13 @@ export default class BaseService extends Service {
    */
   getHelper() {
     return this.ctx.helper;
+  }
+
+  /**
+   * admin redis
+   */
+  getAdminRedis() {
+    return ((this.app.redis as Singleton<Redis>).get('admin'));
   }
 
 }
