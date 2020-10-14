@@ -1,5 +1,6 @@
 import BaseService from '../../base';
 import { UAParser } from 'ua-parser-js';
+import * as moment from 'moment';
 
 /**
  * 登录日志服务
@@ -51,7 +52,7 @@ export default class SysLoginLogService extends BaseService {
         ip: e.login_log_ip,
         os: `${u.os.name} ${u.os.version}`,
         browser: `${u.browser.name} ${u.browser.version}`,
-        time: e.login_log_time,
+        time: moment(e.login_log_time).format('YYYY-MM-DD HH:mm:ss'),
         username: e.user_username,
       };
     });
