@@ -3,6 +3,7 @@ import { EggAppConfig, PowerPartial } from 'egg';
 export default () => {
   const config: PowerPartial<EggAppConfig> = {};
 
+  // bull config
   config.bull = {
     default: {
       redis: {
