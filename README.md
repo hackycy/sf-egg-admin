@@ -1,68 +1,40 @@
-# 思忆分享技术平台服务端
+### siyee-admin-server
 
-基于TypeScript + Eggjs实现
+基于EggJs + TypeScript + TypeOrm + Redis + Vue全家桶 及 vue-element-admin编写的一款简单高效的后台权限管理系统。
 
-## 快速开始
+前端项目地址：[传送门](https://github.com/hackycy/siyee-admin-front)
 
-### Development
+### 演示地址
 
-```bash
+[opensource.admin.si-yee.com](http://opensource.admin.si-yee.com/)
+
+### 本地开发
+
+``` bash
 $ npm i
 $ npm run dev
 $ open http://localhost:7001/
 ```
 
->  请不要在开发模式下运行`npm run tsc`，如果不小心运行了你需要在`npm run dev`前运行`npm run clean`
+> 请不要在开发模式下运行`npm run tsc`，如果不小心运行了你需要在`npm run dev`前运行`npm run clean`
 
-### 部署
+### 项目部署
 
-```bash
+#### 执行
+
+```
 $ npm run tsc
 $ npm start
 ```
 
-### 前端代理Nginx代理配置示例
+#### 反向代理配置示例
 
-```  conf
+```conf
 server
 {
-    listen 80;
-    listen 443 ssl http2;
-    server_name show.cool-admin.com;
-    index index.php index.html index.htm default.php default.htm default.html;
-    root /www/wwwroot/show.cool-admin.com;
-
-    #SSL-START SSL相关配置，请勿删除或修改下一行带注释的404规则
-    #error_page 404/404.html;
-    #HTTP_TO_HTTPS_START
-    if ($server_port !~ 443){
-        rewrite ^(/.*)$ https://$host$1 permanent;
-    }
-    #HTTP_TO_HTTPS_END
-    ssl_certificate    /www/server/panel/vhost/cert/show.cool-admin.com/fullchain.pem;
-    ssl_certificate_key    /www/server/panel/vhost/cert/show.cool-admin.com/privkey.pem;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
-    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
-    ssl_prefer_server_ciphers on;
-    ssl_session_cache shared:SSL:10m;
-    ssl_session_timeout 10m;
-    error_page 497  https://$host$request_uri;
-
-    #SSL-END
-
-    #ERROR-PAGE-START  错误页配置，可以注释、删除或修改
-    #error_page 404 /404.html;
-    #error_page 502 /502.html;
-    #ERROR-PAGE-END
-
-    #PHP-INFO-START  PHP引用配置，可以注释或修改
-    include enable-php-00.conf;
-    #PHP-INFO-END
-
-    #REWRITE-START URL重写规则引用,修改后将导致面板设置的伪静态规则失效
-    include /www/server/panel/vhost/rewrite/show.cool-admin.com.conf;
-    #REWRITE-END
-
+    # ... 省略
+		
+		# 请添加以下配置
     location / {
       try_files $uri $uri/ /index.html;
     }
@@ -92,15 +64,21 @@ server
 
         #expires 12h;
     }
-    access_log  /www/wwwlogs/show.cool-admin.com.log;
-    error_log  /www/wwwlogs/show.cool-admin.com.error.log;
+    
+    # ... 省略
 }
-
 ```
-
-
 
 ### 环境要求
 
 - Node.js 8.x
 - Typescript 2.8+
+
+### Egg插件使用教程请移步
+
+- [egg-typeorm](https://github.com/hackycy/egg-typeorm)
+- [egg-class-validator](https://github.com/hackycy/egg-class-validator)
+- [egg-bull](https://github.com/hackycy/egg-bull)
+- [egg-redis](https://github.com/eggjs/egg-redis/)
+- [svg-captcha](https://github.com/produck/svg-captcha)
+- ...略
