@@ -14,6 +14,10 @@ const plugin: EggPlugin = {
     enable: true,
     package: '@hackycy/egg-class-validator',
   },
+  bull: {
+    enable: true,
+    package: '@hackycy/egg-bull',
+  },
   redis: {
     enable: true,
     package: 'egg-redis',

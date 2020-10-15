@@ -3,6 +3,18 @@ import { EggAppConfig, PowerPartial } from 'egg';
 export default () => {
   const config: PowerPartial<EggAppConfig> = {};
 
+  config.bull = {
+    default: {
+      redis: {
+        port: 6379,
+        host: '127.0.0.1',
+        password: '123456',
+        db: 0,
+      },
+      prefix: 'admin:task:',
+    },
+  };
+
   /**
    * typeorm 配置
    * 文档：https://www.npmjs.com/package/egg-ts-typeorm
