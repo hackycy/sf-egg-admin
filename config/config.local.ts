@@ -11,7 +11,7 @@ export default () => {
         password: '123456',
         db: 0,
       },
-      prefix: 'admin:task:',
+      prefix: 'admin:task',
     },
   };
 
