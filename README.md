@@ -1,6 +1,6 @@
-### siyee-admin-server
+### 权限管理系统服务端
 
-基于EggJs + TypeScript + TypeOrm + Redis + Vue全家桶 及 vue-element-admin编写的一款简单高效的后台权限管理系统。
+基于EggJs + TypeScript + TypeOrm + Redis + MySql + Vue全家桶 + Element-UI编写的一款简单高效的前后端分离的权限管理系统。
 
 前端项目地址：[传送门](https://github.com/hackycy/siyee-admin-front)
 
