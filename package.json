@@ -1,7 +1,7 @@
 {
-  "name": "siyee-api-server",
-  "version": "0.0.1",
-  "description": "思忆技术Api服务端",
+  "name": "egg-admin",
+  "version": "1.0.0",
+  "description": "egg-admin",
   "private": true,
   "egg": {
     "typescript": true,
