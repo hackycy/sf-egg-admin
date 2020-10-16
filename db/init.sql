@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 50728
  Source Host           : localhost:3306
- Source Schema         : siyee-api
+ Source Schema         : egg-admin
 
  Target Server Type    : MySQL
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 16/10/2020 13:15:22
+ Date: 16/10/2020 16:15:09
 */
 
 SET NAMES utf8mb4;

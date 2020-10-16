@@ -27,7 +27,7 @@ export default () => {
       port: 3306,
       username: 'root',
       password: '123456',
-      database: 'siyee-api',
+      database: 'egg-admin',
       synchronize: false,
       logging: true,
       timezone: '+08:00',
