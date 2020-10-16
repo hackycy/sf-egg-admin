@@ -15,6 +15,9 @@ export default class SysDepartment extends BaseEntity {
   @Column({ type: 'tinyint', default: 0 })
   type: number;
 
+  @Column({ type: 'tinyint', default: 1 })
+  status: number;
+
   @Column({ name: 'start_time', type: 'datetime', nullable: true })
   startTime: Date;
 
