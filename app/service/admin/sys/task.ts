@@ -29,7 +29,7 @@ export default class SysTaskService extends BaseService {
   async addOrUpdate(param: CreateTaskDto | UpdateTaskDto) {
     const result = await this.getRepo().admin.sys.Task.save(param);
     if (result.status === 0) {
-      await this.stop();
+      await this.stop(result);
     } else if (result.status === 1) {
       await this.start(result);
     }
@@ -39,32 +39,42 @@ export default class SysTaskService extends BaseService {
    * 启动任务
    */
   async start(task: SysTask) {
-    const exist = await this.existJob(String(task.id));
-    if (exist) {
+    if (!task) {
       return;
     }
-    let options: any;
+    const exist = await this.existJob(String(task.id));
+    if (exist) {
+      // 已存在则先停止再启动
+      await this.stop(task);
+    }
+    let repeat: any;
     if (task.type === 1) {
-      // 间隔
-      options = {
-        repeat: {
-          every: task.every,
-          limit: task.limit,
-        },
+      // 间隔 Repeat every millis (cron setting cannot be used together with this setting.)
+      repeat = {
+        every: task.every,
       };
     } else {
       // cron
-      options = {
-        repeat: {
-          cron: task.cron,
-          limit: task.limit,
-        },
+      repeat = {
+        cron: task.cron,
       };
+      // Start date when the repeat job should start repeating (only with cron).
+      if (task.startTime) {
+        repeat.startDate = task.startTime;
+      }
+      if (task.endTime) {
+        repeat.endDate = task.endTime;
+      }
     }
-    const job = await this.app.queue.sys.add({ service: task.service, args: task.data }, { jobId: task.id, ...options });
+    if (task.limit > 0) {
+      repeat.limit = task.limit;
+    }
+    const job = await this.app.queue.sys.add({ id: task.id, service: task.service, args: task.data },
+      { jobId: task.id, removeOnComplete: true, removeOnFail: true, repeat });
     if (job.opts) {
       await this.getRepo().admin.sys.Task.update(task.id, { jobOpts: JSON.stringify(job.opts) });
     } else {
+      // TODO update status to 0，标识暂停任务，因为启动失败
       throw new Error('Job Opts is null, Task init Error');
     }
   }
@@ -83,14 +93,16 @@ export default class SysTaskService extends BaseService {
   /**
    * 停止任务
    */
-  async stop() {
-    // await this.app.queue.sys.removeRepeatable();
+  async stop(task: SysTask) {
+    if (task && task.jobOpts) {
+      await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
+    }
   }
 
   /**
    * 根据serviceName调用service
    */
-  callService(serviceName: string, args: string) {
+  async callService(serviceName: string, args: string) {
     if (serviceName) {
       let serviceTmp = this.service;
       const arr = serviceName.split('.');
@@ -98,9 +110,9 @@ export default class SysTaskService extends BaseService {
       for (let i = 0; i < arr.length; i++) {
         if (i === arr.length - 1) {
           if (args) {
-            serviceTmp[arr[arr.length - 1]](JSON.parse(args));
+            await serviceTmp[arr[arr.length - 1]](JSON.parse(args));
           } else {
-            serviceTmp[arr[arr.length - 1]]();
+            await serviceTmp[arr[arr.length - 1]]();
           }
         } else {
           serviceTmp = serviceTmp[arr[i]];

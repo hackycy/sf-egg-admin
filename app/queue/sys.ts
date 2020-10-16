@@ -9,13 +9,18 @@ export default (app: Application) => {
   const tq = new Queue('sys-task', app.config.bull.default);
 
   // 处理任务
-  tq.process(function(job, done) {
+  tq.process(async function(job) {
     try {
-      ctx.service.admin.sys.task.callService(job.data.service, job.data.args);
+      await ctx.service.admin.sys.task.callService(job.data.service, job.data.args);
+      try {
+        await ctx.service.admin.sys.taskLog.record(job.data.id, 1);
+      } catch (e) {
+        // 防止数据库出错导致的失败记录
+        app.logger.error(e);
+      }
     } catch (e) {
-      throw e;
+      await ctx.service.admin.sys.taskLog.record(job.data.id, 0, `${e}`);
     }
-    done();
   });
   return tq;
 };
