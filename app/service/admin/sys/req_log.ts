@@ -66,4 +66,11 @@ export default class SysReqLogService extends BaseService {
     };
   }
 
+  /**
+   * 清空表中的所有数据
+   */
+  async clear() {
+    await this.getRepo().admin.sys.ReqLog.clear();
+  }
+
 }
