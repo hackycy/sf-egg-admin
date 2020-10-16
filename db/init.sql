@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 14/10/2020 11:03:50
+ Date: 16/10/2020 11:49:31
 */
 
 SET NAMES utf8mb4;
@@ -184,7 +184,7 @@ CREATE TABLE `sys_req_log` (
   `status` int(11) DEFAULT NULL,
   `consume_time` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -269,6 +269,43 @@ INSERT INTO `sys_role_menu` VALUES ('2020-09-21 06:29:29.232489', '2020-09-21 06
 INSERT INTO `sys_role_menu` VALUES ('2020-10-12 03:22:35.019793', '2020-10-12 03:22:35.019793', 22, 2, 45);
 INSERT INTO `sys_role_menu` VALUES ('2020-10-12 03:22:35.019793', '2020-10-12 03:22:35.019793', 23, 2, 46);
 COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_task
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_task`;
+CREATE TABLE `sys_task` (
+  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `service` varchar(255) NOT NULL,
+  `type` tinyint(4) NOT NULL DEFAULT '0',
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `limit` int(11) DEFAULT '0',
+  `cron` varchar(255) DEFAULT NULL,
+  `every` int(11) DEFAULT NULL,
+  `data` varchar(500) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `IDX_ef8e5ab5ef2fe0ddb1428439ef` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for sys_task_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_task_log`;
+CREATE TABLE `sys_task_log` (
+  `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `task_id` bigint(20) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `detail` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_user
