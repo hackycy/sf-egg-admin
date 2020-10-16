@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_task' })
-export default class SysDepartment extends BaseEntity {
+export default class SysTask extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
