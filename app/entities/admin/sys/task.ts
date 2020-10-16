@@ -33,8 +33,11 @@ export default class SysDepartment extends BaseEntity {
   @Column({ type: 'int', nullable: true })
   every: number;
 
-  @Column({ type: 'varchar', length: 500, nullable: true })
+  @Column({ type: 'text', nullable: true })
   data: string;
+
+  @Column({ name: 'job_opts', type: 'text', nullable: true })
+  jobOpts: string;
 
   @Column({ nullable: true })
   remark: string;
