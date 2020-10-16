@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 16/10/2020 11:49:31
+ Date: 16/10/2020 13:15:22
 */
 
 SET NAMES utf8mb4;
@@ -287,7 +287,8 @@ CREATE TABLE `sys_task` (
   `limit` int(11) DEFAULT '0',
   `cron` varchar(255) DEFAULT NULL,
   `every` int(11) DEFAULT NULL,
-  `data` varchar(500) DEFAULT NULL,
+  `data` text,
+  `job_opts` text,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_ef8e5ab5ef2fe0ddb1428439ef` (`name`)
