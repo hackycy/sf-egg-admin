@@ -7,7 +7,7 @@ export default class SysTaskLog extends BaseEntity {
   id: number;
 
   @Column({ name: 'task_id', type: 'bigint' })
-  taskId: string;
+  taskId: number;
 
   @Column({ type: 'tinyint', default: 0 })
   status: number;
