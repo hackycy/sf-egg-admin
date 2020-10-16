@@ -21,6 +21,8 @@ export default class SysTaskService extends BaseService {
    */
   async clear() {
     await this.getRepo().admin.sys.Task.clear();
+    // 清除5秒以前完成的所有完成的作业。
+    await this.app.queue.sys.clean(5000, 'completed');
   }
 
 }
