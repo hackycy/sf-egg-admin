@@ -36,6 +36,17 @@ export default class SysTaskService extends BaseService {
   }
 
   /**
+   * 手动执行一次
+   */
+  async once(id: number) {
+    const task = await this.getRepo().admin.sys.Task.findOne({ id });
+    if (task) {
+      await this.app.queue.sys.add({ id: task.id, service: task.service, args: task.data },
+        { jobId: task.id, removeOnComplete: true, removeOnFail: true });
+    }
+  }
+
+  /**
    * 启动任务
    */
   async start(task: SysTask) {
