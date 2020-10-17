@@ -15,10 +15,7 @@ export default class SysTaskService extends BaseService {
     const tasks = await this.getRepo().admin.sys.Task.find({ status: 1 });
     if (tasks && tasks.length > 0) {
       for (const t of tasks) {
-        const exist = await this.existJob(String(t.id));
-        if (!exist) {
-          this.start(t);
-        }
+        this.start(t);
       }
     }
   }
@@ -85,8 +82,17 @@ export default class SysTaskService extends BaseService {
     if (job.opts) {
       await this.getRepo().admin.sys.Task.update(task.id, { jobOpts: JSON.stringify(job.opts) });
     } else {
-      // TODO update status to 0，标识暂停任务，因为启动失败
-      throw new Error('Job Opts is null, Task init Error');
+      // update status to 0，标识暂停任务，因为启动失败
+      await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
+    }
+  }
+
+  /**
+   * 停止任务
+   */
+  async stop(task: SysTask) {
+    if (task && task.jobOpts) {
+      await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
     }
   }
 
@@ -99,15 +105,6 @@ export default class SysTaskService extends BaseService {
       return e.id;
     });
     return ids.includes(jobId);
-  }
-
-  /**
-   * 停止任务
-   */
-  async stop(task: SysTask) {
-    if (task && task.jobOpts) {
-      await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
-    }
   }
 
   /**
