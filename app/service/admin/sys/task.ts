@@ -21,6 +21,27 @@ export default class SysTaskService extends BaseService {
   }
 
   /**
+   * 分页查询
+   */
+  async page(page: number, count: number) {
+    const result = await this.getRepo().admin.sys.Task.find({
+      order: {
+        id: 'DESC',
+      },
+      take: count,
+      skip: page * count,
+    });
+    return result;
+  }
+
+  /**
+   * count task
+   */
+  async count() {
+    return await this.getRepo().admin.sys.Task.count();
+  }
+
+  /**
    * 添加任务
    */
   async addOrUpdate(param: CreateTaskDto | UpdateTaskDto) {
