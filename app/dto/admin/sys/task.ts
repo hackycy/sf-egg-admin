@@ -4,11 +4,35 @@ import {
   IsIn,
   IsDate,
   IsInt,
-  IsNotEmpty,
+  Validate,
   IsOptional,
   ValidateIf,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+  ValidationArguments,
 } from 'class-validator';
 import { Expose, Type } from 'class-transformer';
+import * as parser from 'cron-parser';
+
+// cron 表达式验证，bull lib下引用了cron-parser
+@ValidatorConstraint({ name: 'isCronExpression', async: false })
+export class IsCronExpression implements ValidatorConstraintInterface {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  validate(text: string, _args: ValidationArguments) {
+    try {
+      parser.parseExpression(text);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  defaultMessage(_args: ValidationArguments) {
+    // here you can provide default error message if validation failed
+    return 'Text ($value) is must a cron expression!';
+  }
+}
 
 export class CreateTaskDto {
 
@@ -46,7 +70,7 @@ export class CreateTaskDto {
   limit: number;
 
   @ValidateIf(o => { return o.type === 0; })
-  @IsNotEmpty()
+  @Validate(IsCronExpression)
   @Expose()
   cron: string;
 
