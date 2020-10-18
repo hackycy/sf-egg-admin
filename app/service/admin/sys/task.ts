@@ -42,6 +42,13 @@ export default class SysTaskService extends BaseService {
   }
 
   /**
+   * task info
+   */
+  async info(id: number) {
+    return await this.getRepo().admin.sys.Task.findOne({ id });
+  }
+
+  /**
    * 添加任务
    */
   async addOrUpdate(param: CreateTaskDto | UpdateTaskDto) {
