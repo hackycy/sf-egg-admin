@@ -11,7 +11,7 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import { Expose, Type } from 'class-transformer';
+import { Expose } from 'class-transformer';
 import * as parser from 'cron-parser';
 
 // cron 表达式验证，bull lib下引用了cron-parser
@@ -52,16 +52,14 @@ export class CreateTaskDto {
   @Expose()
   status: number;
 
-  @ValidateIf(o => { return o.type === 0; })
+  @ValidateIf((_o, v) => { return !(v === '' || v === undefined || v === null); })
   @IsDate()
   @Expose()
-  @Type(() => Date)
   startTime: Date;
 
-  @ValidateIf(o => { return o.type === 0; })
+  @ValidateIf((_o, v) => { return !(v === '' || v === undefined || v === null); })
   @IsDate()
   @Expose()
-  @Type(() => Date)
   endTime: Date;
 
   @IsInt()
