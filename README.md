@@ -38,11 +38,13 @@
 
 ### 系统特点
 
-1、前后端请求参数校验
+- 前后端请求参数校验
+- JWT 认证
+- 基于 EggJS 框架，内置了基础的中间件支持（用户认证、访问日志、请求追踪等）
 
-2、用户权限动态刷新
+- 用户权限动态刷新
 
-3、代码简单，结构清晰
+- 代码简单，结构清晰
 
 ### 技术选型
 
@@ -59,6 +61,92 @@
 - Element-UI
 
 ### 本地开发
+
+#### 初始化数据库，以及服务启动
+
+新建并导入数据库`MySql>=5.7`.
+
+数据库脚本位于 `db/init.sql`
+
+修改数据库配置信息，在`config`目录下更改对应模式下的配置
+
+**参考对应配置**
+
+``` ts
+import { EggAppConfig, PowerPartial } from 'egg';
+
+export default () => {
+  const config: PowerPartial<EggAppConfig> = {};
+
+  /**
+   * 七牛配置
+   */
+  config.qiniu = {
+    accessKey: '*****',
+    secretKey: '*****',
+    bucket: '*****',
+    cdnUrl: '*****',
+    zone: '*****',
+  };
+
+  // bull config
+  config.bull = {
+    default: {
+      redis: {
+        port: 6379,
+        host: '127.0.0.1',
+        password: '123456',
+        db: 0,
+      },
+      prefix: 'admin:task',
+    },
+  };
+
+  /**
+   * typeorm 配置
+   */
+  config.typeorm = {
+    client: {
+      type: 'mysql',
+      host: '127.0.0.1',
+      port: 3306,
+      username: 'root',
+      password: '123456',
+      database: 'sf-admin',
+      synchronize: false,
+      logging: true,
+      timezone: '+08:00',
+      supportBigNumbers: false,
+    },
+  };
+
+  /**
+   * redis 配置
+   * https://github.com/eggjs/egg-redis
+   */
+  config.redis = {
+    clients: {
+      // instanceName. See below
+      admin: {
+        port: 6379,
+        host: '127.0.0.1',
+        password: '123456',
+        db: 0,
+      },
+      app: {
+        port: 6379,
+        host: '127.0.0.1',
+        password: '123456',
+        db: 1,
+      },
+    },
+  };
+
+  return config;
+};
+```
+
+#### 项目启动
 
 ``` bash
 $ npm i
