@@ -37,7 +37,7 @@ export default class SysUserController extends BaseController {
     const dto = await this.ctx.validate<QueryUserDto>(QueryUserDto, this.getQuery());
     this.res({
       data: {
-        list: await this.service.admin.sys.user.page(parseInt(dto.departmentId), dto.page - 1, dto.limit),
+        list: await this.service.admin.sys.user.page(this.ctx.token.uid, parseInt(dto.departmentId), dto.page - 1, dto.limit),
         pagination: {
           total: await this.service.admin.sys.user.count(parseInt(dto.departmentId)),
           page: dto.page,

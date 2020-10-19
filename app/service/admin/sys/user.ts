@@ -167,10 +167,10 @@ export default class SysUserService extends BaseService {
    * 根据部门ID进行分页查询用户列表
    * deptId = -1 时查询全部
    */
-  async page(deptId: number, page: number, count: number) {
+  async page(uid: number, deptId: number, page: number, count: number) {
     const result = await this.getRepo().admin.sys.User.createQueryBuilder('user')
       .innerJoinAndSelect('sys_department', 'dept', 'dept.id = user.departmentId')
-      .where(`user.id != ${this.config.rootRoleId}`)
+      .where('user.id NOT IN (:...ids)', { ids: [ this.config.rootRoleId, uid ] })
       .andWhere(deptId === -1 ? '1 = 1' : `user.departmentId = '${deptId}'`)
       .skip(page * count)
       .take(count)
