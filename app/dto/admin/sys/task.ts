@@ -97,7 +97,7 @@ export class UpdateTaskDto extends CreateTaskDto {
   id: number;
 }
 
-export class InfoTaskDto {
+export class CheckIdTaskDto {
   @IsInt()
   @Expose()
   id: number;

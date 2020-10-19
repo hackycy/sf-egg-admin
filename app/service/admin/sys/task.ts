@@ -26,7 +26,7 @@ export default class SysTaskService extends BaseService {
   async page(page: number, count: number) {
     const result = await this.getRepo().admin.sys.Task.find({
       order: {
-        id: 'DESC',
+        id: 'ASC',
       },
       take: count,
       skip: page * count,
@@ -49,6 +49,13 @@ export default class SysTaskService extends BaseService {
   }
 
   /**
+   * delete task
+   */
+  async delete(id: number) {
+    await this.getRepo().admin.sys.Task.delete({ id });
+  }
+
+  /**
    * 添加任务
    */
   async addOrUpdate(param: CreateTaskDto | UpdateTaskDto) {
@@ -63,8 +70,7 @@ export default class SysTaskService extends BaseService {
   /**
    * 手动执行一次
    */
-  async once(id: number) {
-    const task = await this.getRepo().admin.sys.Task.findOne({ id });
+  async once(task: SysTask) {
     if (task) {
       await this.app.queue.sys.add({ id: task.id, service: task.service, args: task.data },
         { jobId: task.id, removeOnComplete: true, removeOnFail: true });
@@ -78,6 +84,7 @@ export default class SysTaskService extends BaseService {
     if (!task) {
       return;
     }
+    await this.getRepo().admin.sys.Task.update(task.id, { status: 1 });
     const exist = await this.existJob(String(task.id));
     if (exist) {
       // 已存在则先停止再启动
@@ -108,7 +115,7 @@ export default class SysTaskService extends BaseService {
     const job = await this.app.queue.sys.add({ id: task.id, service: task.service, args: task.data },
       { jobId: task.id, removeOnComplete: true, removeOnFail: true, repeat });
     if (job.opts) {
-      await this.getRepo().admin.sys.Task.update(task.id, { jobOpts: JSON.stringify(job.opts) });
+      await this.getRepo().admin.sys.Task.update(task.id, { jobOpts: JSON.stringify(job.opts.repeat) });
     } else {
       // update status to 0，标识暂停任务，因为启动失败
       await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
@@ -121,6 +128,7 @@ export default class SysTaskService extends BaseService {
   async stop(task: SysTask) {
     if (task && task.jobOpts) {
       await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
+      await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
     }
   }
 

@@ -1,7 +1,7 @@
 import { AdminRoute } from '../../../decorator/router_register';
 import BaseController from '../../base';
 import { PageGetDto } from '../../../dto/comm';
-import { CreateTaskDto, InfoTaskDto, UpdateTaskDto } from '../../../dto/admin/sys/task';
+import { CreateTaskDto, UpdateTaskDto, CheckIdTaskDto } from '../../../dto/admin/sys/task';
 
 /**
  * 请求追踪控制器
@@ -39,10 +39,48 @@ export default class SysTaskController extends BaseController {
 
   @AdminRoute('/sys/task/info', 'post')
   async info() {
-    const dto = await this.ctx.validate<InfoTaskDto>(InfoTaskDto);
+    const dto = await this.ctx.validate<CheckIdTaskDto>(CheckIdTaskDto);
     this.res({
       data: await this.service.admin.sys.task.info(dto.id),
     });
+  }
+
+  @AdminRoute('/sys/task/once', 'post')
+  async once() {
+    const dto = await this.ctx.validate<CheckIdTaskDto>(CheckIdTaskDto);
+    const task = await this.service.admin.sys.task.info(dto.id);
+    await this.service.admin.sys.task.once(task!);
+    this.res();
+  }
+
+  @AdminRoute('/sys/task/stop', 'post')
+  async stop() {
+    const dto = await this.ctx.validate<CheckIdTaskDto>(CheckIdTaskDto);
+    const task = await this.service.admin.sys.task.info(dto.id);
+    await this.service.admin.sys.task.stop(task!);
+    this.res();
+  }
+
+  @AdminRoute('/sys/task/start', 'post')
+  async start() {
+    const dto = await this.ctx.validate<CheckIdTaskDto>(CheckIdTaskDto);
+    const task = await this.service.admin.sys.task.info(dto.id);
+    await this.service.admin.sys.task.start(task!);
+    this.res();
+  }
+
+  @AdminRoute('/sys/task/delete', 'post')
+  async delete() {
+    const dto = await this.ctx.validate<CheckIdTaskDto>(CheckIdTaskDto);
+    const isRunning = await this.service.admin.sys.task.existJob(String(dto.id));
+    if (isRunning) {
+      this.res({
+        code: 10014,
+      });
+      return;
+    }
+    await this.service.admin.sys.task.delete(dto.id);
+    this.res();
   }
 
 }
