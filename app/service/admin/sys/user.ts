@@ -92,30 +92,32 @@ export default class SysUserService extends BaseService {
    * 更新用户信息
    */
   async update(param: UpdateUserDto) {
-    await this.getRepo().admin.sys.User.update(param.id, {
-      departmentId: param.departmentId,
-      username: param.username,
-      name: param.name,
-      nickName: param.nickName,
-      email: param.email,
-      phone: param.phone,
-      remark: param.remark,
-      status: param.status,
+    await this.ctx.ormManager.transaction(async manager => {
+      await manager.update(this.getEntity().admin.sys.User, param.id, {
+        departmentId: param.departmentId,
+        username: param.username,
+        name: param.name,
+        nickName: param.nickName,
+        email: param.email,
+        phone: param.phone,
+        remark: param.remark,
+        status: param.status,
+      });
+      // 先删除原来的角色关系
+      await manager.delete(this.getEntity().admin.sys.UserRole, { userId: param.id });
+      const insertRoles = param.roles.map(e => {
+        return {
+          roleId: e,
+          userId: param.id,
+        };
+      });
+      // 重新分配角色
+      await manager.insert(this.getEntity().admin.sys.UserRole, insertRoles);
+      if (param.status === 0) {
+        // 禁用状态
+        await this.forbidden(param.id);
+      }
     });
-    // 先删除原来的角色关系
-    await this.getRepo().admin.sys.UserRole.delete({ userId: param.id });
-    const insertRoles = param.roles.map(e => {
-      return {
-        roleId: e,
-        userId: param.id,
-      };
-    });
-    // 重新分配角色
-    await this.getRepo().admin.sys.UserRole.insert(insertRoles);
-    if (param.status === 0) {
-      // 禁用状态
-      await this.forbidden(param.id);
-    }
   }
 
   /**
