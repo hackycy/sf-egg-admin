@@ -13,6 +13,5 @@ declare module 'egg' {
 
   interface EggAppConfig {
     rootRoleId: number
-    rootUserName: string
   }
 }

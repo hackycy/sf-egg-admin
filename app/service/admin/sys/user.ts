@@ -159,7 +159,7 @@ export default class SysUserService extends BaseService {
    * 根据部门ID列举用户条数：除去超级管理员
    */
   async count(deptId: number) {
-    const count = await this.getRepo().admin.sys.User.count({ username: Not(this.config.rootUserName), departmentId: deptId });
+    const count = await this.getRepo().admin.sys.User.count({ id: Not(this.config.rootRoleId), departmentId: deptId });
     return count;
   }
 
@@ -170,7 +170,7 @@ export default class SysUserService extends BaseService {
   async page(deptId: number, page: number, count: number) {
     const result = await this.getRepo().admin.sys.User.createQueryBuilder('user')
       .innerJoinAndSelect('sys_department', 'dept', 'dept.id = user.departmentId')
-      .where(`user.username != '${this.config.rootUserName}'`)
+      .where(`user.id != ${this.config.rootRoleId}`)
       .andWhere(deptId === -1 ? '1 = 1' : `user.departmentId = '${deptId}'`)
       .skip(page * count)
       .take(count)
