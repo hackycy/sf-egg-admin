@@ -1,12 +1,62 @@
 ### 权限管理系统服务端
 
-基于EggJs + TypeScript + TypeOrm + Redis + MySql + Vue全家桶 + Element-UI编写的一款简单高效的前后端分离的权限管理系统。
+**基于EggJs + TypeScript + TypeOrm + Redis + MySql + Vue + Element-UI编写的一款简单高效的前后端分离的权限管理系统。希望这个项目在全栈的路上能够帮助到你。**
 
-前端项目地址：[传送门](https://github.com/hackycy/siyee-admin-front)
+前端项目地址：[传送门](https://github.com/hackycy/sf-vue-admin)
 
 ### 演示地址
 
-[opensource.admin.si-yee.com](http://opensource.admin.si-yee.com/)
+[http://opensource.admin.si-yee.com](http://opensource.admin.si-yee.com/)
+
+演示环境账号密码：
+
+|   账号    |  密码  |           权限           |
+| :-------: | :----: | :----------------------: |
+| openadmin | 123456 | 仅只有各个功能的查询权限 |
+
+本地部署账号密码：
+
+|   账号    |  密码  |    权限    |
+| :-------: | :----: | :--------: |
+| rootadmin | 123456 | 超级管理员 |
+
+### 系统模块
+
+```bash
+├─系统管理
+│  ├─用户管理
+│  ├─角色管理
+│  ├─菜单管理
+├─系统监控
+│  ├─在线用户
+│  ├─登录日志
+│  ├─请求追踪
+├─任务调度
+│  ├─定时任务
+│  └─任务日志
+```
+
+### 系统特点
+
+1、前后端请求参数校验
+
+2、用户权限动态刷新
+
+3、代码简单，结构清晰
+
+### 技术选型
+
+#### 后端
+
+- EggJS + TypeScript
+- TypeORM（MYSQL）
+- ioredis（Redis）
+- bull（队列）
+
+#### 前端
+
+- Vue全家桶
+- Element-UI
 
 ### 本地开发
 
@@ -34,14 +84,14 @@ server
 {
     # ... 省略
 		
-		# 请添加以下配置
+	# 请添加以下配置
     location / {
       try_files $uri $uri/ /index.html;
     }
 
-    location /admin/ 
+    location /api/
     {
-        proxy_pass http://127.0.0.1:7001/;
+        proxy_pass http://127.0.0.1:7003/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -73,8 +123,10 @@ server
 
 - Node.js 8.x
 - Typescript 2.8+
+- MYSQL 5.7+
+- Redis 6.0+
 
-### Egg插件使用教程请移步
+### 内置Egg插件
 
 - [egg-typeorm](https://github.com/hackycy/egg-typeorm)
 - [egg-class-validator](https://github.com/hackycy/egg-class-validator)
