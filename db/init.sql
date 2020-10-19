@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 50728
  Source Host           : localhost:3306
- Source Schema         : egg-admin
+ Source Schema         : sf-admin
 
  Target Server Type    : MySQL
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 16/10/2020 16:15:09
+ Date: 19/10/2020 17:02:45
 */
 
 SET NAMES utf8mb4;
@@ -95,15 +95,7 @@ CREATE TABLE `sys_login_log` (
   `time` datetime DEFAULT NULL,
   `ua` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of sys_login_log
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_login_log` VALUES ('2020-10-13 07:36:16.917110', '2020-10-13 07:36:16.917110', 8, 1, '127.0.0.1', '2020-10-13 15:36:17', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36');
-INSERT INTO `sys_login_log` VALUES ('2020-10-14 03:00:57.757747', '2020-10-14 03:00:57.757747', 9, 1, '127.0.0.1', '2020-10-14 11:00:58', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -124,7 +116,7 @@ CREATE TABLE `sys_menu` (
   `keepalive` tinyint(4) DEFAULT '1',
   `isShow` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -166,6 +158,17 @@ INSERT INTO `sys_menu` VALUES ('2020-10-13 03:01:51.480667', '2020-10-13 03:01:5
 INSERT INTO `sys_menu` VALUES ('2020-10-13 09:37:29.097828', '2020-10-13 09:37:29.097828', 54, 38, '查询', '', 'sys:req-log:page,sys:req-log:search', 2, '', 0, '', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-10-13 09:52:08.932501', '2020-10-13 09:53:44.000000', 55, 37, '登录日志', '/sys/monitor/login-log', NULL, 1, 'guide', 0, 'views/system/monitor/login-log', 1, 1);
 INSERT INTO `sys_menu` VALUES ('2020-10-13 09:56:13.285772', '2020-10-13 09:56:13.285772', 56, 55, '查询', '', 'sys:login-log:page', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 03:07:18.221647', '2020-10-19 07:26:37.000000', 57, 1, '任务调度', '/sys/schedule', NULL, 0, 'task', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 03:08:15.925726', '2020-10-19 07:21:04.000000', 58, 57, '定时任务', '/sys/schedule/task', NULL, 1, 'schedule', 0, 'views/system/schedule/task', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 03:08:36.247678', '2020-10-19 03:08:36.247678', 59, 58, '查询', '', 'sys:task:page,sys:task:info', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 03:09:09.436949', '2020-10-19 03:09:09.436949', 60, 58, '新增', '', 'sys:task:add', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 03:09:42.895534', '2020-10-19 03:09:42.895534', 61, 58, '更新', '', 'sys:task:update', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 05:45:30.512641', '2020-10-19 05:45:30.512641', 62, 58, '执行一次', '', 'sys:task:once', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 05:46:01.910857', '2020-10-19 05:46:01.910857', 63, 58, '运行', '', 'sys:task:start', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 05:46:23.694028', '2020-10-19 05:46:23.694028', 64, 58, '暂停', '', 'sys:task:stop', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 06:25:52.225518', '2020-10-19 06:25:52.225518', 65, 58, '删除', '', 'sys:task:delete', 2, '', 0, '', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 07:30:18.456330', '2020-10-19 07:30:18.456330', 66, 57, '任务日志', '/sys/schedule/log', NULL, 1, 'schedule-log', 0, 'views/system/schedule/log', 1, 1);
+INSERT INTO `sys_menu` VALUES ('2020-10-19 08:09:49.063343', '2020-10-19 08:09:49.063343', 67, 66, '查询', '', 'sys:task-log:page', 2, '', 0, '', 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -184,7 +187,7 @@ CREATE TABLE `sys_req_log` (
   `status` int(11) DEFAULT NULL,
   `consume_time` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -292,7 +295,16 @@ CREATE TABLE `sys_task` (
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_ef8e5ab5ef2fe0ddb1428439ef` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of sys_task
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:53:44.732338', '2020-10-19 08:59:30.000000', 1, '定时清空请求追踪日志', 'admin.sys.reqLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 1000, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":1}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:54:42.760785', '2020-10-19 08:59:32.000000', 2, '定时清空登录日志', 'admin.sys.loginLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":2}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:55:06.050711', '2020-10-19 08:59:33.000000', 3, '定时清空任务日志', 'admin.sys.taskLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":3}', '');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_task_log
@@ -306,7 +318,16 @@ CREATE TABLE `sys_task_log` (
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `detail` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of sys_task_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_task_log` VALUES ('2020-10-19 08:55:10.120903', '2020-10-19 08:55:10.120903', 1, 3, 1, NULL);
+INSERT INTO `sys_task_log` VALUES ('2020-10-19 08:55:25.993809', '2020-10-19 08:55:25.993809', 2, 2, 0, 'TypeError: Cannot read property \'clear\' of undefined');
+INSERT INTO `sys_task_log` VALUES ('2020-10-19 08:56:02.168195', '2020-10-19 08:56:02.168195', 3, 2, 1, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user
