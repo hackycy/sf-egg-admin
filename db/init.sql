@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 19/10/2020 17:02:45
+ Date: 20/10/2020 14:57:01
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `image_space_info` (
   `url` varchar(500) NOT NULL,
   `extra` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of image_space_info
@@ -95,7 +95,14 @@ CREATE TABLE `sys_login_log` (
   `time` datetime DEFAULT NULL,
   `ua` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of sys_login_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_login_log` VALUES ('2020-10-20 05:52:09.267588', '2020-10-20 05:52:09.267588', 1, 1, '127.0.0.1', '2020-10-20 05:52:09', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.80 Safari/537.36');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -187,7 +194,7 @@ CREATE TABLE `sys_req_log` (
   `status` int(11) DEFAULT NULL,
   `consume_time` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -301,9 +308,9 @@ CREATE TABLE `sys_task` (
 -- Records of sys_task
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_task` VALUES ('2020-10-19 08:53:44.732338', '2020-10-19 08:59:30.000000', 1, '定时清空请求追踪日志', 'admin.sys.reqLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 1000, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":1}', '');
-INSERT INTO `sys_task` VALUES ('2020-10-19 08:54:42.760785', '2020-10-19 08:59:32.000000', 2, '定时清空登录日志', 'admin.sys.loginLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":2}', '');
-INSERT INTO `sys_task` VALUES ('2020-10-19 08:55:06.050711', '2020-10-19 08:59:33.000000', 3, '定时清空任务日志', 'admin.sys.taskLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":3}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:53:44.732338', '2020-10-20 06:41:02.000000', 1, '定时清空请求追踪日志', 'admin.sys.reqLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 1000, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":1}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:54:42.760785', '2020-10-20 06:41:00.000000', 2, '定时清空登录日志', 'admin.sys.loginLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":2}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:55:06.050711', '2020-10-20 06:40:59.000000', 3, '定时清空任务日志', 'admin.sys.taskLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":3}', '');
 COMMIT;
 
 -- ----------------------------
@@ -355,9 +362,9 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-10-07 07:17:14.000000', 1, 1, '杨长源', 'hackycy', 'U2FsdGVkX18E8MLkt/45xe3xRALUa6mE9udOXcxrVCA=', '', 'http://image.si-yee.com/思忆/20200924_021100.png', 'qa894178522@qq.com', '15622472425', NULL, 1);
+INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-10-07 07:17:14.000000', 1, 1, '杨长源', 'rootadmin', 'U2FsdGVkX18E8MLkt/45xe3xRALUa6mE9udOXcxrVCA=', '', 'http://image.si-yee.com/思忆/20200924_021100.png', 'qa894178522@qq.com', '15622472425', NULL, 1);
 INSERT INTO `sys_user` VALUES ('2020-09-14 07:41:33.732000', '2020-10-12 06:04:19.000000', 2, 2, '杨长源', 'test001', 'U2FsdGVkX1+iVR+kHHErkPNInZiV27Mpk4pFL8uhtTQ=', '', '', 'qa894178522@qq.com', '', '', 0);
-INSERT INTO `sys_user` VALUES ('2020-10-12 03:23:14.611864', '2020-10-12 06:12:20.000000', 3, 2, '长源小号', 'hackycy2', 'U2FsdGVkX18tvghStliPvPopFZQiILUrZhNk3mUs2jA=', '', NULL, '', '', '', 1);
+INSERT INTO `sys_user` VALUES ('2020-10-12 03:23:14.611864', '2020-10-12 06:12:20.000000', 3, 2, '长源小号', 'openadmin', 'U2FsdGVkX18tvghStliPvPopFZQiILUrZhNk3mUs2jA=', '', NULL, '', '', '', 1);
 COMMIT;
 
 -- ----------------------------
