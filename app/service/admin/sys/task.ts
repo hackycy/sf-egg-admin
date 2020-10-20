@@ -82,9 +82,8 @@ export default class SysTaskService extends BaseService {
    */
   async start(task: SysTask) {
     if (!task) {
-      return;
+      throw new Error('Task is Empty');
     }
-    await this.getRepo().admin.sys.Task.update(task.id, { status: 1 });
     const exist = await this.existJob(String(task.id));
     if (exist) {
       // 已存在则先停止再启动
@@ -115,10 +114,11 @@ export default class SysTaskService extends BaseService {
     const job = await this.app.queue.sys.add({ id: task.id, service: task.service, args: task.data },
       { jobId: task.id, removeOnComplete: true, removeOnFail: true, repeat });
     if (job.opts) {
-      await this.getRepo().admin.sys.Task.update(task.id, { jobOpts: JSON.stringify(job.opts.repeat) });
+      await this.getRepo().admin.sys.Task.update(task.id, { jobOpts: JSON.stringify(job.opts.repeat), status: 1 });
     } else {
       // update status to 0，标识暂停任务，因为启动失败
       await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
+      throw new Error('Task Start opts is Empty');
     }
   }
 
@@ -129,6 +129,8 @@ export default class SysTaskService extends BaseService {
     if (task && task.jobOpts) {
       await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
       await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
+    } else {
+      throw new Error('Task is Empty');
     }
   }
 
