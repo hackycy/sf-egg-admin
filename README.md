@@ -1,4 +1,4 @@
-### 权限管理系统服务端
+### sf-egg-admin
 
 **基于EggJs + TypeScript + TypeOrm + Redis + MySql + Vue + Element-UI编写的一款简单高效的前后端分离的权限管理系统。希望这个项目在全栈的路上能够帮助到你。**
 
