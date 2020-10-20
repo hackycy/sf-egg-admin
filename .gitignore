@@ -20,6 +20,9 @@ app/**/*.map
 test/**/*.map
 config/**/*.map
 
+config/config.local.ts
+config/config.prod.ts
+
 typings/app/*
 typings/config/*
 typings/typeorm.d.ts
