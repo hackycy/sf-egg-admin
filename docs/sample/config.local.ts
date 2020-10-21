@@ -3,6 +3,28 @@ import { EggAppConfig, PowerPartial } from 'egg';
 export default () => {
   const config: PowerPartial<EggAppConfig> = {};
 
+  /**
+   * 邮件推送配置
+   */
+  config.mailer = {
+    host: 'xxxxxxxx',
+    port: 25,
+    user: 'xxxx',
+    pass: 'xxxx',
+    secure: false,
+  };
+
+  /**
+   * 七牛配置
+   */
+  config.qiniu = {
+    accessKey: 'xxxxx',
+    secretKey: 'xxxx',
+    bucket: 'xxxx',
+    cdnUrl: 'xxxx',
+    zone: 'xxx',
+  };
+
   // bull config
   config.bull = {
     default: {

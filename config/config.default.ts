@@ -26,28 +26,6 @@ export default (appInfo: EggAppInfo) => {
     secret: 'INnyQ50BEE6AITQraIaDGooJ',
   };
 
-  /**
-   * 邮件推送配置
-   */
-  config.mailer = {
-    host: 'smtpdm.aliyun.com',
-    port: 25,
-    user: 'noreply@mail.si-yee.com',
-    pass: 'ZJyzy5201314',
-    secure: false,
-  };
-
-  /**
-   * 七牛配置
-   */
-  config.qiniu = {
-    accessKey: '_MkCZiF7CrlkVVevh9JA2YtBnThz6dAXdSNA-Km4',
-    secretKey: '8TFReK-x3Mu0p4SK4lRt9dFPNLJwRXF5H0d1s-f2',
-    bucket: 'siyee',
-    cdnUrl: 'http://image.si-yee.com',
-    zone: 'Zone_z2',
-  };
-
   // Root角色对应ID
   config.rootRoleId = 1;
 
@@ -80,7 +58,7 @@ export default (appInfo: EggAppInfo) => {
    * https://github.com/eggjs/egg-global-header
    */
   config.globalHeader = {
-    'Powered-by': 'siyee',
+    'Powered-by': 'sf-admin',
   };
 
   /**
