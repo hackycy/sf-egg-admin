@@ -38,6 +38,8 @@ export default class VerifyService extends BaseService {
     if (code.toLowerCase() !== result!.toLowerCase()) {
       return false;
     }
+    // 校验成功后移除验证码
+    await this.getAdminRedis().del(`admin:captcha:img:${id}`);
     return true;
   }
 
