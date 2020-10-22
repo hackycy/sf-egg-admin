@@ -129,8 +129,6 @@ export default class SysTaskService extends BaseService {
     if (task && task.jobOpts) {
       await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
       await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
-    } else {
-      throw new Error('Task is Empty');
     }
   }
 
