@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { UAParser } from 'ua-parser-js';
 
 /**
- * 在线用户控制器
+ * 在线用户Service
  */
 export default class SysOnlineService extends BaseService {
 
