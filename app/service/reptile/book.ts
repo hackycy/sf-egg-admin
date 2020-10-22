@@ -25,7 +25,7 @@ export default class ReptileBookService extends BaseService {
     await this.service.admin.comm.email.sendEmail({
       from: 'noreply@mail.si-yee.com',
       text: `${bookname} 最新章节 ： ${chapter}`,
-      to: (param.emails as string).split(','),
+      to: param.emails,
       subject: '小说最新章节',
       html: `<h2>${bookname} 最新章节 ： ${chapter}</h2>`,
     });
