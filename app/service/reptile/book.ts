@@ -12,6 +12,7 @@ export default class ReptileBookService extends BaseService {
    */
   async getZonghengBookLastchapter(param: any) {
     const browser = await puppeteer.launch({
+      args: [ '--no-sandbox', '--disable-setuid-sandbox' ],
       executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
       ignoreHTTPSErrors: true,
     });
