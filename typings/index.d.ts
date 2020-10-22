@@ -1,4 +1,5 @@
 import 'egg';
+import { LaunchOptions } from 'puppeteer';
 
 interface Token {
   uid: number
@@ -13,5 +14,8 @@ declare module 'egg' {
 
   interface EggAppConfig {
     rootRoleId: number
+    puppeteer: {
+      launchOptions: LaunchOptions
+    }
   }
 }
