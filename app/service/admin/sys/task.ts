@@ -60,10 +60,11 @@ export default class SysTaskService extends BaseService {
    */
   async addOrUpdate(param: CreateTaskDto | UpdateTaskDto) {
     const result = await this.getRepo().admin.sys.Task.save(param);
+    const task = await this.info(result.id);
     if (result.status === 0) {
-      await this.stop(result);
+      await this.stop(task!);
     } else if (result.status === 1) {
-      await this.start(result);
+      await this.start(task!);
     }
   }
 
@@ -74,6 +75,8 @@ export default class SysTaskService extends BaseService {
     if (task) {
       await this.app.queue.sys.add({ id: task.id, service: task.service, args: task.data },
         { jobId: task.id, removeOnComplete: true, removeOnFail: true });
+    } else {
+      throw new Error('Task is Empty');
     }
   }
 
@@ -84,11 +87,8 @@ export default class SysTaskService extends BaseService {
     if (!task) {
       throw new Error('Task is Empty');
     }
-    const exist = await this.existJob(String(task.id));
-    if (exist) {
-      // 已存在则先停止再启动
-      await this.stop(task);
-    }
+    // 先停掉之前存在的任务
+    await this.stop(task);
     let repeat: any;
     if (task.type === 1) {
       // 间隔 Repeat every millis (cron setting cannot be used together with this setting.)
@@ -118,7 +118,7 @@ export default class SysTaskService extends BaseService {
     } else {
       // update status to 0，标识暂停任务，因为启动失败
       await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
-      throw new Error('Task Start opts is Empty');
+      throw new Error('Task Start jobOpts is Empty');
     }
   }
 
@@ -126,9 +126,20 @@ export default class SysTaskService extends BaseService {
    * 停止任务
    */
   async stop(task: SysTask) {
-    if (task && task.jobOpts) {
+    if (!task) {
+      throw new Error('Task is Empty');
+    }
+    const exist = await this.existJob(task.id.toString());
+    if (!exist) {
+      await this.getRepo().admin.sys.Task.update(task.id, { status: 0, jobOpts: '' });
+      return;
+    }
+    if (task.jobOpts) {
       await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
-      await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
+      await this.getRepo().admin.sys.Task.update(task.id, { status: 0, jobOpts: '' });
+    } else {
+      this.ctx.logger.info(task.jobOpts);
+      throw new Error('Task Stop jobOpts is Empty');
     }
   }
 
@@ -150,7 +161,6 @@ export default class SysTaskService extends BaseService {
     if (serviceName) {
       let serviceTmp = this.service;
       const arr = serviceName.split('.');
-      this.ctx.logger.info(arr);
       for (let i = 0; i < arr.length; i++) {
         if (i === arr.length - 1) {
           if (args) {
