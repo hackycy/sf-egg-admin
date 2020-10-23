@@ -152,8 +152,9 @@ export default class SysTaskService extends BaseService {
           break;
         }
       }
-      await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
     }
+    // update status
+    await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
   }
 
   /**
