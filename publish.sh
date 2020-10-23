@@ -10,14 +10,14 @@ mv sf-egg-admin-master sf-egg-admin
 mv sf-vue-admin-master sf-vue-admin
 cd sf-egg-admin
 cp /www/server/sf-admin/config.prod.ts /www/server/sf-admin/sf-egg-admin/config
-npm i
+npm i --registry=https://registry.npm.taobao.org
 npm run build
 npm run start
 cd /www/server/sf-admin/sf-vue-admin
-npm i
+npm i --registry=https://registry.npm.taobao.org
 npm run build:prod
-tar –czf dist.tar.gz dist
+tar czvf dist.tar.gz dist
 cp dist.tar.gz /www/wwwroot/opensource.admin.si-yee.com
 cd /www/wwwroot/opensource.admin.si-yee.com
 rm -rf dist
-tar -xzvf dist.tar.gz
+tar xzvf dist.tar.gz
