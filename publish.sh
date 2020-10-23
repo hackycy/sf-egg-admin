@@ -16,7 +16,7 @@ npm run start
 cd /www/server/sf-admin/sf-vue-admin
 npm i
 npm run build:prod
-tar –czf dist.tar.gz dist/*
+tar –czf dist.tar.gz dist
 cp dist.tar.gz /www/wwwroot/opensource.admin.si-yee.com
 cd /www/wwwroot/opensource.admin.si-yee.com
 rm -rf dist
