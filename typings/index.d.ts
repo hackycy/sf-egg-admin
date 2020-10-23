@@ -17,5 +17,12 @@ declare module 'egg' {
     puppeteer: {
       launchOptions: LaunchOptions
     }
+    jwt: {
+      secret: string
+    }
+    aesSecret: {
+      admin: string
+      front: string
+    }
   }
 }
