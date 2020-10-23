@@ -18,7 +18,6 @@ export default class ReptileBookService extends BaseService {
     const $ = cheerio.load(content);
     const chapter = $('.book-html-box .book-top .book-main .book-new-chapter .tit').text();
     const bookname = $('.book-html-box .book-top .book-main .book-info .book-name').text().trim();
-    this.ctx.logger.info('[book-spider]', `${bookname} 最新章节 ： ${chapter}`);
     await this.service.admin.comm.email.sendEmail({
       from: 'noreply@mail.si-yee.com',
       text: `${bookname} 最新章节 ： ${chapter}`,
