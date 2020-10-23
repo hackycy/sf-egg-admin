@@ -21,6 +21,13 @@ export default class SysTaskService extends BaseService {
   }
 
   /**
+   * 停止所有任务
+   */
+  async closeTask() {
+    await this.app.queue.sys.close();
+  }
+
+  /**
    * 分页查询
    */
   async page(page: number, count: number) {
@@ -131,15 +138,21 @@ export default class SysTaskService extends BaseService {
     }
     const exist = await this.existJob(task.id.toString());
     if (!exist) {
-      await this.getRepo().admin.sys.Task.update(task.id, { status: 0, jobOpts: '' });
+      await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
       return;
     }
     if (task.jobOpts) {
       await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
-      await this.getRepo().admin.sys.Task.update(task.id, { status: 0, jobOpts: '' });
     } else {
-      this.ctx.logger.info(task.jobOpts);
-      throw new Error('Task Stop jobOpts is Empty');
+      // force remove
+      const jobs = await this.app.queue.sys.getRepeatableJobs();
+      for (let i = 0; i < jobs.length; i++) {
+        if (jobs[i].id === `${task.id}`) {
+          await this.app.queue.sys.removeRepeatableByKey(jobs[i].key);
+          break;
+        }
+      }
+      await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
     }
   }
 

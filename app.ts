@@ -43,5 +43,7 @@ export default class AdminBoot implements IBoot {
 
   async beforeClose() {
     // Do some thing before app close.
+    const ctx = this.app.createAnonymousContext();
+    ctx.service.admin.sys.task.closeTask();
   }
 }
