@@ -11,11 +11,7 @@ export default class ReptileBookService extends BaseService {
    * 获取纵横书籍最新章节
    */
   async getZonghengBookLastchapter(param: any) {
-    const browser = await puppeteer.launch({
-      args: [ '--no-sandbox', '--disable-setuid-sandbox' ],
-      executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-      ignoreHTTPSErrors: true,
-    });
+    const browser = await puppeteer.launch(this.config.puppeteer.launchOptions);
     const page = await browser.newPage();
     await page.goto(`http://book.zongheng.com/book/${param.id}.html`, { waitUntil: 'networkidle0' });
     const content = await page.content();

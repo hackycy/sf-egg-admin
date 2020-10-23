@@ -4,6 +4,17 @@ export default () => {
   const config: PowerPartial<EggAppConfig> = {};
 
   /**
+   * https://github.com/puppeteer/puppeteer
+   */
+  config.puppeteer = {
+    launchOptions: {
+      args: [ '--no-sandbox', '--disable-setuid-sandbox' ],
+      executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+      ignoreHTTPSErrors: true,
+    },
+  };
+
+  /**
    * 邮件推送配置
    */
   config.mailer = {
