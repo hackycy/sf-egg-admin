@@ -141,16 +141,22 @@ export default class SysTaskService extends BaseService {
       await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
       return;
     }
-    if (task.jobOpts) {
-      await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
-    } else {
-      // force remove
-      const jobs = await this.app.queue.sys.getRepeatableJobs();
-      for (let i = 0; i < jobs.length; i++) {
-        if (jobs[i].id === `${task.id}`) {
-          await this.app.queue.sys.removeRepeatableByKey(jobs[i].key);
-          break;
-        }
+    // if (task.jobOpts) {
+    //   await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
+    // } else {
+    //   // force remove
+    //   const jobs = await this.app.queue.sys.getRepeatableJobs();
+    //   for (let i = 0; i < jobs.length; i++) {
+    //     if (jobs[i].id === `${task.id}`) {
+    //       await this.app.queue.sys.removeRepeatableByKey(jobs[i].key);
+    //       // break;
+    //     }
+    //   }
+    // }
+    const jobs = await this.app.queue.sys.getRepeatableJobs();
+    for (let i = 0; i < jobs.length; i++) {
+      if (jobs[i].id === `${task.id}`) {
+        await this.app.queue.sys.removeRepeatableByKey(jobs[i].key);
       }
     }
     // update status
