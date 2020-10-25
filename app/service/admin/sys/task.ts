@@ -21,13 +21,6 @@ export default class SysTaskService extends BaseService {
   }
 
   /**
-   * 停止所有任务
-   */
-  async closeTask() {
-    await this.app.queue.sys.close();
-  }
-
-  /**
    * 分页查询
    */
   async page(page: number, count: number) {
@@ -141,26 +134,13 @@ export default class SysTaskService extends BaseService {
       await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
       return;
     }
-    // if (task.jobOpts) {
-    //   await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
-    // } else {
-    //   // force remove
-    //   const jobs = await this.app.queue.sys.getRepeatableJobs();
-    //   for (let i = 0; i < jobs.length; i++) {
-    //     if (jobs[i].id === `${task.id}`) {
-    //       await this.app.queue.sys.removeRepeatableByKey(jobs[i].key);
-    //       // break;
-    //     }
-    //   }
-    // }
-    const jobs = await this.app.queue.sys.getRepeatableJobs();
-    for (let i = 0; i < jobs.length; i++) {
-      if (jobs[i].id === `${task.id}`) {
-        await this.app.queue.sys.removeRepeatableByKey(jobs[i].key);
-      }
+    if (task.jobOpts) {
+      await this.app.queue.sys.removeRepeatable(JSON.parse(task.jobOpts));
+      // update status
+      await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
+    } else {
+      throw new Error('Task jobOpts is Empty');
     }
-    // update status
-    await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
   }
 
   /**
