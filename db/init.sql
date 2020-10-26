@@ -90,7 +90,7 @@ CREATE TABLE `sys_login_log` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
+  `user_id` int(20) DEFAULT NULL,
   `ip` varchar(255) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   `ua` varchar(500) DEFAULT NULL,

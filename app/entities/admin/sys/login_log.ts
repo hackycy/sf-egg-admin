@@ -6,7 +6,7 @@ export default class SysLoginLog extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'bigint', nullable: true, name: 'user_id' })
+  @Column({ nullable: true, name: 'user_id' })
   userId: number;
 
   @Column({ nullable: true })
