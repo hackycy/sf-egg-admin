@@ -2,13 +2,15 @@
  * Application
  */
 
-import { Application, IBoot } from 'egg';
+import { Application, IBoot, Context } from 'egg';
 
 export default class AdminBoot implements IBoot {
-  private readonly app: Application;
+  // private readonly app: Application;
+  private readonly ctx: Context;
 
   constructor(app: Application) {
-    this.app = app;
+    // this.app = app;
+    this.ctx = app.createAnonymousContext();
   }
 
   configWillLoad() {
@@ -27,9 +29,8 @@ export default class AdminBoot implements IBoot {
 
   async willReady() {
     // All plugins have started, can do some thing before app ready.
-    const ctx = this.app.createAnonymousContext();
     // 启动任务
-    ctx.service.admin.sys.task.initTask();
+    await this.ctx.service.admin.sys.task.initTask();
   }
 
   async didReady() {
@@ -39,6 +40,7 @@ export default class AdminBoot implements IBoot {
 
   async serverDidReady() {
     // Server is listening.
+    await this.ctx.service.admin.sys.task.stopTask();
   }
 
   async beforeClose() {

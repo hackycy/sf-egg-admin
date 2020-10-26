@@ -21,6 +21,17 @@ export default class SysTaskService extends BaseService {
   }
 
   /**
+   * egg进程关闭前停止队列
+   */
+  async stopTask() {
+    const jobs = await this.app.queue.sys.getJobs([ 'active', 'delayed', 'failed', 'paused', 'waiting' ]);
+    for (let i = 0; i < jobs.length; i++) {
+      jobs[i].remove();
+    }
+    await this.app.queue.sys.close(true);
+  }
+
+  /**
    * 分页查询
    */
   async page(page: number, count: number) {
