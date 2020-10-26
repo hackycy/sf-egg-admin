@@ -39,7 +39,7 @@ export default class SysUserController extends BaseController {
       data: {
         list: await this.service.admin.sys.user.page(this.ctx.token.uid, parseInt(dto.departmentId), dto.page - 1, dto.limit),
         pagination: {
-          total: await this.service.admin.sys.user.count(parseInt(dto.departmentId)),
+          total: await this.service.admin.sys.user.count(this.ctx.token.uid, parseInt(dto.departmentId)),
           page: dto.page,
           size: dto.limit,
         },

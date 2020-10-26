@@ -160,9 +160,11 @@ export default class SysUserService extends BaseService {
   /**
    * 根据部门ID列举用户条数：除去超级管理员
    */
-  async count(deptId: number) {
-    const count = await this.getRepo().admin.sys.User.count({ id: Not(this.config.rootRoleId), departmentId: deptId });
-    return count;
+  async count(uid: number, deptId: number) {
+    if (deptId === -1) {
+      return await this.getRepo().admin.sys.User.count({ id: Not(In([ this.config.rootRoleId, uid ])) });
+    }
+    return await this.getRepo().admin.sys.User.count({ id: Not(In([ this.config.rootRoleId, uid ])), departmentId: deptId });
   }
 
   /**
