@@ -40,7 +40,6 @@ export default class AdminBoot implements IBoot {
 
   async serverDidReady() {
     // Server is listening.
-    await this.ctx.service.admin.sys.task.stopTask();
   }
 
   async beforeClose() {

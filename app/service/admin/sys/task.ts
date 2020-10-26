@@ -11,6 +11,11 @@ export default class SysTaskService extends BaseService {
    * 初始化任务，系统启动前调用
    */
   async initTask() {
+    const jobs = await this.app.queue.sys.getJobs([ 'active', 'delayed', 'failed', 'paused', 'waiting', 'completed' ]);
+    for (let i = 0; i < jobs.length; i++) {
+      // 先移除所有已存在的任务
+      await jobs[i].remove();
+    }
     // 查找所有需要运行的任务
     const tasks = await this.getRepo().admin.sys.Task.find({ status: 1 });
     if (tasks && tasks.length > 0) {
@@ -18,17 +23,6 @@ export default class SysTaskService extends BaseService {
         this.start(t);
       }
     }
-  }
-
-  /**
-   * egg进程关闭前停止队列
-   */
-  async stopTask() {
-    const jobs = await this.app.queue.sys.getJobs([ 'active', 'delayed', 'failed', 'paused', 'waiting' ]);
-    for (let i = 0; i < jobs.length; i++) {
-      jobs[i].remove();
-    }
-    await this.app.queue.sys.close(true);
   }
 
   /**
