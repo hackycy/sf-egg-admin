@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 26/10/2020 16:48:27
+ Date: 26/10/2020 17:30:38
 */
 
 SET NAMES utf8mb4;
@@ -95,7 +95,7 @@ CREATE TABLE `sys_login_log` (
   `time` datetime DEFAULT NULL,
   `ua` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_login_log
@@ -105,6 +105,10 @@ INSERT INTO `sys_login_log` VALUES ('2020-10-20 05:52:09.267588', '2020-10-20 05
 INSERT INTO `sys_login_log` VALUES ('2020-10-22 07:43:12.063370', '2020-10-22 07:43:12.063370', 2, 1, '127.0.0.1', '2020-10-22 07:43:12', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36');
 INSERT INTO `sys_login_log` VALUES ('2020-10-22 07:45:31.359047', '2020-10-22 07:45:31.359047', 3, 1, '127.0.0.1', '2020-10-22 07:45:31', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36');
 INSERT INTO `sys_login_log` VALUES ('2020-10-23 02:39:50.682860', '2020-10-23 02:39:50.682860', 4, 1, '127.0.0.1', '2020-10-23 02:39:51', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36');
+INSERT INTO `sys_login_log` VALUES ('2020-10-26 08:51:05.538341', '2020-10-26 08:51:05.538341', 5, 1, '127.0.0.1', '2020-10-26 08:51:06', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36');
+INSERT INTO `sys_login_log` VALUES ('2020-10-26 09:24:23.451278', '2020-10-26 09:24:23.451278', 6, 3, '127.0.0.1', '2020-10-26 09:24:23', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36');
+INSERT INTO `sys_login_log` VALUES ('2020-10-26 09:24:59.196689', '2020-10-26 09:24:59.196689', 7, 1, '127.0.0.1', '2020-10-26 09:24:59', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36');
+INSERT INTO `sys_login_log` VALUES ('2020-10-26 09:29:59.322557', '2020-10-26 09:29:59.322557', 8, 1, '127.0.0.1', '2020-10-26 09:29:59', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36');
 COMMIT;
 
 -- ----------------------------
@@ -197,7 +201,7 @@ CREATE TABLE `sys_req_log` (
   `status` int(11) DEFAULT NULL,
   `consume_time` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -311,9 +315,9 @@ CREATE TABLE `sys_task` (
 -- Records of sys_task
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_task` VALUES ('2020-10-19 08:53:44.732338', '2020-10-23 04:27:47.000000', 1, '定时清空请求追踪日志', 'admin.sys.reqLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 1000, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":1}', '');
-INSERT INTO `sys_task` VALUES ('2020-10-19 08:54:42.760785', '2020-10-23 04:27:47.000000', 2, '定时清空登录日志', 'admin.sys.loginLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":2}', '');
-INSERT INTO `sys_task` VALUES ('2020-10-19 08:55:06.050711', '2020-10-23 04:27:47.000000', 3, '定时清空任务日志', 'admin.sys.taskLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":3}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:53:44.732338', '2020-10-26 09:28:23.000000', 1, '定时清空请求追踪日志', 'admin.sys.reqLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 1000, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":1}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:54:42.760785', '2020-10-26 09:28:23.000000', 2, '定时清空登录日志', 'admin.sys.loginLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":2}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:55:06.050711', '2020-10-26 09:28:23.000000', 3, '定时清空任务日志', 'admin.sys.taskLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":3}', '');
 INSERT INTO `sys_task` VALUES ('2020-10-22 07:48:10.089919', '2020-10-23 04:21:10.000000', 4, '获取逆天邪神最新章节', 'reptile.book.getZonghengBookLastchapter', 1, 0, NULL, NULL, 3, '', 20000, '{\"id\":\"408586\",\"emails\":\"qa894178522@qq.com\"}', '', '');
 COMMIT;
 
@@ -329,7 +333,14 @@ CREATE TABLE `sys_task_log` (
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `detail` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of sys_task_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_task_log` VALUES ('2020-10-26 08:52:49.759752', '2020-10-26 08:52:49.759752', 1, 4, 1, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -357,7 +368,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-10-07 07:17:14.000000', 1, 1, 'hackycy', 'rootadmin', 'U2FsdGVkX18E8MLkt/45xe3xRALUa6mE9udOXcxrVCA=', '', 'http://image.si-yee.com/思忆/20200924_021100.png', 'qa894178522@qq.com', '15622472425', NULL, 1);
+INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-10-07 07:17:14.000000', 1, 1, 'hackycy', 'rootadmin', 'U2FsdGVkX18tvghStliPvPopFZQiILUrZhNk3mUs2jA=', '', 'http://image.si-yee.com/思忆/20200924_021100.png', 'qa894178522@qq.com', '15622472425', NULL, 1);
 INSERT INTO `sys_user` VALUES ('2020-09-14 07:41:33.732000', '2020-10-12 06:04:19.000000', 2, 2, 'hackycy', 'test001', 'U2FsdGVkX1+iVR+kHHErkPNInZiV27Mpk4pFL8uhtTQ=', '', '', 'qa894178522@qq.com', '', '', 0);
 INSERT INTO `sys_user` VALUES ('2020-10-12 03:23:14.611864', '2020-10-12 06:12:20.000000', 3, 2, 'hackycy', 'openadmin', 'U2FsdGVkX18tvghStliPvPopFZQiILUrZhNk3mUs2jA=', '', NULL, '', '', '', 1);
 COMMIT;
