@@ -43,7 +43,6 @@ export default class SysLoginLogService extends BaseService {
       .skip(page * count)
       .take(count)
       .getRawMany();
-    this.ctx.logger.info(result);
     const parser = new UAParser();
     return result.map(e => {
       const u = parser.setUA(e.login_log_ua).getResult();
