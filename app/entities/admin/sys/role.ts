@@ -3,7 +3,7 @@ import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_role' })
 export default class SysRole extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()

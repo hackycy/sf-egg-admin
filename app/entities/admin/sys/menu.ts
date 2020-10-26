@@ -3,10 +3,10 @@ import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_menu' })
 export default class SysMenu extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'parent_id', type: 'bigint', nullable: true })
+  @Column({ name: 'parent_id', nullable: true })
   parentId: number;
 
   @Column()

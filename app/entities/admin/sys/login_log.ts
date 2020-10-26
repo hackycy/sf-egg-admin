@@ -3,7 +3,7 @@ import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_login_log' })
 export default class SysLoginLog extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'bigint', nullable: true, name: 'user_id' })

@@ -3,10 +3,10 @@ import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_user' })
 export default class SysUser extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'bigint', name: 'department_id' })
+  @Column({ name: 'department_id' })
   departmentId: number;
 
   @Column()

@@ -3,12 +3,12 @@ import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_role_department' })
 export default class SysRoleDepartment extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'bigint', name: 'role_id' })
+  @Column({ name: 'role_id' })
   roleId: number;
 
-  @Column({ type: 'bigint', name: 'department_id' })
+  @Column({ name: 'department_id' })
   departmentId: number;
 }

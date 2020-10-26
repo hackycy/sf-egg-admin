@@ -3,13 +3,13 @@ import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_req_log' })
 export default class SysReqLog extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ nullable: true })
   ip: string;
 
-  @Column({ type: 'bigint', nullable: true, name: 'user_id' })
+  @Column({ nullable: true, name: 'user_id' })
   userId: number;
 
   @Column({ type: 'text', nullable: true })

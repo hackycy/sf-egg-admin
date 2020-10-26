@@ -3,12 +3,12 @@ import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_role_menu' })
 export default class SysRoleMenu extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'bigint', name: 'role_id' })
+  @Column({ name: 'role_id' })
   roleId: number;
 
-  @Column({ type: 'bigint', name: 'menu_id' })
+  @Column({ name: 'menu_id' })
   menuId: number;
 }

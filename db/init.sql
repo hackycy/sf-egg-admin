@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 20/10/2020 14:57:01
+ Date: 26/10/2020 16:48:27
 */
 
 SET NAMES utf8mb4;
@@ -24,12 +24,12 @@ DROP TABLE IF EXISTS `image_space_info`;
 CREATE TABLE `image_space_info` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type_id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_id` int(11) NOT NULL,
   `url` varchar(500) NOT NULL,
   `extra` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of image_space_info
@@ -46,7 +46,7 @@ DROP TABLE IF EXISTS `image_space_type`;
 CREATE TABLE `image_space_type` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_91decef4a2b88cb59caf658d44` (`name`)
@@ -67,8 +67,8 @@ DROP TABLE IF EXISTS `sys_department`;
 CREATE TABLE `sys_department` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `parend_id` bigint(20) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parend_id` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `order_num` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -89,19 +89,22 @@ DROP TABLE IF EXISTS `sys_login_log`;
 CREATE TABLE `sys_login_log` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) DEFAULT NULL,
   `ip` varchar(255) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   `ua` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_login_log
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_login_log` VALUES ('2020-10-20 05:52:09.267588', '2020-10-20 05:52:09.267588', 1, 1, '127.0.0.1', '2020-10-20 05:52:09', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.80 Safari/537.36');
+INSERT INTO `sys_login_log` VALUES ('2020-10-22 07:43:12.063370', '2020-10-22 07:43:12.063370', 2, 1, '127.0.0.1', '2020-10-22 07:43:12', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36');
+INSERT INTO `sys_login_log` VALUES ('2020-10-22 07:45:31.359047', '2020-10-22 07:45:31.359047', 3, 1, '127.0.0.1', '2020-10-22 07:45:31', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36');
+INSERT INTO `sys_login_log` VALUES ('2020-10-23 02:39:50.682860', '2020-10-23 02:39:50.682860', 4, 1, '127.0.0.1', '2020-10-23 02:39:51', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36');
 COMMIT;
 
 -- ----------------------------
@@ -111,8 +114,8 @@ DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint(20) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `router` varchar(255) DEFAULT NULL,
   `perms` varchar(255) DEFAULT NULL,
@@ -185,16 +188,16 @@ DROP TABLE IF EXISTS `sys_req_log`;
 CREATE TABLE `sys_req_log` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `ip` varchar(255) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `params` text,
   `action` varchar(100) DEFAULT NULL,
   `method` varchar(15) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `consume_time` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -203,7 +206,7 @@ DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `label` varchar(50) NOT NULL,
@@ -228,9 +231,9 @@ DROP TABLE IF EXISTS `sys_role_department`;
 CREATE TABLE `sys_role_department` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `role_id` bigint(20) NOT NULL,
-  `department_id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
@@ -249,9 +252,9 @@ DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `role_id` bigint(20) NOT NULL,
-  `menu_id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
@@ -287,7 +290,7 @@ DROP TABLE IF EXISTS `sys_task`;
 CREATE TABLE `sys_task` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `service` varchar(255) NOT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '0',
@@ -302,15 +305,16 @@ CREATE TABLE `sys_task` (
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_ef8e5ab5ef2fe0ddb1428439ef` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of sys_task
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_task` VALUES ('2020-10-19 08:53:44.732338', '2020-10-20 06:41:02.000000', 1, '定时清空请求追踪日志', 'admin.sys.reqLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 1000, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":1}', '');
-INSERT INTO `sys_task` VALUES ('2020-10-19 08:54:42.760785', '2020-10-20 06:41:00.000000', 2, '定时清空登录日志', 'admin.sys.loginLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":2}', '');
-INSERT INTO `sys_task` VALUES ('2020-10-19 08:55:06.050711', '2020-10-20 06:40:59.000000', 3, '定时清空任务日志', 'admin.sys.taskLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":3}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:53:44.732338', '2020-10-23 04:27:47.000000', 1, '定时清空请求追踪日志', 'admin.sys.reqLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 1000, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":1}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:54:42.760785', '2020-10-23 04:27:47.000000', 2, '定时清空登录日志', 'admin.sys.loginLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":2}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-19 08:55:06.050711', '2020-10-23 04:27:47.000000', 3, '定时清空任务日志', 'admin.sys.taskLog.clear', 0, 1, NULL, NULL, 0, '0 0 3 ? * 1', 0, '', '{\"count\":1,\"cron\":\"0 0 3 ? * 1\",\"jobId\":3}', '');
+INSERT INTO `sys_task` VALUES ('2020-10-22 07:48:10.089919', '2020-10-23 04:21:10.000000', 4, '获取逆天邪神最新章节', 'reptile.book.getZonghengBookLastchapter', 1, 0, NULL, NULL, 3, '', 20000, '{\"id\":\"408586\",\"emails\":\"qa894178522@qq.com\"}', '', '');
 COMMIT;
 
 -- ----------------------------
@@ -320,21 +324,12 @@ DROP TABLE IF EXISTS `sys_task_log`;
 CREATE TABLE `sys_task_log` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `task_id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `task_id` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `detail` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of sys_task_log
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_task_log` VALUES ('2020-10-19 08:55:10.120903', '2020-10-19 08:55:10.120903', 1, 3, 1, NULL);
-INSERT INTO `sys_task_log` VALUES ('2020-10-19 08:55:25.993809', '2020-10-19 08:55:25.993809', 2, 2, 0, 'TypeError: Cannot read property \'clear\' of undefined');
-INSERT INTO `sys_task_log` VALUES ('2020-10-19 08:56:02.168195', '2020-10-19 08:56:02.168195', 3, 2, 1, NULL);
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -343,8 +338,8 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `department_id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `department_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -362,9 +357,9 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-10-07 07:17:14.000000', 1, 1, 'hackycy', 'rootadmin', 'U2FsdGVkX18tvghStliPvPopFZQiILUrZhNk3mUs2jA=', '', 'http://image.si-yee.com/思忆/20200924_021100.png', 'qa894178522@qq.com', '15622472425', NULL, 1);
-INSERT INTO `sys_user` VALUES ('2020-09-14 07:41:33.732000', '2020-10-12 06:04:19.000000', 2, 2, 'test001', 'test001', 'U2FsdGVkX18tvghStliPvPopFZQiILUrZhNk3mUs2jA=', '', '', 'qa894178522@qq.com', '', '', 0);
-INSERT INTO `sys_user` VALUES ('2020-10-12 03:23:14.611864', '2020-10-12 06:12:20.000000', 3, 2, '演示账号', 'openadmin', 'U2FsdGVkX18tvghStliPvPopFZQiILUrZhNk3mUs2jA=', '', NULL, '', '', '', 1);
+INSERT INTO `sys_user` VALUES ('2020-08-27 03:38:30.000000', '2020-10-07 07:17:14.000000', 1, 1, 'hackycy', 'rootadmin', 'U2FsdGVkX18E8MLkt/45xe3xRALUa6mE9udOXcxrVCA=', '', 'http://image.si-yee.com/思忆/20200924_021100.png', 'qa894178522@qq.com', '15622472425', NULL, 1);
+INSERT INTO `sys_user` VALUES ('2020-09-14 07:41:33.732000', '2020-10-12 06:04:19.000000', 2, 2, 'hackycy', 'test001', 'U2FsdGVkX1+iVR+kHHErkPNInZiV27Mpk4pFL8uhtTQ=', '', '', 'qa894178522@qq.com', '', '', 0);
+INSERT INTO `sys_user` VALUES ('2020-10-12 03:23:14.611864', '2020-10-12 06:12:20.000000', 3, 2, 'hackycy', 'openadmin', 'U2FsdGVkX18tvghStliPvPopFZQiILUrZhNk3mUs2jA=', '', NULL, '', '', '', 1);
 COMMIT;
 
 -- ----------------------------
@@ -374,9 +369,9 @@ DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
   `createTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updateTime` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NOT NULL,
-  `role_id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 

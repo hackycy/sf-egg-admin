@@ -3,10 +3,10 @@ import { BaseEntity } from '../../../base';
 
 @Entity({ name: 'image_space_info' })
 export default class ImageSpaceInfo extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'type_id', type: 'bigint' })
+  @Column({ name: 'type_id' })
   typeId: number;
 
   @Column({ type: 'varchar', length: 500 })

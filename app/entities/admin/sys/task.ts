@@ -3,7 +3,7 @@ import { BaseEntity } from '../../base';
 
 @Entity({ name: 'sys_task' })
 export default class SysTask extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar', length: 50, unique: true })
