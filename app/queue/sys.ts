@@ -10,16 +10,13 @@ export default (app: Application) => {
 
   // 处理任务
   tq.process(async function(job) {
+    let id = -1;
     try {
+      id = await ctx.service.admin.sys.taskLog.record(job.data.id, 0);
       await ctx.service.admin.sys.task.callService(job.data.service, job.data.args);
-      try {
-        await ctx.service.admin.sys.taskLog.record(job.data.id, 1);
-      } catch (e) {
-        // 防止数据库出错导致的失败记录
-        app.logger.error(e);
-      }
+      await ctx.service.admin.sys.taskLog.updateTaskStatus(id, 1);
     } catch (e) {
-      await ctx.service.admin.sys.taskLog.record(job.data.id, 0, `${e}`);
+      await ctx.service.admin.sys.taskLog.updateTaskStatus(id, 2, `${e.message}`);
     }
   });
   return tq;
