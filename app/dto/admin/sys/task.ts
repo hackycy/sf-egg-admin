@@ -2,7 +2,7 @@ import {
   Length,
   IsString,
   IsIn,
-  IsDate,
+  IsDateString,
   IsInt,
   Validate,
   IsOptional,
@@ -18,9 +18,27 @@ import * as parser from 'cron-parser';
 @ValidatorConstraint({ name: 'isCronExpression', async: false })
 export class IsCronExpression implements ValidatorConstraintInterface {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  validate(text: string, _args: ValidationArguments) {
+  validate(text: string, args: ValidationArguments) {
     try {
-      parser.parseExpression(text);
+      const op: any = { currentDate: new Date(), iterator: true };
+      let needOp = false;
+      console.log((args.object as any).startTime);
+      if ((args.object as any).startTime) {
+        needOp = true;
+        op.startDate = (args.object as any).startTime;
+      }
+      if ((args.object as any).endTime) {
+        needOp = true;
+        op.endDate = (args.object as any).endTime;
+      }
+      if (needOp) {
+        const tmp = parser.parseExpression(text, op);
+        if (!tmp.hasNext()) {
+          throw new Error();
+        }
+      } else {
+        parser.parseExpression(text);
+      }
       return true;
     } catch (e) {
       return false;
@@ -30,7 +48,7 @@ export class IsCronExpression implements ValidatorConstraintInterface {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   defaultMessage(_args: ValidationArguments) {
     // here you can provide default error message if validation failed
-    return 'Text ($value) is must a cron expression!';
+    return 'this cron expression ($value) invalid';
   }
 }
 
@@ -53,12 +71,12 @@ export class CreateTaskDto {
   status: number;
 
   @ValidateIf((_o, v) => { return !(v === '' || v === undefined || v === null); })
-  @IsDate()
+  @IsDateString()
   @Expose()
   startTime: Date;
 
   @ValidateIf((_o, v) => { return !(v === '' || v === undefined || v === null); })
-  @IsDate()
+  @IsDateString()
   @Expose()
   endTime: Date;
 
