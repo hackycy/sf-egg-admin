@@ -122,6 +122,7 @@ export default class SysTaskService extends BaseService {
       await this.getRepo().admin.sys.Task.update(task.id, { jobOpts: JSON.stringify(job.opts.repeat), status: 1 });
     } else {
       // update status to 0，标识暂停任务，因为启动失败
+      job && await job.remove();
       await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
       throw new Error('Task Start failed');
     }
