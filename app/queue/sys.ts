@@ -17,6 +17,8 @@ export default (app: Application) => {
       await ctx.service.admin.sys.taskLog.updateTaskStatus(id, 1);
     } catch (e) {
       await ctx.service.admin.sys.taskLog.updateTaskStatus(id, 2, `${e.message}`);
+    } finally {
+      await ctx.service.admin.sys.task.updateTaskCompleteStatus(job.data.id);
     }
   });
   return tq;
