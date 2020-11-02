@@ -11,6 +11,11 @@ export default class AdminBoot implements IBoot {
   constructor(app: Application) {
     // this.app = app;
     this.ctx = app.createAnonymousContext();
+    // agent send
+    app.messenger.on('init-task', () => {
+      // 启动任务
+      this.ctx.service.admin.sys.task.initTask();
+    });
   }
 
   configWillLoad() {
@@ -29,8 +34,6 @@ export default class AdminBoot implements IBoot {
 
   async willReady() {
     // All plugins have started, can do some thing before app ready.
-    // 启动任务
-    this.ctx.service.admin.sys.task.initTask();
   }
 
   async didReady() {
