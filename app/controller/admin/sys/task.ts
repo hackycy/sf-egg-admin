@@ -72,14 +72,8 @@ export default class SysTaskController extends BaseController {
   @AdminRoute('/sys/task/delete', 'post')
   async delete() {
     const dto = await this.ctx.validate<CheckIdTaskDto>(CheckIdTaskDto);
-    const isRunning = await this.service.admin.sys.task.existJob(String(dto.id));
-    if (isRunning) {
-      this.res({
-        code: 10014,
-      });
-      return;
-    }
-    await this.service.admin.sys.task.delete(dto.id);
+    const task = await this.service.admin.sys.task.info(dto.id);
+    await this.service.admin.sys.task.delete(task!);
     this.res();
   }
 

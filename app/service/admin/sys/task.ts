@@ -56,8 +56,12 @@ export default class SysTaskService extends BaseService {
   /**
    * delete task
    */
-  async delete(id: number) {
-    await this.getRepo().admin.sys.Task.delete({ id });
+  async delete(task: SysTask) {
+    if (!task) {
+      throw new Error('Task is Empty');
+    }
+    await this.stop(task);
+    await this.getRepo().admin.sys.Task.delete(task.id);
   }
 
   /**
