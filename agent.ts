@@ -5,6 +5,6 @@ import { Agent } from 'egg';
  */
 export default (agent: Agent) => {
   agent.messenger.on('egg-ready', () => {
-    agent.messenger.sendRandom('init-task', 'init-task');
+    agent.messenger.sendRandom('init-task', { name: 'init-task' });
   });
 };
