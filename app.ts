@@ -30,7 +30,7 @@ export default class AdminBoot implements IBoot {
   async willReady() {
     // All plugins have started, can do some thing before app ready.
     // 启动任务
-    this.ctx.service.admin.sys.task.initTask();
+    await this.ctx.service.admin.sys.task.initTask();
   }
 
   async didReady() {

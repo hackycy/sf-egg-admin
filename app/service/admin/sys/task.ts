@@ -145,7 +145,12 @@ export default class SysTaskService extends BaseService {
       // update status
       await this.getRepo().admin.sys.Task.update(task.id, { status: 0 });
     } else {
-      throw new Error('Task jobOpts is Empty');
+      const jobs = await this.app.queue.sys.getJobs([ 'active', 'delayed', 'failed', 'paused', 'waiting', 'completed' ]);
+      for (let i = 0; i < jobs.length; i++) {
+        if (jobs[i].data.id === task.id) {
+          await jobs[i].remove();
+        }
+      }
     }
   }
 
