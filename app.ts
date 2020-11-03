@@ -20,7 +20,7 @@ export default class AdminBoot implements IBoot {
     // Date time
     // eslint-disable-next-line no-extend-native
     Date.prototype.toJSON = function() {
-      return moment(this).format('YYYY-MM-DD HH:mm:ss');
+      return moment(this).local().format('YYYY-MM-DD HH:mm:ss');
     };
   }
 

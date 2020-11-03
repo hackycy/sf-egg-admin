@@ -1,5 +1,4 @@
 import BaseService from '../../base';
-import * as moment from 'moment';
 import { UAParser } from 'ua-parser-js';
 
 /**
@@ -34,12 +33,13 @@ export default class SysOnlineService extends BaseService {
       const parser = new UAParser();
       return result.map(e => {
         const u = parser.setUA(e.ua).getResult();
+        this.app.logger.error(e);
         return {
           id: e.user_id,
           ip: e.ip,
           username: e.username,
           isCurrent: this.ctx.token.uid === e.user_id,
-          time: moment(e.time).format('YYYY-MM-DD HH:mm:ss'),
+          time: e.createTime,
           status: 1,
           os: `${u.os.name} ${u.os.version}`,
           browser: `${u.browser.name} ${u.browser.version}`,
