@@ -2,7 +2,7 @@ import {
   Length,
   IsString,
   IsIn,
-  IsDateString,
+  IsDate,
   IsInt,
   Validate,
   IsOptional,
@@ -11,7 +11,7 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 import * as parser from 'cron-parser';
 
 // cron 表达式验证，bull lib下引用了cron-parser
@@ -20,9 +20,8 @@ export class IsCronExpression implements ValidatorConstraintInterface {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   validate(text: string, args: ValidationArguments) {
     try {
-      const op: any = { currentDate: new Date(), iterator: true };
+      const op: any = { iterator: true };
       let needOp = false;
-      console.log((args.object as any).startTime);
       if ((args.object as any).startTime) {
         needOp = true;
         op.startDate = (args.object as any).startTime;
@@ -71,13 +70,15 @@ export class CreateTaskDto {
   status: number;
 
   @ValidateIf((_o, v) => { return !(v === '' || v === undefined || v === null); })
-  @IsDateString()
+  @IsDate()
   @Expose()
+  @Transform(value => { if (value === '' || value === undefined || value === null) { return value; } return new Date(value); }, { toClassOnly: true })
   startTime: Date;
 
   @ValidateIf((_o, v) => { return !(v === '' || v === undefined || v === null); })
-  @IsDateString()
+  @IsDate()
   @Expose()
+  @Transform(value => { if (value === '' || value === undefined || value === null) { return value; } return new Date(value); }, { toClassOnly: true })
   endTime: Date;
 
   @IsInt()
