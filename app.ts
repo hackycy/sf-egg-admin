@@ -3,6 +3,7 @@
  */
 
 import { Application, IBoot, Context } from 'egg';
+import * as moment from 'moment';
 
 export default class AdminBoot implements IBoot {
   // private readonly app: Application;
@@ -16,6 +17,11 @@ export default class AdminBoot implements IBoot {
       // 启动任务
       this.ctx.service.admin.sys.task.initTask();
     });
+    // Date time
+    // eslint-disable-next-line no-extend-native
+    Date.prototype.toJSON = function() {
+      return moment(this).format('YYYY-MM-DD HH:mm:ss');
+    };
   }
 
   configWillLoad() {
