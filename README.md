@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/github/commit-activity/m/hackycy/sf-egg-admin) ![](https://img.shields.io/github/license/hackycy/sf-egg-admin) ![](https://img.shields.io/github/repo-size/hackycy/sf-egg-admin) ![](https://img.shields.io/github/languages/top/hackycy/sf-egg-admin)
 
-**基于EggJs + TypeScript + TypeOrm + Redis + MySql + Vue + Element-UI编写的一款简单高效的前后端分离的权限管理系统。希望这个项目在全栈的路上能够帮助到你。**
+**基于EggJs + TypeScript + TypeORM + Redis + MySql + Vue + Element-UI编写的一款简单高效的前后端分离的权限管理系统。希望这个项目在全栈的路上能够帮助到你。**
 
 前端项目地址：[传送门](https://github.com/hackycy/sf-vue-admin)
 
@@ -143,7 +143,7 @@ server
 - MYSQL 5.7+
 - Redis 6.0+
 
-### 内置Egg插件
+### 依赖的第三方库
 
 - [egg-typeorm](https://github.com/hackycy/egg-typeorm)
 - [egg-class-validator](https://github.com/hackycy/egg-class-validator)
@@ -155,3 +155,7 @@ server
 ### 欢迎Star && PR
 
 如果项目有帮助到你可以点个Star支持下。有更好的实现欢迎PR。
+
+### 致谢
+
+- [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
