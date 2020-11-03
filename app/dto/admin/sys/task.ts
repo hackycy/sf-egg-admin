@@ -72,13 +72,13 @@ export class CreateTaskDto {
   @ValidateIf((_o, v) => { return !(v === '' || v === undefined || v === null); })
   @IsDate()
   @Expose()
-  @Transform(value => { if (value === '' || value === undefined || value === null) { return value; } return new Date(value); }, { toClassOnly: true })
+  @Transform(value => { if (value) { return new Date(value); } return null; }, { toClassOnly: true })
   startTime: Date;
 
   @ValidateIf((_o, v) => { return !(v === '' || v === undefined || v === null); })
   @IsDate()
   @Expose()
-  @Transform(value => { if (value === '' || value === undefined || value === null) { return value; } return new Date(value); }, { toClassOnly: true })
+  @Transform(value => { if (value) { return new Date(value); } return null; }, { toClassOnly: true })
   endTime: Date;
 
   @IsInt()
