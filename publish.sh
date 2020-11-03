@@ -1,16 +1,15 @@
 # stop pre 
 cd /www/server/sf-admin/sf-egg-admin
 npm run stop
-cd /www/server/sf-admin
-rm -rf sf-egg-admin
-rm -rf sf-vue-admin
-unzip sf-egg-admin-master.zip
-unzip sf-vue-admin-master.zip
-mv sf-egg-admin-master sf-egg-admin
-mv sf-vue-admin-master sf-vue-admin
-cd sf-egg-admin
+rm -rf /www/server/sf-admin/sf-egg-admin
+rm -rf /www/server/sf-admin/sf-vue-admin
+unzip -o /www/server/sf-admin/sf-egg-admin-master.zip -d /www/server/sf-admin
+mv /www/server/sf-admin/sf-egg-admin-master /www/server/sf-admin/sf-egg-admin
+unzip -o /www/server/sf-admin/sf-vue-admin-master.zip -d /www/server/sf-admin
+mv /www/server/sf-admin/sf-vue-admin-master /www/server/sf-admin/sf-vue-admin
 cp /www/server/sf-admin/config.prod.ts /www/server/sf-admin/sf-egg-admin/config
 cp /www/server/sf-admin/.env.production /www/server/sf-admin/sf-vue-admin
+cd /www/server/sf-admin/sf-egg-admin
 npm i --registry=https://registry.npm.taobao.org
 npm run build
 npm run start
