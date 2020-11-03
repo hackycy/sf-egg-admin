@@ -65,7 +65,7 @@ export class CreateTaskDto {
   @Expose()
   type: number;
 
-  @IsIn([ 0, 1 ])
+  @IsIn([ 0, 1, 2 ])
   @Expose()
   status: number;
 
