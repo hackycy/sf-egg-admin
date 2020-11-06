@@ -33,7 +33,6 @@ export default class SysOnlineService extends BaseService {
       const parser = new UAParser();
       return result.map(e => {
         const u = parser.setUA(e.ua).getResult();
-        this.app.logger.error(e);
         return {
           id: e.user_id,
           ip: e.ip,
