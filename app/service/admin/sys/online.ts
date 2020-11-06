@@ -23,9 +23,9 @@ export default class SysOnlineService extends BaseService {
     SELECT n.*, u.username
       FROM sys_login_log n
       INNER JOIN (
-        SELECT user_id, MAX(time) AS time
+        SELECT user_id, MAX(createTime) AS createTime
         FROM sys_login_log GROUP BY user_id
-      ) AS max USING (user_id, time)
+      ) AS max USING (user_id, createTime)
       INNER JOIN sys_user u ON n.user_id = u.id
       WHERE n.user_id IN (?)
     `, [ ids ]);
