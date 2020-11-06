@@ -37,7 +37,7 @@ export default class SysLoginLogService extends BaseService {
     // });
     const result = await this.getRepo().admin.sys.LoginLog.createQueryBuilder('login_log')
       .innerJoinAndSelect('sys_user', 'user', 'login_log.user_id = user.id')
-      .orderBy('login_log.time', 'DESC')
+      .orderBy('login_log.create_time', 'DESC')
       .skip(page * count)
       .take(count)
       .getRawMany();
