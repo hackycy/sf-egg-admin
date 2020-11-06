@@ -1,6 +1,4 @@
 import BaseService from '../base';
-import * as puppeteer from 'puppeteer-core';
-import * as cheerio from 'cheerio';
 
 /**
  * 小说爬虫Service
@@ -11,6 +9,10 @@ export default class ReptileBookService extends BaseService {
    * 获取纵横书籍最新章节
    */
   async getZonghengBookLastchapter(param: any) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const puppeteer = require('puppeteer-core');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const cheerio = require('cheerio');
     const browser = await puppeteer.launch(this.config.puppeteer.launchOptions);
     const page = await browser.newPage();
     await page.goto(`http://book.zongheng.com/book/${param.id}.html`, { waitUntil: 'networkidle0' });
