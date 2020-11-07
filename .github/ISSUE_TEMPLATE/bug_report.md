@@ -30,3 +30,5 @@ Please only use Codepen, JSFiddle, CodeSandbox or a github repo
 #### Other relevant information（格外信息）
 - Your OS:
 - Node.js version:
+- Mysql version:
+- Redis version:
