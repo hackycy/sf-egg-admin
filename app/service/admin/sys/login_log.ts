@@ -38,8 +38,8 @@ export default class SysLoginLogService extends BaseService {
     const result = await this.getRepo().admin.sys.LoginLog.createQueryBuilder('login_log')
       .innerJoinAndSelect('sys_user', 'user', 'login_log.user_id = user.id')
       .orderBy('login_log.createTime', 'DESC')
-      .skip(page * count)
-      .take(count)
+      .offset(page * count)
+      .limit(count)
       .getRawMany();
     const parser = new UAParser();
     return result.map(e => {
