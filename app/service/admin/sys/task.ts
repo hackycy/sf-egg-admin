@@ -170,13 +170,8 @@ export default class SysTaskService extends BaseService {
   }
 
   async updateTaskCompleteStatus(tid: number) {
-    const result = await this.app.queue.sys.getRepeatableJobs();
-    for (const task of result) {
-      if (task.id === tid.toString() && task.id && task.next < new Date().getTime()) {
-        // 如果下次执行时间小于当前时间，则表示已经执行完成。
-        await this.getRepo().admin.sys.Task.update(parseInt(task.id), { status: 2 });
-      }
-    }
+    // 如果下次执行时间小于当前时间，则表示已经执行完成。
+    await this.getRepo().admin.sys.Task.update(tid, { status: 2 });
   }
 
   /**

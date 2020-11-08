@@ -17,9 +17,11 @@ export default (app: Application) => {
       await ctx.service.admin.sys.taskLog.updateTaskStatus(id, 1);
     } catch (e) {
       await ctx.service.admin.sys.taskLog.updateTaskStatus(id, 2, `${e.message}`);
-    } finally {
-      await ctx.service.admin.sys.task.updateTaskCompleteStatus(job.data.id);
     }
+  });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  tq.on('completed', (job, _result) => {
+    ctx.service.admin.sys.task.updateTaskCompleteStatus(job.data.id);
   });
   return tq;
 };
