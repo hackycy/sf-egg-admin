@@ -45,8 +45,8 @@ export default class SysTaskService extends BaseService {
     const result = await this.getRepo().admin.sys.TaskLog.createQueryBuilder('task_log')
       .leftJoinAndSelect('sys_task', 'task', 'task_log.task_id = task.id')
       .orderBy('task_log.id', 'DESC')
-      .skip(page * count)
-      .take(count)
+      .offset(page * count)
+      .limit(count)
       .getRawMany();
     return result.map(e => {
       return {

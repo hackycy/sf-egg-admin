@@ -176,8 +176,8 @@ export default class SysUserService extends BaseService {
       .innerJoinAndSelect('sys_department', 'dept', 'dept.id = user.departmentId')
       .where('user.id NOT IN (:...ids)', { ids: [ this.config.rootRoleId, uid ] })
       .andWhere(deptId === -1 ? '1 = 1' : `user.departmentId = '${deptId}'`)
-      .skip(page * count)
-      .take(count)
+      .offset(page * count)
+      .limit(count)
       .getRawMany();
     const dealResult = result.map(e => {
       return {
