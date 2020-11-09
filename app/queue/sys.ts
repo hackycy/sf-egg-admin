@@ -23,5 +23,8 @@ export default (app: Application) => {
   tq.on('completed', (job, _result) => {
     ctx.service.admin.sys.task.updateTaskCompleteStatus(job.data.id);
   });
+  // tq.on('global:completed', (jobId, _result) => {
+  //   ctx.service.admin.sys.task.updateTaskCompleteStatus(jobId);
+  // });
   return tq;
 };
