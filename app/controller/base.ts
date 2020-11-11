@@ -46,7 +46,7 @@ export default abstract class BaseController extends Controller {
     this.ctx.body = {
       data: op?.data ?? null,
       code: op?.code ?? 200,
-      message: op?.code ? this.ctx.helper.getErrorMessageByCode(`${op!.code}`) : op?.message || 'success',
+      message: op?.code ? this.ctx.helper.getErrorMessageByCode(`${op!.code}`) || op?.message || 'unknown error' : op?.message || 'success',
     };
   }
 
