@@ -1,4 +1,3 @@
-import { Middleware } from 'koa';
 import { Application, Context } from 'egg';
 
 /**
@@ -17,15 +16,15 @@ export type HttpMethod = 'get' | 'post' | 'patch' | 'delete' | 'options' | 'put'
 interface RouterOption {
   httpMethod: HttpMethod;
   handleName: string;
-  beforeMiddlewares: Middleware[];
+  beforeMiddlewares: any[];
   constructorFn: any;
   className: string;
-  validation?: Validation | undefined | null;
+  validator?: Validator | undefined | null;
   url: string;
 }
 
-interface Validation {
-  query?: any;
+interface Validator {
+  params?: any;
   body?: any;
 }
 
@@ -57,57 +56,29 @@ export function initRouter(app: Application) {
     __router__[url].forEach((opt: RouterOption) => {
       router[opt.httpMethod](opt.url, ...opt.beforeMiddlewares, async (ctx: Context) => {
         const ist = new opt.constructorFn(ctx);
-        // if (opt.validation) {
-        //   if (opt.httpMethod === 'get') {
-        //     const query = opt.validation.query ? await ctx.validate(opt.validation.query, ctx.request.query) : null;
-        //     await ist[opt.handleName].call(ist, query);
-        //   } else {
-        //     const query = opt.validation.query ? await ctx.validate(opt.validation.query, ctx.request.query) : null;
-        //     const body = opt.validation.body ? await ctx.validate(opt.validation.body, ctx.request.body) : null;
-        //     await ist[opt.handleName].call(ist, body, query);
-        //   }
-        // } else {
-        //   await ist[opt.handleName].call(ist);
-        // }
-        await ist[opt.handleName].call(ist);
+        if (opt.validator) {
+          // 如果存在validator，则先进行参数校验
+          if (opt.httpMethod === 'get') {
+            const query = opt.validator.params ? await ctx.validate(opt.validator.params, ctx.request.query) : null;
+            await ist[opt.handleName].call(ist, { query });
+          } else {
+            const query = opt.validator.params ? await ctx.validate(opt.validator.params, ctx.request.query) : null;
+            const body = opt.validator.body ? await ctx.validate(opt.validator.body, ctx.request.body) : null;
+            await ist[opt.handleName].call(ist, { body, query });
+          }
+        } else {
+          await ist[opt.handleName].call(ist);
+        }
+        // await ist[opt.handleName].call(ist);
       });
     });
   });
 }
 
-// /**
-//  * Body 参数校验
-//  * @param type dto type
-//  */
-// export function Body(type: any) {
-//   return function(target: any, propertName: string, index: number) {
-//     if (!target.validatorBody) {
-//       target.validatorBody = {};
-//     }
-//     if (!target.validatorBody[propertName]) {
-//       target.validatorBody[propertName] = [];
-//     }
-//     target.validatorBody[propertName].push({ pk: propertName, index, type });
-//   };
-// }
-
-// /**
-//  * Query 参数校验
-//  * @param type dto type
-//  */
-// export function Param(type: any) {
-//   return function(target: any, propertName: string, index: number) {
-//     if (!target.validatorParam) {
-//       target.validatorParam = {};
-//     }
-//     target.validatorParam[propertName] = { pk: propertName, index, type };
-//   };
-// }
-
 /**
  * 收集路由信息，使用@Route装饰器
  */
-export function Route(url: string, method: HttpMethod, validation?: Validation, ...beforeMiddlewares: Middleware[]) {
+export function Route(url: string, method: HttpMethod, validator?: Validator, beforeMiddlewares: any[] = []) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return function(target: any, funcName: string, _descriptor: PropertyDescriptor) {
     _setRouter(url, {
@@ -116,7 +87,7 @@ export function Route(url: string, method: HttpMethod, validation?: Validation, 
       handleName: funcName,
       constructorFn: target.constructor,
       className: target.constructor.name,
-      validation: validation ?? null,
+      validator,
       url,
     });
   };
@@ -128,7 +99,7 @@ const PREFIX_ADMIN = '/admin';
  * 自动添加/admin前缀的Url路由装饰器
  * 例如 url 为 /sys/user/add, 使用该装饰器可直接变为/admin/sys/user/add
  */
-export function AdminRoute(url: string, method: HttpMethod, validation?: Validation, ...beforeMiddlewares: Middleware[]) {
+export function AdminRoute(url: string, method: HttpMethod, validator?: Validator, beforeMiddlewares: any[] = []) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return function(target: any, funcName: string, _descriptor: PropertyDescriptor) {
     _setRouter(url, {
@@ -137,7 +108,7 @@ export function AdminRoute(url: string, method: HttpMethod, validation?: Validat
       handleName: funcName,
       constructorFn: target.constructor,
       className: target.constructor.name,
-      validation: validation ?? null,
+      validator,
       url: `${PREFIX_ADMIN}${url}`,
     });
   };
