@@ -7,11 +7,6 @@ import { Application, Context } from 'egg';
 const __router__: any = {};
 
 /**
- * prefix
- */
-const PREFIX_ADMIN = '/admin';
-
-/**
  * egg suport http method
  */
 export type HttpMethod = 'get' | 'post' | 'patch' | 'delete' | 'options' | 'put' | 'all';
@@ -25,7 +20,13 @@ interface RouterOption {
   beforeMiddlewares: Middleware[];
   constructorFn: any;
   className: string;
+  validation?: Validation | undefined | null;
   url: string;
+}
+
+interface Validation {
+  query?: any;
+  body?: any;
 }
 
 /**
@@ -56,46 +57,89 @@ export function initRouter(app: Application) {
     __router__[url].forEach((opt: RouterOption) => {
       router[opt.httpMethod](opt.url, ...opt.beforeMiddlewares, async (ctx: Context) => {
         const ist = new opt.constructorFn(ctx);
-        await ist[opt.handleName](ctx);
+        // if (opt.validation) {
+        //   if (opt.httpMethod === 'get') {
+        //     const query = opt.validation.query ? await ctx.validate(opt.validation.query, ctx.request.query) : null;
+        //     await ist[opt.handleName].call(ist, query);
+        //   } else {
+        //     const query = opt.validation.query ? await ctx.validate(opt.validation.query, ctx.request.query) : null;
+        //     const body = opt.validation.body ? await ctx.validate(opt.validation.body, ctx.request.body) : null;
+        //     await ist[opt.handleName].call(ist, body, query);
+        //   }
+        // } else {
+        //   await ist[opt.handleName].call(ist);
+        // }
+        await ist[opt.handleName].call(ist);
       });
     });
   });
 }
 
+// /**
+//  * Body 参数校验
+//  * @param type dto type
+//  */
+// export function Body(type: any) {
+//   return function(target: any, propertName: string, index: number) {
+//     if (!target.validatorBody) {
+//       target.validatorBody = {};
+//     }
+//     if (!target.validatorBody[propertName]) {
+//       target.validatorBody[propertName] = [];
+//     }
+//     target.validatorBody[propertName].push({ pk: propertName, index, type });
+//   };
+// }
+
+// /**
+//  * Query 参数校验
+//  * @param type dto type
+//  */
+// export function Param(type: any) {
+//   return function(target: any, propertName: string, index: number) {
+//     if (!target.validatorParam) {
+//       target.validatorParam = {};
+//     }
+//     target.validatorParam[propertName] = { pk: propertName, index, type };
+//   };
+// }
+
 /**
  * 收集路由信息，使用@Route装饰器
  */
-export function Route(url: string, method: HttpMethod, ...beforeMiddlewares: Middleware[]) {
+export function Route(url: string, method: HttpMethod, validation?: Validation, ...beforeMiddlewares: Middleware[]) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return function(target: any, funcName: string, _descriptor: PropertyDescriptor) {
-    const option = {
+    _setRouter(url, {
       httpMethod: method,
       beforeMiddlewares,
       handleName: funcName,
       constructorFn: target.constructor,
       className: target.constructor.name,
+      validation: validation ?? null,
       url,
-    };
-    _setRouter(url, option);
+    });
   };
 }
 
+
+const PREFIX_ADMIN = '/admin';
 /**
  * 自动添加/admin前缀的Url路由装饰器
  * 例如 url 为 /sys/user/add, 使用该装饰器可直接变为/admin/sys/user/add
  */
-export function AdminRoute(url: string, method: HttpMethod, ...beforeMiddlewares: Middleware[]) {
+export function AdminRoute(url: string, method: HttpMethod, validation?: Validation, ...beforeMiddlewares: Middleware[]) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return function(target: any, funcName: string, _descriptor: PropertyDescriptor) {
-    const option = {
+    _setRouter(url, {
       httpMethod: method,
       beforeMiddlewares,
       handleName: funcName,
       constructorFn: target.constructor,
       className: target.constructor.name,
+      validation: validation ?? null,
       url: `${PREFIX_ADMIN}${url}`,
-    };
-    _setRouter(url, option);
+    });
   };
 }
 
