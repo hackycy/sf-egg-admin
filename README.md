@@ -85,6 +85,16 @@ $ open http://localhost:7001/
 
 > 请不要在开发模式下运行`npm run tsc`，如果不小心运行了你需要在`npm run dev`前运行`npm run clean`
 
+### 系统截图
+
+![](https://raw.githubusercontent.com/hackycy/sf-egg-admin/master/docs/screenshot/1.png)
+
+![](https://raw.githubusercontent.com/hackycy/sf-egg-admin/master/docs/screenshot/2.png)
+
+![](https://raw.githubusercontent.com/hackycy/sf-egg-admin/master/docs/screenshot/2.png)
+
+![](https://raw.githubusercontent.com/hackycy/sf-egg-admin/master/docs/screenshot/4.png)
+
 ### 项目部署
 
 #### 执行
