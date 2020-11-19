@@ -7,6 +7,27 @@ export interface ResOp {
   message?: string;
 }
 
+/**
+ * @apiDefine BaseRes
+ * @apiSuccess {Number} code 错误码，成功则返回200
+ * @apiSuccess {String} message 错误信息，成功则返回success
+ * @apiSuccess {Object} data 返回的数据
+ */
+
+/**
+ * @apiDefine Auth
+ * @apiHeader {String} Authorization 管理员登陆Token
+ */
+
+/**
+* @apiDefine Page
+* @apiSuccess {Array} data.list 查询数据列表
+* @apiSuccess {Object} data.pagination 分页信息
+* @apiSuccess {Number} data.pagination.page 当前页数
+* @apiSuccess {Number} data.pagination.size 限制个数
+* @apiSuccess {Number} data.pagination.total 总数量
+*/
+
 export default abstract class BaseController extends Controller {
 
   /**

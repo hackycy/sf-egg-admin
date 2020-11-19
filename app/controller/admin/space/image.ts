@@ -8,6 +8,15 @@ import { QueryImageDto, CreateTypeDto, DeleteTypeDto, DeleteImageDto, UploadImag
  */
 export default class ImageSpaceController extends BaseController {
 
+  /**
+   * @api {get} /admin/space/image/page 获取图片信息列表
+   * @apiGroup 图片空间
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number} typeId 类别编号
+   * @apiUse Page
+   * @apiSuccess {ImageSpaceInfo[]} data.list 图片信息列表
+   */
   @AdminRoute('/space/image/page', 'get')
   async page() {
     const dto = await this.ctx.validate<QueryImageDto>(QueryImageDto, this.getQuery());
@@ -23,6 +32,13 @@ export default class ImageSpaceController extends BaseController {
     });
   }
 
+  /**
+   * @api {get} /admin/space/image/type/list 获取图片空间类别列表
+   * @apiGroup 图片空间
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiSuccess {Array} data 图片空间类别列表
+   */
   @AdminRoute('/space/image/type/list', 'get')
   async typeList() {
     this.res({
@@ -30,6 +46,13 @@ export default class ImageSpaceController extends BaseController {
     });
   }
 
+  /**
+   * @api {post} /admin/space/image/type/add 新增图片空间类别
+   * @apiGroup 图片空间
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {String} name 类别名称
+   */
   @AdminRoute('/space/image/type/add', 'post')
   async addType() {
     const dto = await this.ctx.validate<CreateTypeDto>(CreateTypeDto);
@@ -37,6 +60,13 @@ export default class ImageSpaceController extends BaseController {
     this.res();
   }
 
+  /**
+   * @api {post} /admin/space/image/type/delete 删除图片空间类别
+   * @apiGroup 图片空间
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number} typeId 类别编号
+   */
   @AdminRoute('/space/image/type/delete', 'post')
   async deleteType() {
     const dto = await this.ctx.validate<DeleteTypeDto>(DeleteTypeDto);
@@ -51,6 +81,13 @@ export default class ImageSpaceController extends BaseController {
     this.res();
   }
 
+  /**
+   * @api {post} /admin/space/image/delete 删除空间类别下的图片列表
+   * @apiGroup 图片空间
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number[]} imageIds 图片ID列表
+   */
   @AdminRoute('/space/image/delete', 'post')
   async deleteImage() {
     const dto = await this.ctx.validate<DeleteImageDto>(DeleteImageDto);
@@ -58,6 +95,13 @@ export default class ImageSpaceController extends BaseController {
     this.res();
   }
 
+  /**
+   * @api {post} /admin/space/image/upload 图片上传(表单)
+   * @apiGroup 图片空间
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number} typeId 图片ID列表
+   */
   @AdminRoute('/space/image/upload', 'post')
   async upload() {
     const dto = await this.ctx.validate<UploadImageDto>(UploadImageDto);
