@@ -23,6 +23,10 @@
 | :-------: | :----: | :--------: |
 | rootadmin | 123456 | 超级管理员 |
 
+### Api文档地址
+
+[http://blog.si-yee.com/sf-egg-admin/api/index.html](http://blog.si-yee.com/sf-egg-admin/api/index.html)
+
 ### 系统模块
 
 ```bash
