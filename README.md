@@ -23,9 +23,11 @@
 | :-------: | :----: | :--------: |
 | rootadmin | 123456 | 超级管理员 |
 
-### Api文档地址
+### API文档
 
 [传送门](http://blog.si-yee.com/sf-egg-admin/api/index.html)
+
+> 基于[apidoc](https://github.com/apidoc/apidoc)自动生成的API文档，在Controller下写好注释后，运行命令`npm run apidoc`即可自动更新生成API文档。
 
 ### 系统模块
 
