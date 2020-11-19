@@ -25,7 +25,7 @@
 
 ### Api文档地址
 
-[http://blog.si-yee.com/sf-egg-admin/api/index.html](http://blog.si-yee.com/sf-egg-admin/api/index.html)
+[传送门](http://blog.si-yee.com/sf-egg-admin/api/index.html)
 
 ### 系统模块
 
