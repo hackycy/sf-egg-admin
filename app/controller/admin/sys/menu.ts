@@ -5,6 +5,12 @@ import { CreateMenuDto, InfoMenuDto, DeleteMenuDto, UpdateMenuDto } from '../../
 
 export default class SysMenuController extends BaseController {
 
+  /**
+   * @api {get} /admin/sys/menu/list 获取所有菜单
+   * @apiGroup 系统菜单
+   * @apiUse Auth
+   * @apiUse BaseRes
+   */
   @AdminRoute('/sys/menu/list', 'get')
   async list() {
     this.res(
@@ -14,6 +20,22 @@ export default class SysMenuController extends BaseController {
     );
   }
 
+  /**
+   * @api {post} /admin/sys/menu/add 增加菜单
+   * @apiGroup 系统菜单
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number} type 菜单类别
+   * @apiParam {Number} parentId 父级菜单，无则为-1
+   * @apiParam {String} name 菜单名称
+   * @apiParam {Number} orderNum 排序
+   * @apiParam {String} router 路由地址
+   * @apiParam {Boolean} isShow 是否显示
+   * @apiParam {Boolean} keepalive 开启keepalive
+   * @apiParam {String} icon 对应svg图标文件名称
+   * @apiParam {String} perms 权限
+   * @apiParam {String} viewPath vue文件路径
+   */
   @AdminRoute('/sys/menu/add', 'post')
   async add() {
     const dto = await this.ctx.validate<CreateMenuDto>(CreateMenuDto);
@@ -49,6 +71,23 @@ export default class SysMenuController extends BaseController {
     });
   }
 
+  /**
+   * @api {post} /admin/sys/menu/update 更新菜单
+   * @apiGroup 系统菜单
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number} type 菜单类别
+   * @apiParam {Number} parentId 父级菜单，无则为-1
+   * @apiParam {String} name 菜单名称
+   * @apiParam {Number} orderNum 排序
+   * @apiParam {String} router 路由地址
+   * @apiParam {Boolean} isShow 是否显示
+   * @apiParam {Boolean} keepalive 开启keepalive
+   * @apiParam {String} icon 对应svg图标文件名称
+   * @apiParam {String} perms 权限
+   * @apiParam {String} viewPath vue文件路径
+   * @apiParam {Number} menuId 菜单编号
+   */
   @AdminRoute('/sys/menu/update', 'post')
   async update() {
     const dto = await this.ctx.validate<UpdateMenuDto>(UpdateMenuDto);
@@ -92,6 +131,13 @@ export default class SysMenuController extends BaseController {
     });
   }
 
+  /**
+   * @api {post} /admin/sys/menu/delete 删除菜单
+   * @apiGroup 系统菜单
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number} menuId 菜单编号
+   */
   @AdminRoute('/sys/menu/delete', 'post')
   async delete() {
     const dto = await this.ctx.validate<DeleteMenuDto>(DeleteMenuDto);
@@ -102,6 +148,13 @@ export default class SysMenuController extends BaseController {
     this.res();
   }
 
+  /**
+   * @api {get} /admin/sys/menu/info 获取菜单信息
+   * @apiGroup 系统菜单
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {String} menuId 菜单编号
+   */
   @AdminRoute('/sys/menu/info', 'get')
   async info() {
     const dto = await this.ctx.validate<InfoMenuDto>(InfoMenuDto, this.getQuery());

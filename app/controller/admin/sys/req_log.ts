@@ -8,6 +8,14 @@ import { PageGetDto } from '../../../dto/comm';
  */
 export default class SysReqLogController extends BaseController {
 
+  /**
+   * @api {get} /admin/sys/req-log/page 获取请求追踪列表
+   * @apiGroup 请求追踪
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiUse Page
+   * @apiSuccess {SysReqLog[]} data.list 请求追踪列表
+   */
   @AdminRoute('/sys/req-log/page', 'get')
   async page() {
     const dto = await this.ctx.validate<PageGetDto>(PageGetDto, this.getQuery());
@@ -23,6 +31,13 @@ export default class SysReqLogController extends BaseController {
     });
   }
 
+  /**
+   * @api {get} /admin/sys/req-log/search 请求追踪搜索
+   * @apiGroup 请求追踪
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {String} q 条件
+   */
   @AdminRoute('/sys/req-log/search', 'get')
   async search() {
     const dto = await this.ctx.validate<SearchLogDto>(SearchLogDto, this.getQuery());
