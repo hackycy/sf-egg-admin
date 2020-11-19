@@ -20,7 +20,8 @@
     "autod": "autod",
     "lint": "eslint . --ext .ts",
     "clean": "ets clean",
-    "build": "npm run tsc"
+    "build": "npm run tsc",
+    "apidoc": "apidoc -i app/controller -o public/apidoc"
   },
   "dependencies": {
     "@hackycy/egg-bull": "0.0.5",
@@ -60,6 +61,7 @@
     "@types/puppeteer-core": "^2.0.0",
     "@types/supertest": "^2.0.0",
     "@types/ua-parser-js": "^0.7.33",
+    "apidoc": "^0.25.0",
     "autod": "^3.0.1",
     "autod-egg": "^1.1.0",
     "egg-bin": "^4.11.0",

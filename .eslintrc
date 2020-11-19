@@ -2,5 +2,8 @@
   "extends": "eslint-config-egg/typescript",
   "parserOptions": {
     "project": "./tsconfig.json"
+  },
+  "rules": {
+    "jsdoc/check-tag-names": "off"
   }
 }
