@@ -7,6 +7,12 @@ import { CreateDeptDto, DeleteDeptDto, InfoDeptDto, UpdateDeptDto, TransferDeptD
  */
 export default class SysDeptController extends BaseController {
 
+  /**
+   * @api {get} /admin/sys/dept/list 获取部门列表
+   * @apiGroup 系统部门
+   * @apiUse Auth
+   * @apiUse BaseRes
+   */
   @AdminRoute('/sys/dept/list', 'get')
   async list() {
     this.res(
@@ -16,6 +22,14 @@ export default class SysDeptController extends BaseController {
     );
   }
 
+  /**
+   * @api {post} /admin/sys/dept/add 增加部门
+   * @apiGroup 系统部门
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number} parentDepartmentId 父级部门编号，没有则为-1
+   * @apiParam {String} departmentName 部门名称
+   */
   @AdminRoute('/sys/dept/add', 'post')
   async add() {
     const dto = await this.ctx.validate<CreateDeptDto>(CreateDeptDto);
@@ -23,6 +37,13 @@ export default class SysDeptController extends BaseController {
     this.res();
   }
 
+  /**
+   * @api {post} /admin/sys/dept/delete 删除部门
+   * @apiGroup 系统部门
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number} departmentId 部门编号
+   */
   @AdminRoute('/sys/dept/delete', 'post')
   async delete() {
     const dto = await this.ctx.validate<DeleteDeptDto>(DeleteDeptDto);
@@ -46,6 +67,14 @@ export default class SysDeptController extends BaseController {
     this.res();
   }
 
+  /**
+   * @api {get} /admin/sys/dept/info 获取部门信息
+   * @apiGroup 系统部门
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number} departmentId 部门编号
+   * @apiSuccess {SysDepartment} data 部门信息实体
+   */
   @AdminRoute('/sys/dept/info', 'get')
   async info() {
     const q = await this.ctx.validate<InfoDeptDto>(InfoDeptDto, this.getQuery());
@@ -54,6 +83,16 @@ export default class SysDeptController extends BaseController {
     });
   }
 
+  /**
+   * @api {post} /admin/sys/dept/update 获取部门信息
+   * @apiGroup 系统部门
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number} id 部门编号
+   * @apiParam {Number} parentId 父级部门编号，没有则为-1
+   * @apiParam {String} name 部门名称
+   * @apiParam {Number} orderNum 排序
+   */
   @AdminRoute('/sys/dept/update', 'post')
   async update() {
     const dto = await this.ctx.validate<UpdateDeptDto>(UpdateDeptDto);
@@ -61,6 +100,14 @@ export default class SysDeptController extends BaseController {
     this.res();
   }
 
+  /**
+   * @api {post} /admin/sys/dept/transfer 人员部门转移
+   * @apiGroup 系统部门
+   * @apiUse Auth
+   * @apiUse BaseRes
+   * @apiParam {Number[]} userIds 管理员编号列表
+   * @apiParam {Number} departmentId 需要转移去的部门编号
+   */
   @AdminRoute('/sys/dept/transfer', 'post')
   async transfer() {
     const dto = await this.ctx.validate<TransferDeptDto>(TransferDeptDto);
