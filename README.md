@@ -8,7 +8,9 @@
 
 ### 演示地址
 
-[http://opensource.admin.si-yee.com](http://opensource.admin.si-yee.com/)
+- [http://opensource.admin.si-yee.com](http://opensource.admin.si-yee.com/)
+
+- [Api文档](http://blog.si-yee.com/sf-egg-admin/api/index.html)
 
 演示环境账号密码：
 
@@ -22,12 +24,6 @@
 |   账号    |  密码  |    权限    |
 | :-------: | :----: | :--------: |
 | rootadmin | 123456 | 超级管理员 |
-
-### API文档
-
-[传送门](http://blog.si-yee.com/sf-egg-admin/api/index.html)
-
-> 基于[apidoc](https://github.com/apidoc/apidoc)自动生成的API文档，在Controller下写好注释后，运行命令`npm run apidoc`即可自动更新生成API文档。
 
 ### 系统模块
 
@@ -78,6 +74,8 @@
 数据库脚本位于 `db/init.sql`
 
 修改数据库配置信息，在`config`目录下更改对应模式下的配置
+
+基于[apidoc](https://github.com/apidoc/apidoc)自动生成的API文档，在Controller下写好注释后，运行命令`npm run apidoc`即可自动更新生成API文档。
 
 **参考对应配置请参考：[config.local.ts](https://github.com/hackycy/sf-egg-admin/blob/master/docs/sample/config.local.ts)**
 
