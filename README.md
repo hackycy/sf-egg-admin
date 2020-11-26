@@ -84,7 +84,6 @@
 ``` bash
 $ npm i
 $ npm run dev
-$ open http://localhost:7001/
 ```
 
 > 请不要在开发模式下运行`npm run tsc`，如果不小心运行了你需要在`npm run dev`前运行`npm run clean`
