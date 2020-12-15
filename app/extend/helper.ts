@@ -15,6 +15,11 @@ export const now = function() {
   return moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 };
 
+/**
+ * 错误信息map
+ */
+let errorMap = null;
+
 export default {
 
   /**
@@ -32,8 +37,10 @@ export default {
    * 根据code获取错误信息
    */
   getErrorMessageByCode(code: string) {
-    const errorMap = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../../config/error_constants.yaml'), 'utf8'));
-    return errorMap[code];
+    if (!errorMap) {
+      errorMap = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '../../config/error_constants.yaml'), 'utf8'));
+    }
+    return errorMap![code];
   },
 
   /**
