@@ -27,7 +27,7 @@
     "@hackycy/egg-bull": "0.0.5",
     "@hackycy/egg-class-validator": "0.1.1",
     "@hackycy/egg-typeorm": "^0.3.8",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bull": "^3.18.0",
     "cheerio": "^1.0.0-rc.3",
     "crypto-js": "^4.0.0",
