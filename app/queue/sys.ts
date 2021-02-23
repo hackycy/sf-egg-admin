@@ -16,7 +16,9 @@ export default (app: Application) => {
       await ctx.service.admin.sys.task.callService(job.data.service, job.data.args);
       await ctx.service.admin.sys.taskLog.updateTaskStatus(id, 1);
     } catch (e) {
-      await ctx.service.admin.sys.taskLog.updateTaskStatus(id, 2, `${e.message}`);
+      if (id !== -1) {
+        await ctx.service.admin.sys.taskLog.updateTaskStatus(id, 2, `${e.message}`);
+      }
     }
   });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

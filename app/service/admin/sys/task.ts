@@ -174,21 +174,17 @@ export default class SysTaskService extends BaseService {
    */
   async updateTaskCompleteStatus(tid: number) {
     const result = await this.app.queue.sys.getRepeatableJobs();
+    const task = await this.getRepo().admin.sys.Task.findOne({ id: tid });
+    const jobOpts = JSON.parse(task!.jobOpts);
     // 如果下次执行时间小于当前时间，则表示已经执行完成。
     for (const task of result) {
-      if (task.id === tid.toString() && task.id && task.next < new Date().getTime()) {
+      const currentTime = new Date().getTime();
+      if (task.id && task.id === tid.toString()
+        && (jobOpts.cron ? task.cron === jobOpts.cron : task.every === jobOpts.every) && task.next < currentTime) {
         // 如果下次执行时间小于当前时间，则表示已经执行完成。
         await this.getRepo().admin.sys.Task.update(tid, { status: 2 });
-        break;
       }
     }
-    // const job = await this.app.queue.sys.getJob(jobId);
-    // if (job) {
-    //   // 移除队列
-    //   await job.remove();
-    //   // 如果下次执行时间小于当前时间，则表示已经执行完成。
-    //   await this.getRepo().admin.sys.Task.update(job.data.id, { status: 2 });
-    // }
   }
 
   /**
