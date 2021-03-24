@@ -6,6 +6,8 @@
 
 前端项目地址：[传送门](https://github.com/hackycy/sf-vue-admin)
 
+midway版：[传送门](https://github.com/hackycy/sf-midway-admin)
+
 ### 演示地址
 
 - [http://opensource.admin.si-yee.com](http://opensource.admin.si-yee.com/)
