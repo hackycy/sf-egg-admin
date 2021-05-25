@@ -4,9 +4,13 @@
 
 **基于EggJs + TypeScript + TypeORM + Redis + MySql + Vue + Element-UI编写的一款简单高效的前后端分离的权限管理系统。希望这个项目在全栈的路上能够帮助到你。**
 
+> egg版已不作维护，请转移至midway或者nest版本
+
 前端项目地址：[传送门](https://github.com/hackycy/sf-vue-admin)
 
 midway版：[传送门](https://github.com/hackycy/sf-midway-admin)
+
+nest版：[传送门](https://github.com/hackycy/sf-nest-admin)
 
 ### 演示地址
 
